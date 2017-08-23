@@ -19,7 +19,7 @@ class MapController: BaseController {
     
     // logoutbutton
     lazy var logoutButtonItem : UIBarButtonItem = {
-        let button = UIBarButtonItem(title: NSLocalizedString("Logout", comment: "Logout"), style: .plain, target: self, action: #selector(self.handleLogout))
+        let button = UIBarButtonItem(title: NSLocalizedString("Signout", comment: "Signout"), style: .plain, target: self, action: #selector(self.handleLogout))
         return button
     }()
     

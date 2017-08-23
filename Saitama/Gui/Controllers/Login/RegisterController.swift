@@ -36,29 +36,6 @@ class RegisterController: BaseController {
         return view
     }()
     
-    // name
-    lazy var nameTextField: UITextField = {
-        let textField = UITextField()
-        textField.font = UIFont.systemFont(ofSize: 16)
-        textField.placeholder = NSLocalizedString("Name", comment: "Name")
-        textField.autocapitalizationType = .none
-        textField.autocorrectionType = .no
-        textField.clearButtonMode = .whileEditing
-        textField.returnKeyType = .next
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        return textField
-    }()
-    
-    // divider1
-    lazy var divider1: UIView = {
-        let view = UIView()
-        view.layer.borderWidth = 0.5
-        view.layer.borderColor = UIColor.blue.cgColor
-        view.layer.borderColor = Constants.Color.lightGray.cgColor
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
     // email
     lazy var emailTextField: UITextField = {
         let textField = UITextField()
@@ -143,7 +120,7 @@ class RegisterController: BaseController {
     }()
     
     
-    // forgotlabel
+    // returnlabel
     lazy var returnToLoginLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightSemibold)
@@ -179,8 +156,6 @@ class RegisterController: BaseController {
     }
     
     func setupContainerView() {
-        view.addSubview(nameTextField)
-        view.addSubview(divider1)
         view.addSubview(emailTextField)
         view.addSubview(divider2)
         view.addSubview(passwordTextField)
@@ -193,19 +168,9 @@ class RegisterController: BaseController {
         containerView.topAnchor.constraint(equalTo: self.topLayoutGuide.bottomAnchor, constant: 20).isActive = true
         containerView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16).isActive = true
         containerView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16).isActive = true
-        containerView.heightAnchor.constraint(equalToConstant: 195).isActive = true
+        containerView.heightAnchor.constraint(equalToConstant: 148).isActive = true
         
-        nameTextField.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 1).isActive = true
-        nameTextField.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 12).isActive = true
-        nameTextField.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -12).isActive = true
-        nameTextField.heightAnchor.constraint(equalToConstant: 47).isActive = true
-        
-        divider1.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 0).isActive = true
-        divider1.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
-        divider1.widthAnchor.constraint(equalTo: containerView.widthAnchor).isActive = true
-        divider1.heightAnchor.constraint(equalToConstant: 1).isActive = true
-        
-        emailTextField.topAnchor.constraint(equalTo: divider1.bottomAnchor, constant: 0).isActive = true
+        emailTextField.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 1).isActive = true
         emailTextField.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 12).isActive = true
         emailTextField.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -12).isActive = true
         emailTextField.heightAnchor.constraint(equalToConstant: 47).isActive = true
@@ -249,7 +214,6 @@ class RegisterController: BaseController {
     
     func toggleFields() {
         closeButtonItem.isEnabled = !closeButtonItem.isEnabled
-        nameTextField.isEnabled = !nameTextField.isEnabled
         emailTextField.isEnabled = !emailTextField.isEnabled
         passwordTextField.isEnabled = !passwordTextField.isEnabled
         confirmPasswordTextField.isEnabled = !confirmPasswordTextField.isEnabled
@@ -268,15 +232,13 @@ class RegisterController: BaseController {
     }
     
     func validateFields() -> String? {
-        guard let name = nameTextField.text,
-            let email = emailTextField.text,
+        guard let email = emailTextField.text,
             let password = passwordTextField.text,
             let confirmPassword = confirmPasswordTextField.text else {
                 return NSLocalizedString("Check fields", comment: "Check fields")
         }
         
-        if name.characters.count == 0 ||
-            email.characters.count == 0 ||
+        if email.characters.count == 0 ||
             password.characters.count == 0 {
             return NSLocalizedString("Fields cannot be empty", comment: "Fields cannot be empty")
         }
@@ -299,7 +261,7 @@ class RegisterController: BaseController {
             return
         }
         
-        let newUser = User(id: 0, name: nameTextField.text, email: emailTextField.text, password: passwordTextField.text, token: "\(nameTextField.text!)\(generateToken(newTokenLength))")
+        let newUser = User(id: 0, email: emailTextField.text, password: passwordTextField.text, token: "\(emailTextField.text!)\(generateToken(newTokenLength))")
         
         toggleStart()
         WebService().load(User.register(user: newUser), completion: { (user, error) in

@@ -18,18 +18,10 @@
   },
   "users": [
     {
-      "name": "crossover",
-      "email": "app@crossover.com",
-      "token": "crossoverE00AC",
-      "password": "123456",
+      "token": "crossover@crossover.com8C8B5",
+      "password": "crossover",
+      "email": "crossover@crossover.com",
       "id": 1
-    },
-    {
-      "name": "123",
-      "email": "123",
-      "token": "123E86EE",
-      "password": "123",
-      "id": 2
     }
   ],
   "cards": []

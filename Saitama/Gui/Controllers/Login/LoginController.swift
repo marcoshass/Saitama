@@ -53,7 +53,7 @@ class LoginController: BaseController, UITextFieldDelegate {
         let textField = UITextField()
         textField.font = UIFont.systemFont(ofSize: 16)
         textField.placeholder = NSLocalizedString("Email", comment: "Email")
-        textField.text = "app@crossover.com"
+        textField.text = "crossover@crossover.com"
         textField.keyboardType = .emailAddress
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
@@ -80,7 +80,7 @@ class LoginController: BaseController, UITextFieldDelegate {
         let textField = UITextField()
         textField.font = UIFont.systemFont(ofSize: 16)
         textField.placeholder = NSLocalizedString("Password", comment: "Password")
-        textField.text = "123456"
+        textField.text = "crossover"
         textField.isSecureTextEntry = true
         textField.clearButtonMode = .whileEditing
         textField.addTarget(self, action: #selector(handleInputText), for: .editingChanged)
