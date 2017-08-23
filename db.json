@@ -1,0 +1,36 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  },
+  "users": [
+    {
+      "name": "crossover",
+      "email": "app@crossover.com",
+      "token": "crossoverE00AC",
+      "password": "123456",
+      "id": 1
+    },
+    {
+      "name": "123",
+      "email": "123",
+      "token": "123E86EE",
+      "password": "123",
+      "id": 2
+    }
+  ],
+  "cards": []
+}

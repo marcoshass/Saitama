@@ -1,0 +1,6 @@
+framework module Pods_SaitamaTests {
+  umbrella header "Pods-SaitamaTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
