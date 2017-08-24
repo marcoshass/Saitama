@@ -36,12 +36,23 @@ class MapController: BaseController {
         return map
     }()
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        reload()
+    override func setupViews() {
+        super.setupViews()
+        self.title = NSLocalizedString("BikeMap", comment: "BikeMap")
+        setupNavigationBar()
+        view.backgroundColor = .white
+        
+        view.addSubview(mapView)
+        
+        mapView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        mapView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        mapView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        mapView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
+        
+        setupPins()
     }
     
-    func reload() {
+    func setupPins() {
         //loadingIndicator.startAnimating()
         WebService().load(Place.all(), completion: { (data, error) in
             DispatchQueue.main.async {
@@ -58,7 +69,6 @@ class MapController: BaseController {
                 
                 // setup pins
                 for place in data {
-                    print("place=\(place)")
                     guard let name = place.name,
                         let lat = place.location?.lat,
                         let lng = place.location?.lng else {
@@ -68,20 +78,6 @@ class MapController: BaseController {
                 }
             }
         })
-    }
-    
-    override func setupViews() {
-        super.setupViews()
-        self.title = NSLocalizedString("BikeMap", comment: "BikeMap")
-        setupNavigationBar()
-        view.backgroundColor = .white
-
-        view.addSubview(mapView)
-        
-        mapView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        mapView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        mapView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        mapView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
     }
     
     func setupNavigationBar() {
