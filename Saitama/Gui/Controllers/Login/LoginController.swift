@@ -337,7 +337,7 @@ class LoginController: BaseController, UITextFieldDelegate {
         
         toggleStart()
         WebService().load(User.login(email: email, password: password), completion: { (user, error) in
-            OperationQueue.main.addOperation({
+            DispatchQueue.main.async {
                 self.toggleStop()
                 
                 if let error = error {
@@ -362,7 +362,7 @@ class LoginController: BaseController, UITextFieldDelegate {
                 } else {
                     self.show(message: NSLocalizedString("Error persisting token", comment: "Error persisting token"))
                 }
-            })
+            }
         })
     }
     

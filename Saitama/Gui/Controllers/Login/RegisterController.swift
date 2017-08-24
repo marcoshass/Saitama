@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RegisterController: BaseController {
+class RegisterController: BaseController, UITextFieldDelegate {
     
     let newTokenLength = 5
     
@@ -45,6 +45,7 @@ class RegisterController: BaseController {
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         textField.clearButtonMode = .whileEditing
+        textField.delegate = self
         textField.returnKeyType = .next
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
@@ -67,7 +68,8 @@ class RegisterController: BaseController {
         textField.placeholder = NSLocalizedString("Password", comment: "Password")
         textField.isSecureTextEntry = true
         textField.clearButtonMode = .whileEditing
-        textField.returnKeyType = .go
+        textField.delegate = self
+        textField.returnKeyType = .next
         textField.enablesReturnKeyAutomatically = true
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
@@ -90,6 +92,7 @@ class RegisterController: BaseController {
         textField.placeholder = NSLocalizedString("Confirm password", comment: "Confirm password")
         textField.isSecureTextEntry = true
         textField.clearButtonMode = .whileEditing
+        textField.delegate = self
         textField.returnKeyType = .go
         textField.enablesReturnKeyAutomatically = true
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -260,7 +263,7 @@ class RegisterController: BaseController {
         
         toggleStart()
         WebService().load(User.register(user: newUser), completion: { (user, error) in
-            OperationQueue.main.addOperation({
+            DispatchQueue.main.async {
                 self.toggleStop()
                 
                 if let error = error {
@@ -282,7 +285,7 @@ class RegisterController: BaseController {
                 self.show(message: NSLocalizedString("User registered successfully", comment: "User registered successfully"), confirmHandler: {(action) in
                     self.didTapRegister()
                 })
-            })
+            }
         })
     }
     
@@ -295,6 +298,23 @@ class RegisterController: BaseController {
     
     func handleReturnToLogin(_ sender: Any) {
         didTapAlreadyHaveAccount()
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == emailTextField {
+            passwordTextField.becomeFirstResponder()
+        }
+        
+        if textField == passwordTextField {
+            confirmPasswordTextField.becomeFirstResponder()
+        }
+        
+        if textField == confirmPasswordTextField {
+            hideKeyboard(self)
+            processRegister()
+        }
+        
+        return true
     }
     
 }

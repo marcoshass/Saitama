@@ -124,7 +124,7 @@ class PaymentController: UITableViewController, UITextFieldDelegate {
         //
         //        toggleStart()
         //        WebService().load(User.register(user: newUser), completion: { (user, error) in
-        //            OperationQueue.main.addOperation({
+        //            DispatchQueue.main.async{
         //                self.toggleStop()
         //
         //                if error != nil {
@@ -141,7 +141,7 @@ class PaymentController: UITableViewController, UITextFieldDelegate {
         //                self.show(message: NSLocalizedString("User registered successfully", comment: "User registered successfully"), actionHandler: {(action) in
         //                    self.didTapRegister()
         //                })
-        //            })
+        //            }
         //        })
     }
     
