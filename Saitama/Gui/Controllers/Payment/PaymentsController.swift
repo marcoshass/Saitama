@@ -8,31 +8,35 @@
 
 import UIKit
 
-class PaymentsController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class PaymentsController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     let cellId = "cellId"
     
     let payments: [Payment] = {
-        let p1 = Payment(updatedAt: "2016-12-23T19:32:59.144Z", createdAt: "2016-12-23T19:32:59.144Z", creditCard: nil, email: "adrianobragaalencar@gmail.com", placeId: "45c0b5209973fcec652817e16e20f1d0b4ecb602")
         
-        let p2 = Payment(updatedAt: "2016-12-23T19:33:25.497Z", createdAt: "2016-12-23T19:33:25.497Z", creditCard: nil, email: "adrianobragaalencar@gmail.com", placeId: "45c0b5209973fcec652817e16e20f1d0b4ecb602")
+        let c1 = Card(number: "4111111111111111", name: "adrianobragaalencar", cvv: "123", expiryMonth: "03", expiryYear: "2100")
+        let p1 = Payment(updatedAt: "2016-12-23T19:32:59.144Z", createdAt: "2016-12-23T19:32:59.144Z", creditCard: c1, email: "adrianobragaalencar@gmail.com", placeId: "45c0b5209973fcec652817e16e20f1d0b4ecb602")
+
+        let c2 = Card(number: "4111111111111111", name: "adrianobragaalencar", cvv: "123", expiryMonth: "12", expiryYear: "2020")
+        let p2 = Payment(updatedAt: "2016-12-23T19:33:25.497Z", createdAt: "2016-12-23T19:33:25.497Z", creditCard: c2, email: "adrianobragaalencar@gmail.com", placeId: "45c0b5209973fcec652817e16e20f1d0b4ecb60245c0b5209973fcec652817e16e20f1d0b4ecb60245c0b5209973fcec652817e16e20f1d0b4ecb60245c0b5209973fcec652817e16e20f1d0b4ecb60245c0b5209973fcec652817e16e20f1d0b4ecb60245c0b5209973fcec652817e16e20f1d0b4ecb60245c0b5209973fcec652817e16e20f1d0b4ecb60245c0b5209973fcec652817e16e20f1d0b4ecb60245c0b5209973fcec652817e16e20f1d0b4ecb60245c0b5209973fcec652817e16e20f1d0b4ecb602")
         
-        return [p1]
+        return [p1, p2]
     }()
-    
-    lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.estimatedItemSize = CGSize(width: self.view.frame.width, height: 10.0)
-        layout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0)
-        layout.minimumLineSpacing = 0
-        
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.backgroundColor = .white
-        cv.dataSource = self
-        cv.delegate = self
-        cv.register(PaymentCell.self, forCellWithReuseIdentifier: self.cellId)
-        cv.translatesAutoresizingMaskIntoConstraints = false
-        return cv
+
+// tableview
+    lazy var tableView: UITableView = {
+        let tv = UITableView()
+        tv.backgroundColor = .white
+        tv.dataSource = self
+        tv.delegate = self
+        tv.register(PaymentCell.self, forCellReuseIdentifier: self.cellId)
+        tv.allowsSelection = false
+        tv.translatesAutoresizingMaskIntoConstraints = false
+        // dynamic row height
+        tv.rowHeight = UITableViewAutomaticDimension
+        tv.estimatedRowHeight = 44
+        tv.tableFooterView = UIView()
+        return tv
     }()
 
     override func viewDidLoad() {
@@ -44,22 +48,21 @@ class PaymentsController: UIViewController, UICollectionViewDataSource, UICollec
     }
     
     func setupViews() {
-        view.addSubview(collectionView)
-        
-        collectionView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor).isActive = true
-        collectionView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        collectionView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        collectionView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor).isActive = true
+        view.addSubview(tableView)
+
+        tableView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor).isActive = true
+        tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor).isActive = true
     }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return payments.count
     }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! PaymentCell
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! PaymentCell
         cell.payment = payments[indexPath.item]
-        cell.contentView.translatesAutoresizingMaskIntoConstraints = false
         return cell
     }
     

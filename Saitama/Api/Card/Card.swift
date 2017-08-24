@@ -31,3 +31,20 @@ extension Card {
         self.expiryYear = dictionary[EXPIRYYEAR] as? String
     }
 }
+
+extension Card {
+    static func format(_ input: String) -> String {
+        var formatted = ""
+        var formatted4 = ""
+        for character in input.characters {
+            if formatted4.characters.count == 4 {
+                formatted += formatted4 + " "
+                formatted4 = ""
+            }
+            formatted4.append(character)
+        }
+        
+        formatted += formatted4
+        return formatted
+    }
+}
