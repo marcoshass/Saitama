@@ -39,6 +39,8 @@ extension NSMutableURLRequest {
         httpMethod = resource.method.method
         if case let .post(data) = resource.method {
             httpBody = data
+        } else if case let .put(data) = resource.method {
+            httpBody = data
         }
     }
 }
@@ -53,7 +55,7 @@ final class WebService {
                 return
             }
             
-            // grab the status code and the error message
+            // prepare status code and service error
             if let httpStatus = response as? HTTPURLResponse, !httpStatus.isSuccess {
                 guard let data = data, let dict = try? JSONSerialization.jsonObject(with: data, options: []) as? JSONDictionary else {
                     completion(nil, ServiceError.badStatus(status: httpStatus.statusCode, code: nil, message: nil))

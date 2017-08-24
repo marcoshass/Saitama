@@ -250,32 +250,32 @@ class RegisterController: BaseController {
         return nil
     }
     
-    func generateToken(_ length: Int) -> String {
-        let uuid = UUID().uuidString
-        return String(uuid.characters.prefix(length))
-    }
-    
     func processRegister() {
         if let msg = validateFields() {
             self.show(message: msg)
             return
         }
         
-        let newUser = User(id: 0, email: emailTextField.text, password: passwordTextField.text, token: "\(emailTextField.text!)\(generateToken(newTokenLength))")
+        let newUser = User(email: emailTextField.text, password: passwordTextField.text)
         
         toggleStart()
         WebService().load(User.register(user: newUser), completion: { (user, error) in
             OperationQueue.main.addOperation({
                 self.toggleStop()
                 
-                if error != nil {
-                    self.show(message: error?.localizedDescription ?? NSLocalizedString("Internal Error", comment: "Internal Error"))
-                    print("error=\(error.debugDescription)")
+                if let error = error {
+                    self.show(message: error.message())
                     return
                 }
                 
-                guard let _ = user else {
+                guard let user = user else {
                     self.show(message: NSLocalizedString("Error registering user", comment: "Error registering user"))
+                    return
+                }
+                
+                // check token
+                guard let _ = user.token else {
+                    self.show(message: NSLocalizedString("Invalid token", comment: "Invalid token"))
                     return
                 }
                 

@@ -350,7 +350,7 @@ class LoginController: BaseController, UITextFieldDelegate {
                     return
                 }
                 
-                // check if token is present
+                // check token
                 guard let token = user.token else {
                     self.show(message: NSLocalizedString("Invalid token", comment: "Invalid token"))
                     return

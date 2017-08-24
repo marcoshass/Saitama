@@ -27,6 +27,13 @@ extension User {
         self.password = dictionary[PASSWORD] as? String
         self.token = dictionary[TOKEN] as? String
     }
+    
+    init(email: String?, password: String?) {
+        self.id = nil
+        self.email = email
+        self.password = password
+        self.token = nil
+    }
 }
 
 extension User {
@@ -43,9 +50,9 @@ extension User {
     }
     
     static func register(user: User) -> Resource<User> {
-        let url = URL(string: "http://10.10.1.143:3000/users")!
-        let dictionary = ["\(EMAIL)": user.email, "\(PASSWORD)": user.password, "\(TOKEN)": user.token]
-        return Resource(url: url, method: .post(dictionary as AnyObject), parseJSON: { (json) -> User? in
+        let url = URL(string: "http://www.mocky.io/v2/599e3560250000f406d303d2")! // OK
+        let dictionary = ["\(EMAIL)": user.email, "\(PASSWORD)": user.password]
+        return Resource(url: url, method: .put(dictionary as AnyObject), parseJSON: { (json) -> User? in
             guard let dictionary = json as? JSONDictionary else { return nil }
             return User(dictionary: dictionary)
         })

@@ -18,25 +18,7 @@
   },
   "users": [
     {
-      "token": "crossover@crossover.com8C8B5",
-      "password": "crossover",
-      "email": "crossover@crossover.com",
       "id": 1
-    },
-    {
-      "password": "crossover",
-      "email": "crossover@crossover.com",
-      "id": 2
-    },
-    {
-      "password": "crossover",
-      "email": "crossover@crossover.com",
-      "id": 3
-    },
-    {
-      "password": "crossover",
-      "email": "crossover@crossover.com",
-      "id": 4
     }
   ],
   "cards": []

@@ -13,6 +13,7 @@ typealias JSONDictionary = [String: AnyObject]
 enum HttpMethod<Body> {
     case get
     case post(Body)
+    case put(Body)
 }
 
 extension HttpMethod {
@@ -22,6 +23,8 @@ extension HttpMethod {
             return "GET"
         case .post:
             return "POST"
+        case .put:
+            return "PUT"
         }
     }
 }
@@ -31,6 +34,7 @@ extension HttpMethod {
         switch self {
         case .get: return .get
         case .post(let body): return .post(f(body))
+        case .put(let body): return .put(f(body))
         }
     }
 }
