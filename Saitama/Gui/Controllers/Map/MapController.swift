@@ -14,22 +14,30 @@ class MapController: BaseController {
     
     // MARK: - Properties
     
+// mapstart
+    let startLatitude: CLLocationDegrees = 35.7090259
+    let startLongitude: CLLocationDegrees = 139.7319925
+    let latitudinalMeters: CLLocationDistance = 800
+    let longitudinalMeters: CLLocationDistance = 800
+    let spanLongitudeDelta: CLLocationDegrees = 0.300
+    let spanLatitudeDelta: CLLocationDegrees = 0.300
+    
     var didTapLogout: () -> () = {}
     var didTapMyOrders: () -> () = {}
     
-    // logoutbutton
+// logoutbutton
     lazy var logoutButtonItem : UIBarButtonItem = {
         let button = UIBarButtonItem(title: NSLocalizedString("Signout", comment: "Signout"), style: .plain, target: self, action: #selector(self.handleLogout))
         return button
     }()
     
-    // myorders
+// myorders
     lazy var myOrdersButtonItem : UIBarButtonItem = {
         let button = UIBarButtonItem(title: NSLocalizedString("MyOrders", comment: "MyOrders"), style: .plain, target: self, action: #selector(self.handlePayment))
         return button
     }()
     
-    // mapview
+// mapview
     lazy var mapView: MKMapView = {
         let map = MKMapView()
         map.translatesAutoresizingMaskIntoConstraints = false
@@ -49,15 +57,31 @@ class MapController: BaseController {
         mapView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         mapView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
         
-        setupPins()
+        setupStart()
+        reloadData()
     }
     
-    func setupPins() {
-        //loadingIndicator.startAnimating()
+    func setupNavigationBar() {
+        self.navigationItem.leftBarButtonItem = logoutButtonItem
+        self.navigationItem.rightBarButtonItem = myOrdersButtonItem
+    }
+
+    // MARK: - MapKit
+    
+    func setupStart() {
+        let startCoord = CLLocationCoordinate2D(latitude: startLatitude, longitude: startLongitude)
+        var adjustedRegion = MKCoordinateRegionMakeWithDistance(startCoord, latitudinalMeters, longitudinalMeters)
+        adjustedRegion.span.longitudeDelta = spanLongitudeDelta
+        adjustedRegion.span.latitudeDelta = spanLatitudeDelta
+        self.mapView.setRegion(adjustedRegion, animated: true)
+    }
+    
+    func reloadData() {
+        let allAnnotations = mapView.annotations
+        self.mapView.removeAnnotations(allAnnotations)
+        
         WebService().load(Place.all(), completion: { (data, error) in
             DispatchQueue.main.async {
-                //self.loadingIndicator.stopAnimating()
-                
                 if let error = error {
                     self.show(message: error.message())
                     return
@@ -66,23 +90,17 @@ class MapController: BaseController {
                 guard let data = data else {
                     return
                 }
-                
-                // setup pins
-                for place in data {
-                    guard let name = place.name,
-                        let lat = place.location?.lat,
-                        let lng = place.location?.lng else {
-                        continue
-                    }
-                    self.mapView.addAnnotation(BikePlace(title: name, coordinate: CLLocationCoordinate2D(latitude: lat, longitude: lng)))
-                }
+
+                self.addPlaces(data)
             }
         })
     }
     
-    func setupNavigationBar() {
-        self.navigationItem.leftBarButtonItem = logoutButtonItem
-        self.navigationItem.rightBarButtonItem = myOrdersButtonItem
+    func addPlaces(_ places: [Place]) {
+        for place in places {
+            guard let name = place.name, let lat = place.location?.lat, let lng = place.location?.lng else { continue }
+            self.mapView.addAnnotation(BikePlace(title: name, coordinate: CLLocationCoordinate2D(latitude: lat, longitude: lng)))
+        }
     }
     
     func processLogout() {
