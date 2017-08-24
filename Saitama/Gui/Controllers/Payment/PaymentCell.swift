@@ -83,7 +83,7 @@ class PaymentCell : UITableViewCell {
         var placeAttr = [String: Any]()
         placeAttr[NSFontAttributeName] = UIFont.systemFont(ofSize: 14, weight: UIFontWeightRegular)
         placeAttr[NSForegroundColorAttributeName] = Constants.Color.darkBlue
-        text.append(NSAttributedString(string: "Hotel Mid In Akabane Ekimae", attributes: placeAttr))
+        text.append(NSAttributedString(string: "REVIEW...REVIEW...REVIEW...REVIEW", attributes: placeAttr))
         
         return text
     }

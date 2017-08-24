@@ -11,7 +11,7 @@ import UIKit
 class PaymentsController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     let cellId = "cellId"
-    let myTitle = NSLocalizedString("My Orders", comment: "My Orders")
+    let myTitle = NSLocalizedString("MyOrders", comment: "MyOrders")
     let loadingTitle = NSLocalizedString("Loading...", comment: "Loading...")
     var payments = [Payment]()
 
@@ -30,6 +30,12 @@ class PaymentsController: UIViewController, UITableViewDataSource, UITableViewDe
         tv.estimatedRowHeight = 44
         return tv
     }()
+    
+    override var shouldAutorotate: Bool {
+        get {
+            return false
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

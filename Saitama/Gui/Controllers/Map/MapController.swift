@@ -14,7 +14,7 @@ class MapController: BaseController {
     
     // MARK: - Properties
     
-// mapstart
+// mapstart(saitama)
     let startLatitude: CLLocationDegrees = 35.7090259
     let startLongitude: CLLocationDegrees = 139.7319925
     let latitudinalMeters: CLLocationDistance = 800
