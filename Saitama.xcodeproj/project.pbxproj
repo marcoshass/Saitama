@@ -13,6 +13,7 @@
 		8D144AA71F4F1225003EAB1B /* OrderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D144AA51F4F1225003EAB1B /* OrderController.swift */; };
 		8D144AAA1F4F1270003EAB1B /* PaymentsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D144AA81F4F1270003EAB1B /* PaymentsController.swift */; };
 		8D144AAD1F4F1367003EAB1B /* PaymentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D144AAC1F4F1367003EAB1B /* PaymentCell.swift */; };
+		8D62DE4F1F4F3942000073C8 /* RestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D62DE4E1F4F3942000073C8 /* RestController.swift */; };
 		8D77983D1F4DD0A2006D76F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D77983C1F4DD0A2006D76F6 /* AppDelegate.swift */; };
 		8D7798441F4DD0A2006D76F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D7798431F4DD0A2006D76F6 /* Assets.xcassets */; };
 		8D7798471F4DD0A2006D76F6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D7798451F4DD0A2006D76F6 /* LaunchScreen.storyboard */; };
@@ -64,6 +65,7 @@
 		8D144AA51F4F1225003EAB1B /* OrderController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderController.swift; path = Gui/Controllers/Order/OrderController.swift; sourceTree = "<group>"; };
 		8D144AA81F4F1270003EAB1B /* PaymentsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaymentsController.swift; path = Gui/Controllers/Payment/PaymentsController.swift; sourceTree = "<group>"; };
 		8D144AAC1F4F1367003EAB1B /* PaymentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaymentCell.swift; path = Gui/Controllers/Payment/PaymentCell.swift; sourceTree = "<group>"; };
+		8D62DE4E1F4F3942000073C8 /* RestController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RestController.swift; path = Gui/Controllers/Payment/RestController.swift; sourceTree = "<group>"; };
 		8D7798391F4DD0A2006D76F6 /* Saitama.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Saitama.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D77983C1F4DD0A2006D76F6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8D7798431F4DD0A2006D76F6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -323,6 +325,7 @@
 			children = (
 				8D144AA81F4F1270003EAB1B /* PaymentsController.swift */,
 				8D144AAC1F4F1367003EAB1B /* PaymentCell.swift */,
+				8D62DE4E1F4F3942000073C8 /* RestController.swift */,
 			);
 			name = Payment;
 			sourceTree = "<group>";
@@ -619,6 +622,7 @@
 				8D144AA71F4F1225003EAB1B /* OrderController.swift in Sources */,
 				8D77983D1F4DD0A2006D76F6 /* AppDelegate.swift in Sources */,
 				8D144AAA1F4F1270003EAB1B /* PaymentsController.swift in Sources */,
+				8D62DE4F1F4F3942000073C8 /* RestController.swift in Sources */,
 				8D144AA31F4F0A77003EAB1B /* Card.swift in Sources */,
 				8DDDA7F51F4E239C0098CB6E /* BaseController.swift in Sources */,
 				8DDDA7DF1F4E226C0098CB6E /* Constants.swift in Sources */,

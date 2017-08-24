@@ -31,11 +31,11 @@ class PaymentsController: UIViewController, UITableViewDataSource, UITableViewDe
         tv.delegate = self
         tv.register(PaymentCell.self, forCellReuseIdentifier: self.cellId)
         tv.allowsSelection = false
+        tv.tableFooterView = UIView()
         tv.translatesAutoresizingMaskIntoConstraints = false
         // dynamic row height
         tv.rowHeight = UITableViewAutomaticDimension
         tv.estimatedRowHeight = 44
-        tv.tableFooterView = UIView()
         return tv
     }()
 
@@ -45,6 +45,11 @@ class PaymentsController: UIViewController, UITableViewDataSource, UITableViewDe
         view.backgroundColor = .white
 
         setupViews()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        //tableView.reloadData()
     }
     
     func setupViews() {
@@ -57,10 +62,12 @@ class PaymentsController: UIViewController, UITableViewDataSource, UITableViewDe
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("tableView: numberOfRowsInSection")
         return payments.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        print("tableView: cellForRowAt")
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! PaymentCell
         cell.payment = payments[indexPath.item]
         return cell
