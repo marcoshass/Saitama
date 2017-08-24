@@ -11,17 +11,7 @@ import UIKit
 class PaymentsController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     let cellId = "cellId"
-    
-    let payments: [Payment] = {
-        
-        let c1 = Card(number: "4111111111111111", name: "adrianobragaalencar", cvv: "123", expiryMonth: "03", expiryYear: "2100")
-        let p1 = Payment(updatedAt: "2016-12-23T19:32:59.144Z", createdAt: "2016-12-23T19:32:59.144Z", creditCard: c1, email: "adrianobragaalencar@gmail.com", placeId: "45c0b5209973fcec652817e16e20f1d0b4ecb602")
-
-        let c2 = Card(number: "4111111111111111", name: "adrianobragaalencar", cvv: "123", expiryMonth: "12", expiryYear: "2020")
-        let p2 = Payment(updatedAt: "2016-12-23T19:33:25.497Z", createdAt: "2016-12-23T19:33:25.497Z", creditCard: c2, email: "adrianobragaalencar@gmail.com", placeId: "45c0b5209973fcec652817e16e20f1d0b4ecb60245c0b5209973fcec652817e16e20f1d0b4ecb60245c0b5209973fcec652817e16e20f1d0b4ecb60245c0b5209973fcec652817e16e20f1d0b4ecb60245c0b5209973fcec652817e16e20f1d0b4ecb60245c0b5209973fcec652817e16e20f1d0b4ecb60245c0b5209973fcec652817e16e20f1d0b4ecb60245c0b5209973fcec652817e16e20f1d0b4ecb60245c0b5209973fcec652817e16e20f1d0b4ecb60245c0b5209973fcec652817e16e20f1d0b4ecb602")
-        
-        return [p1, p2]
-    }()
+    var payments = [Payment]()
 
 // tableview
     lazy var tableView: UITableView = {
@@ -39,20 +29,51 @@ class PaymentsController: UIViewController, UITableViewDataSource, UITableViewDe
         return tv
     }()
 
+// activitylogin
+    let loadingIndicator: UIActivityIndicatorView = {
+        let activity = UIActivityIndicatorView(activityIndicatorStyle: .white)
+        activity.hidesWhenStopped = true
+        activity.translatesAutoresizingMaskIntoConstraints = false
+        return activity
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = NSLocalizedString("My Orders", comment: "My Orders")
-        view.backgroundColor = .white
-
         setupViews()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //tableView.reloadData()
+        reload()
+    }
+    
+    func reload() {
+        let user = User(id: 1, email: "marcoshass@gmail.com", password: "123", token: "123")
+
+        loadingIndicator.startAnimating()
+        WebService().load(Payment.all(user: user), completion: { (data, error) in
+            DispatchQueue.main.async {
+                self.loadingIndicator.stopAnimating()
+                
+                if let error = error {
+                    self.show(message: error.message())
+                    return
+                }
+                
+                guard let data = data else {
+                    return
+                }
+                
+                self.payments = data
+                self.tableView.reloadData()
+            }
+        })
     }
     
     func setupViews() {
+        self.title = NSLocalizedString("My Orders", comment: "My Orders")
+        setupNavigationBar()
+        view.backgroundColor = .white
         view.addSubview(tableView)
 
         tableView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor).isActive = true
@@ -60,14 +81,16 @@ class PaymentsController: UIViewController, UITableViewDataSource, UITableViewDe
         tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor).isActive = true
     }
+    
+    func setupNavigationBar() {
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: loadingIndicator)
+    }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("tableView: numberOfRowsInSection")
         return payments.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("tableView: cellForRowAt")
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! PaymentCell
         cell.payment = payments[indexPath.item]
         return cell

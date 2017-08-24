@@ -78,7 +78,7 @@ private let PLACEID = "placeId"
 struct Payment {
     let updatedAt: String?
     let createdAt: String?
-    let creditCard: Card?
+    var creditCard: Card?
     let email: String?
     let placeId: String?
 }
@@ -87,7 +87,9 @@ extension Payment {
     init?(dictionary: JSONDictionary) {
         self.updatedAt = dictionary[UPDATEDAT] as? String
         self.createdAt = dictionary[CREATEDAT] as? String
-        self.creditCard = dictionary[CREDITCARD] as? Card
+        if let dict = dictionary[CREDITCARD] as? JSONDictionary {
+            self.creditCard = Card(dictionary: dict)
+        }
         self.email = dictionary[CARDNUMBER] as? String
         self.placeId = dictionary[PLACEID] as? String
     }
@@ -255,30 +257,12 @@ extension Payment {
         })
     }
     
-    static func login(email: String, password: String) -> Resource<[User]> {
-        let url = URL(string: "http://10.10.1.143:3000/users?email=\(email)&password=\(password)")!
-        
-        return Resource(url: url, parseJSON: { (json) -> [User]? in
-            guard let dictionaries = json as? [JSONDictionary] else { return nil }
-            return dictionaries.flatMap{User(dictionary: $0)}
-        })
-    }
-    
 }
 
 
 // ----------------------------------------------------------------------------
-// User call
+// Call
 // ----------------------------------------------------------------------------
-
-//WebService().load(User.login(email: "marcoshass@gmail.com", password: "123456"), completion: { (data, error) in
-//    if let error = error {
-//        print(error.message())
-//        return
-//    }
-//    print("")
-//    print(data ?? "no data")
-//})
 
 let user = User(id: 1, email: "marcoshass@gmail.com", password: "123", token: "123")
 WebService().load(Payment.all(user: user), completion: { (data, error) in
@@ -290,4 +274,33 @@ WebService().load(Payment.all(user: user), completion: { (data, error) in
     guard let data = data else { return }
     print(data)
 })
+
+//"payments": [{
+//  "updatedAt": "2016-12-23T19:32:59.144Z",
+//  "createdAt": "2016-12-23T19:32:59.144Z",
+//  "creditCard": {
+//      "number": "4111111111111111",
+//      "name": "adrianobragaalencar",
+//      "cvv": "123",
+//      "expiryMonth": "03",
+//      "expiryYear": "2100"
+//  },
+//  "email": "adrianobragaalencar@gmail.com",
+//  "placeId": "45c0b5209973fcec652817e16e20f1d0b4ecb602"
+//},{
+//  "updatedAt": "2016-12-23T19:33:25.497Z",
+//  "createdAt": "2016-12-23T19:33:25.497Z",
+//  "creditCard": {
+//  "number": "4111111111111111",
+//  "name": "adrianobragaalencar",
+//  "cvv": "123",
+//  "expiryMonth": "12",
+//  "expiryYear": "2020"
+//  },
+//  "email": "adrianobragaalencar@gmail.com",
+//  "placeId": "45c0b5209973fcec652817e16e20f1d0b4ecb602"
+//}]
+
+
+
 

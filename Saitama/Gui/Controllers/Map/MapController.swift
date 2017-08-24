@@ -22,7 +22,7 @@ class MapController: BaseController {
         return button
     }()
     
-    // payhistorybutton
+    // myorders
     lazy var myOrdersButtonItem : UIBarButtonItem = {
         let button = UIBarButtonItem(title: NSLocalizedString("My Orders", comment: "My Orders"), style: .plain, target: self, action: #selector(self.handlePayment))
         return button
@@ -46,9 +46,8 @@ class MapController: BaseController {
     
     override func setupViews() {
         super.setupViews()
-        self.title = NSLocalizedString("Map", comment: "Map")
+        self.title = NSLocalizedString("BikeMap", comment: "BikeMap")
         setupNavigationBar()
-        
         view.backgroundColor = .white
         //view.addSubview(mapView)
         
