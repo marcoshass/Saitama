@@ -34,6 +34,7 @@
 		8DDDA8081F4E259F0098CB6E /* RegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDA8071F4E259F0098CB6E /* RegisterController.swift */; };
 		8DE8ECF31F4F5E29003F15B5 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DE8ECF21F4F5E29003F15B5 /* MapKit.framework */; };
 		8DE8ECF61F4F609A003F15B5 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE8ECF51F4F609A003F15B5 /* Location.swift */; };
+		8DE8ECF81F4F6C00003F15B5 /* BikePlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE8ECF71F4F6C00003F15B5 /* BikePlace.swift */; };
 		9FD26773CE439A8FEE05E636 /* Pods_SaitamaUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 629413920AD086BCABBA8611 /* Pods_SaitamaUITests.framework */; };
 		A03B00CEA08FB21E368237AA /* Pods_SaitamaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A1A6B017C275FCA30282097 /* Pods_SaitamaTests.framework */; };
 /* End PBXBuildFile section */
@@ -95,6 +96,7 @@
 		8DDDA8071F4E259F0098CB6E /* RegisterController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RegisterController.swift; path = Gui/Controllers/Login/RegisterController.swift; sourceTree = "<group>"; };
 		8DE8ECF21F4F5E29003F15B5 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		8DE8ECF51F4F609A003F15B5 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Location.swift; path = Api/Location/Location.swift; sourceTree = "<group>"; };
+		8DE8ECF71F4F6C00003F15B5 /* BikePlace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BikePlace.swift; path = Gui/Controllers/Map/BikePlace.swift; sourceTree = "<group>"; };
 		9A1A6B017C275FCA30282097 /* Pods_SaitamaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SaitamaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAC158550E81DA31C5A7DD41 /* Pods_Saitama.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Saitama.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D707B033F002C2B3D2833BB5 /* Pods-Saitama.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Saitama.release.xcconfig"; path = "Pods/Target Support Files/Pods-Saitama/Pods-Saitama.release.xcconfig"; sourceTree = "<group>"; };
@@ -323,6 +325,7 @@
 			isa = PBXGroup;
 			children = (
 				8DDDA7FB1F4E23EE0098CB6E /* MapController.swift */,
+				8DE8ECF71F4F6C00003F15B5 /* BikePlace.swift */,
 			);
 			name = Map;
 			sourceTree = "<group>";
@@ -643,6 +646,7 @@
 				8DDDA7F51F4E239C0098CB6E /* BaseController.swift in Sources */,
 				8DDDA7DF1F4E226C0098CB6E /* Constants.swift in Sources */,
 				8DDDA7FC1F4E23EE0098CB6E /* MapController.swift in Sources */,
+				8DE8ECF81F4F6C00003F15B5 /* BikePlace.swift in Sources */,
 				8DDDA7F01F4E23620098CB6E /* WebService.swift in Sources */,
 				8DDDA7E81F4E22FD0098CB6E /* Payment.swift in Sources */,
 				8DDDA7EC1F4E232B0098CB6E /* Place.swift in Sources */,

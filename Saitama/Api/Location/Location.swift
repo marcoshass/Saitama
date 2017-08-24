@@ -12,13 +12,13 @@ private let LAT = "lat"
 private let LNG = "lng"
 
 struct Location {
-    let lat: String?
-    let lng: String?
+    let lat: Double?
+    let lng: Double?
 }
 
 extension Location {
     init?(dictionary: JSONDictionary) {
-        self.lat = dictionary[LAT] as? String
-        self.lng = dictionary[LNG] as? String
+        self.lat = dictionary[LAT]?.doubleValue
+        self.lng = dictionary[LNG]?.doubleValue
     }
 }

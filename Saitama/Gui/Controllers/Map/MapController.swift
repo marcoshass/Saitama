@@ -56,9 +56,16 @@ class MapController: BaseController {
                     return
                 }
                 
-                print(data)
-                //self.payments = data
-                //self.tableView.reloadData()
+                // setup pins
+                for place in data {
+                    print("place=\(place)")
+                    guard let name = place.name,
+                        let lat = place.location?.lat,
+                        let lng = place.location?.lng else {
+                        continue
+                    }
+                    self.mapView.addAnnotation(BikePlace(title: name, coordinate: CLLocationCoordinate2D(latitude: lat, longitude: lng)))
+                }
             }
         })
     }
