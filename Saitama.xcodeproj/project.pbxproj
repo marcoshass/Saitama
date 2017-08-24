@@ -32,6 +32,8 @@
 		8DDDA8021F4E25050098CB6E /* UIKit+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDA8011F4E25050098CB6E /* UIKit+Ext.swift */; };
 		8DDDA8041F4E25180098CB6E /* Keychain+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDA8031F4E25180098CB6E /* Keychain+Ext.swift */; };
 		8DDDA8081F4E259F0098CB6E /* RegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDA8071F4E259F0098CB6E /* RegisterController.swift */; };
+		8DE8ECF31F4F5E29003F15B5 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DE8ECF21F4F5E29003F15B5 /* MapKit.framework */; };
+		8DE8ECF61F4F609A003F15B5 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE8ECF51F4F609A003F15B5 /* Location.swift */; };
 		9FD26773CE439A8FEE05E636 /* Pods_SaitamaUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 629413920AD086BCABBA8611 /* Pods_SaitamaUITests.framework */; };
 		A03B00CEA08FB21E368237AA /* Pods_SaitamaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A1A6B017C275FCA30282097 /* Pods_SaitamaTests.framework */; };
 /* End PBXBuildFile section */
@@ -91,6 +93,8 @@
 		8DDDA8011F4E25050098CB6E /* UIKit+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIKit+Ext.swift"; path = "Gui/Extensions/UIKit+Ext.swift"; sourceTree = "<group>"; };
 		8DDDA8031F4E25180098CB6E /* Keychain+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Keychain+Ext.swift"; path = "Gui/Extensions/Keychain+Ext.swift"; sourceTree = "<group>"; };
 		8DDDA8071F4E259F0098CB6E /* RegisterController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RegisterController.swift; path = Gui/Controllers/Login/RegisterController.swift; sourceTree = "<group>"; };
+		8DE8ECF21F4F5E29003F15B5 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		8DE8ECF51F4F609A003F15B5 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Location.swift; path = Api/Location/Location.swift; sourceTree = "<group>"; };
 		9A1A6B017C275FCA30282097 /* Pods_SaitamaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SaitamaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAC158550E81DA31C5A7DD41 /* Pods_Saitama.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Saitama.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D707B033F002C2B3D2833BB5 /* Pods-Saitama.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Saitama.release.xcconfig"; path = "Pods/Target Support Files/Pods-Saitama/Pods-Saitama.release.xcconfig"; sourceTree = "<group>"; };
@@ -101,6 +105,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8DE8ECF31F4F5E29003F15B5 /* MapKit.framework in Frameworks */,
 				0B0F06C20C2252E06490EBD5 /* Pods_Saitama.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -127,6 +132,7 @@
 		2845BF4AB1868B7FDFA920FE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8DE8ECF21F4F5E29003F15B5 /* MapKit.framework */,
 				CAC158550E81DA31C5A7DD41 /* Pods_Saitama.framework */,
 				9A1A6B017C275FCA30282097 /* Pods_SaitamaTests.framework */,
 				629413920AD086BCABBA8611 /* Pods_SaitamaUITests.framework */,
@@ -234,6 +240,7 @@
 				8D144AA11F4F0A4E003EAB1B /* Card */,
 				8DDDA7E41F4E22AA0098CB6E /* Payment */,
 				8DDDA7E51F4E22B00098CB6E /* Place */,
+				8DE8ECF41F4F607E003F15B5 /* Location */,
 				8DDDA7E61F4E22B50098CB6E /* User */,
 				8DDDA7E31F4E229D0098CB6E /* Core */,
 			);
@@ -328,6 +335,14 @@
 				8D62DE4E1F4F3942000073C8 /* RestController.swift */,
 			);
 			name = Payment;
+			sourceTree = "<group>";
+		};
+		8DE8ECF41F4F607E003F15B5 /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				8DE8ECF51F4F609A003F15B5 /* Location.swift */,
+			);
+			name = Location;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -621,6 +636,7 @@
 			files = (
 				8D144AA71F4F1225003EAB1B /* OrderController.swift in Sources */,
 				8D77983D1F4DD0A2006D76F6 /* AppDelegate.swift in Sources */,
+				8DE8ECF61F4F609A003F15B5 /* Location.swift in Sources */,
 				8D144AAA1F4F1270003EAB1B /* PaymentsController.swift in Sources */,
 				8D62DE4F1F4F3942000073C8 /* RestController.swift in Sources */,
 				8D144AA31F4F0A77003EAB1B /* Card.swift in Sources */,

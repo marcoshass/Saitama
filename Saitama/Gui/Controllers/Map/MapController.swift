@@ -8,6 +8,7 @@
 
 import UIKit
 import KeychainAccess
+import MapKit
 
 class MapController: BaseController {
     
@@ -29,41 +30,56 @@ class MapController: BaseController {
     }()
     
     // mapview
-//    lazy var mapView: GMSMapView = {
-//        var camera = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 6.0)
-//        var map = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
-//        map.isMyLocationEnabled = true
-//        map.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        // marker in the center.
-//        let marker = GMSMarker()
-//        marker.position = CLLocationCoordinate2D(latitude: -33.86, longitude: 151.20)
-//        marker.title = "Sydney"
-//        marker.snippet = "Australia"
-//        marker.map = map
-//        return map
-//    }()
+    lazy var mapView: MKMapView = {
+        let map = MKMapView()
+        map.translatesAutoresizingMaskIntoConstraints = false
+        return map
+    }()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        reload()
+    }
+    
+    func reload() {
+        //loadingIndicator.startAnimating()
+        WebService().load(Place.all(), completion: { (data, error) in
+            DispatchQueue.main.async {
+                //self.loadingIndicator.stopAnimating()
+                
+                if let error = error {
+                    self.show(message: error.message())
+                    return
+                }
+                
+                guard let data = data else {
+                    return
+                }
+                
+                print(data)
+                //self.payments = data
+                //self.tableView.reloadData()
+            }
+        })
+    }
     
     override func setupViews() {
         super.setupViews()
         self.title = NSLocalizedString("BikeMap", comment: "BikeMap")
         setupNavigationBar()
         view.backgroundColor = .white
-        //view.addSubview(mapView)
+
+        view.addSubview(mapView)
         
-        setupContainerView()
+        mapView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        mapView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        mapView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        mapView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
     }
     
     func setupNavigationBar() {
         self.navigationItem.leftBarButtonItem = logoutButtonItem
         self.navigationItem.rightBarButtonItem = myOrdersButtonItem
-    }
-    
-    func setupContainerView() {
-//        mapView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-//        mapView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-//        mapView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-//        mapView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
     }
     
     func processLogout() {

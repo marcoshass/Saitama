@@ -11,6 +11,8 @@ import UIKit
 class PaymentsController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     let cellId = "cellId"
+    let myTitle = NSLocalizedString("My Orders", comment: "My Orders")
+    let loadingTitle = NSLocalizedString("Loading...", comment: "Loading...")
     var payments = [Payment]()
 
 // tableview
@@ -29,14 +31,6 @@ class PaymentsController: UIViewController, UITableViewDataSource, UITableViewDe
         return tv
     }()
 
-// activitylogin
-    let loadingIndicator: UIActivityIndicatorView = {
-        let activity = UIActivityIndicatorView(activityIndicatorStyle: .white)
-        activity.hidesWhenStopped = true
-        activity.translatesAutoresizingMaskIntoConstraints = false
-        return activity
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -50,10 +44,10 @@ class PaymentsController: UIViewController, UITableViewDataSource, UITableViewDe
     func reload() {
         let user = User(id: 1, email: "marcoshass@gmail.com", password: "123", token: "123")
 
-        loadingIndicator.startAnimating()
+        self.title = loadingTitle
         WebService().load(Payment.all(user: user), completion: { (data, error) in
             DispatchQueue.main.async {
-                self.loadingIndicator.stopAnimating()
+                self.title = self.myTitle
                 
                 if let error = error {
                     self.show(message: error.message())
@@ -71,8 +65,7 @@ class PaymentsController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func setupViews() {
-        self.title = NSLocalizedString("My Orders", comment: "My Orders")
-        setupNavigationBar()
+        self.title = myTitle
         view.backgroundColor = .white
         view.addSubview(tableView)
 
@@ -82,10 +75,6 @@ class PaymentsController: UIViewController, UITableViewDataSource, UITableViewDe
         tableView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor).isActive = true
     }
     
-    func setupNavigationBar() {
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: loadingIndicator)
-    }
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return payments.count
     }
