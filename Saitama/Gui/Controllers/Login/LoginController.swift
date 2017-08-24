@@ -336,25 +336,23 @@ class LoginController: BaseController, UITextFieldDelegate {
         }
         
         toggleStart()
-        WebService().load(User.login(email: email, password: password), completion: { (users, error) in
+        WebService().load(User.login(email: email, password: password), completion: { (user, error) in
             OperationQueue.main.addOperation({
                 self.toggleStop()
                 
-                if error != nil {
-                    self.show(message: error?.localizedDescription ?? NSLocalizedString("Internal Error", comment: "Internal Error"))
-                    print("error=\(error.debugDescription)")
+                if let error = error {
+                    self.show(message: error.message())
                     return
                 }
                 
-                guard let users = users, !users.isEmpty else {
-                    self.show(message: NSLocalizedString("Invalid user or password", comment: "Invalid user or password"))
+                guard let user = user else {
+                    self.show(message: NSLocalizedString("Error getting user data", comment: "Error getting user data"))
                     return
                 }
                 
-                // check info needed for token
-                let user = users[0]
-                guard let email = user.email, let token = user.token else {
-                    self.show(message: NSLocalizedString("Invalid email or token", comment: "Invalid email or token"))
+                // check if token is present
+                guard let token = user.token else {
+                    self.show(message: NSLocalizedString("Invalid token", comment: "Invalid token"))
                     return
                 }
                 
@@ -362,7 +360,7 @@ class LoginController: BaseController, UITextFieldDelegate {
                 if self.keychain.persist(token: token, email: email) {
                     self.didTapLogin(true)
                 } else {
-                    self.show(message: NSLocalizedString("Could not persist token", comment: "Could not persist token"))
+                    self.show(message: NSLocalizedString("Error persisting token", comment: "Error persisting token"))
                 }
             })
         })

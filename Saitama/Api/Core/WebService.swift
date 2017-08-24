@@ -17,8 +17,19 @@ extension HTTPURLResponse {
 }
 
 enum ServiceError: Error {
-    case badStatus(status: Int, jsonError: JSONDictionary?)
+    case badStatus(status: Int, code: Int?, message: String?)
     case other(Error)
+    
+    func message() -> String {
+        var message = NSLocalizedString("Error", comment: "Error")
+        switch self {
+        case .badStatus(_, _, let msg):
+            message += " \(msg ?? "")"
+        case .other(let err):
+            message = err.localizedDescription
+        }
+        return message
+    }
 }
 
 extension NSMutableURLRequest {
@@ -34,7 +45,7 @@ extension NSMutableURLRequest {
 
 final class WebService {
     
-    func load<T>(_ resource: Resource<T>, completion: @escaping (T?, Error?) -> ()) {
+    func load<T>(_ resource: Resource<T>, completion: @escaping (T?, ServiceError?) -> ()) {
         let request = NSMutableURLRequest(resource: resource)
         URLSession.shared.dataTask(with: request as URLRequest) { (data, response, error) in
             if let error = error {
@@ -42,23 +53,20 @@ final class WebService {
                 return
             }
             
-            // Grab the status code and the error message
+            // grab the status code and the error message
             if let httpStatus = response as? HTTPURLResponse, !httpStatus.isSuccess {
-                let jsonError = self.dataToJson(data: data)
-                completion(nil, ServiceError.badStatus(status: httpStatus.statusCode, jsonError: jsonError))
+                guard let data = data, let dict = try? JSONSerialization.jsonObject(with: data, options: []) as? JSONDictionary else {
+                    completion(nil, ServiceError.badStatus(status: httpStatus.statusCode, code: nil, message: nil))
+                    return
+                }
+                
+                completion(nil, ServiceError.badStatus(status: httpStatus.statusCode, code: dict?["code"] as? Int, message: dict?["message"] as? String))
                 return
             }
             
             let result = data.flatMap(resource.parse)
             completion(result, nil)
-            }.resume()
-    }
-    
-    private func dataToJson(data: Data?) -> JSONDictionary? {
-        guard let data = data, let jsonError = try? JSONSerialization.jsonObject(with: data, options: []) as? JSONDictionary else {
-            return nil
-        }
-        return jsonError
+        }.resume()
     }
     
 }

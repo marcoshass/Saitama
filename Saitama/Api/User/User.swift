@@ -30,11 +30,15 @@ extension User {
 }
 
 extension User {
-    static func login(email: String, password: String) -> Resource<[User]> {
-        let url = URL(string: "http://10.10.1.143:3000/users?email=\(email)&password=\(password)")!
-        return Resource(url: url, parseJSON: { (json) -> [User]? in
-            guard let dictionaries = json as? [JSONDictionary] else { return nil }
-            return dictionaries.flatMap{User(dictionary: $0)}
+
+    static func login(email: String, password: String) -> Resource<User> {
+        let url = URL(string: "http://www.mocky.io/v2/599e0f552500009705d303b2")! // OK
+//        let url = URL(string: "http://www.mocky.io/v2/599e11b8250000b405d303b5")! // user not found
+//        let url = URL(string: "http://10.10.1.143:3000/users")! // Timeout        
+        let dictionary = ["\(EMAIL)": email, "\(PASSWORD)": password]
+        return Resource(url: url, method: .post(dictionary as AnyObject), parseJSON: { (json) -> User? in
+            guard let dictionary = json as? JSONDictionary else { return nil }
+            return User(dictionary: dictionary)
         })
     }
     
