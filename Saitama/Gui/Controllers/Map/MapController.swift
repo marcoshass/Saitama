@@ -8,14 +8,13 @@
 
 import UIKit
 import KeychainAccess
-//import GoogleMaps
 
 class MapController: BaseController {
     
     // MARK: - Properties
     
     var didTapLogout: () -> () = {}
-    var didTapPayment: () -> () = {}
+    var didTapMyOrders: () -> () = {}
     
     // logoutbutton
     lazy var logoutButtonItem : UIBarButtonItem = {
@@ -23,9 +22,9 @@ class MapController: BaseController {
         return button
     }()
     
-    // paymentbutton
-    lazy var paymentButtonItem : UIBarButtonItem = {
-        let button = UIBarButtonItem(title: NSLocalizedString("Payment", comment: "Payment"), style: .plain, target: self, action: #selector(self.handlePayment))
+    // payhistorybutton
+    lazy var myOrdersButtonItem : UIBarButtonItem = {
+        let button = UIBarButtonItem(title: NSLocalizedString("My Orders", comment: "My Orders"), style: .plain, target: self, action: #selector(self.handlePayment))
         return button
     }()
     
@@ -58,7 +57,7 @@ class MapController: BaseController {
     
     func setupNavigationBar() {
         self.navigationItem.leftBarButtonItem = logoutButtonItem
-        self.navigationItem.rightBarButtonItem = paymentButtonItem
+        self.navigationItem.rightBarButtonItem = myOrdersButtonItem
     }
     
     func setupContainerView() {
@@ -87,7 +86,7 @@ class MapController: BaseController {
     }
     
     func handlePayment(_ sender: Any) {
-        didTapPayment()
+        didTapMyOrders()
     }
     
 }

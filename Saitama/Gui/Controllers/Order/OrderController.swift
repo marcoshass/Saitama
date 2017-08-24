@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PaymentController: UITableViewController, UITextFieldDelegate {
+class OrderController: UITableViewController, UITextFieldDelegate {
     
     @IBOutlet var labels: [UILabel]!
     @IBOutlet weak var nameLabel: UILabel!

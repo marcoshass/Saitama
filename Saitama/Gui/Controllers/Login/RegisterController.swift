@@ -10,8 +10,6 @@ import UIKit
 
 class RegisterController: BaseController, UITextFieldDelegate {
     
-    let newTokenLength = 5
-    
     var didTapRegister: () -> () = {}
     var didTapAlreadyHaveAccount: () -> () = {}
     

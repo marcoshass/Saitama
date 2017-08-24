@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		0B0F06C20C2252E06490EBD5 /* Pods_Saitama.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAC158550E81DA31C5A7DD41 /* Pods_Saitama.framework */; };
+		8D144AA31F4F0A77003EAB1B /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D144AA21F4F0A77003EAB1B /* Card.swift */; };
+		8D144AA61F4F1225003EAB1B /* Order.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D144AA41F4F1225003EAB1B /* Order.storyboard */; };
+		8D144AA71F4F1225003EAB1B /* OrderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D144AA51F4F1225003EAB1B /* OrderController.swift */; };
+		8D144AAA1F4F1270003EAB1B /* PaymentsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D144AA81F4F1270003EAB1B /* PaymentsController.swift */; };
+		8D144AAD1F4F1367003EAB1B /* PaymentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D144AAC1F4F1367003EAB1B /* PaymentCell.swift */; };
 		8D77983D1F4DD0A2006D76F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D77983C1F4DD0A2006D76F6 /* AppDelegate.swift */; };
 		8D7798441F4DD0A2006D76F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D7798431F4DD0A2006D76F6 /* Assets.xcassets */; };
 		8D7798471F4DD0A2006D76F6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D7798451F4DD0A2006D76F6 /* LaunchScreen.storyboard */; };
@@ -23,8 +28,6 @@
 		8DDDA7F51F4E239C0098CB6E /* BaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDA7F41F4E239C0098CB6E /* BaseController.swift */; };
 		8DDDA7FA1F4E23D90098CB6E /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDA7F91F4E23D90098CB6E /* LoginController.swift */; };
 		8DDDA7FC1F4E23EE0098CB6E /* MapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDA7FB1F4E23EE0098CB6E /* MapController.swift */; };
-		8DDDA7FE1F4E240B0098CB6E /* PaymentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDA7FD1F4E240B0098CB6E /* PaymentController.swift */; };
-		8DDDA8001F4E241B0098CB6E /* Payment.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8DDDA7FF1F4E241B0098CB6E /* Payment.storyboard */; };
 		8DDDA8021F4E25050098CB6E /* UIKit+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDA8011F4E25050098CB6E /* UIKit+Ext.swift */; };
 		8DDDA8041F4E25180098CB6E /* Keychain+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDA8031F4E25180098CB6E /* Keychain+Ext.swift */; };
 		8DDDA8081F4E259F0098CB6E /* RegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDA8071F4E259F0098CB6E /* RegisterController.swift */; };
@@ -56,6 +59,11 @@
 		5F82652E30BE871E8600F59B /* Pods-SaitamaUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SaitamaUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SaitamaUITests/Pods-SaitamaUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		629413920AD086BCABBA8611 /* Pods_SaitamaUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SaitamaUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7811C13FC8AD1CCB394FF0CC /* Pods-SaitamaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SaitamaTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SaitamaTests/Pods-SaitamaTests.release.xcconfig"; sourceTree = "<group>"; };
+		8D144AA21F4F0A77003EAB1B /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Card.swift; path = Api/Card/Card.swift; sourceTree = "<group>"; };
+		8D144AA41F4F1225003EAB1B /* Order.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Order.storyboard; path = Gui/Controllers/Order/Order.storyboard; sourceTree = "<group>"; };
+		8D144AA51F4F1225003EAB1B /* OrderController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderController.swift; path = Gui/Controllers/Order/OrderController.swift; sourceTree = "<group>"; };
+		8D144AA81F4F1270003EAB1B /* PaymentsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaymentsController.swift; path = Gui/Controllers/Payment/PaymentsController.swift; sourceTree = "<group>"; };
+		8D144AAC1F4F1367003EAB1B /* PaymentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaymentCell.swift; path = Gui/Controllers/Payment/PaymentCell.swift; sourceTree = "<group>"; };
 		8D7798391F4DD0A2006D76F6 /* Saitama.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Saitama.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D77983C1F4DD0A2006D76F6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8D7798431F4DD0A2006D76F6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -78,8 +86,6 @@
 		8DDDA7F41F4E239C0098CB6E /* BaseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseController.swift; path = Gui/Controllers/BaseController.swift; sourceTree = "<group>"; };
 		8DDDA7F91F4E23D90098CB6E /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginController.swift; path = Gui/Controllers/Login/LoginController.swift; sourceTree = "<group>"; };
 		8DDDA7FB1F4E23EE0098CB6E /* MapController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapController.swift; path = Gui/Controllers/Map/MapController.swift; sourceTree = "<group>"; };
-		8DDDA7FD1F4E240B0098CB6E /* PaymentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaymentController.swift; path = Gui/Controllers/Payment/PaymentController.swift; sourceTree = "<group>"; };
-		8DDDA7FF1F4E241B0098CB6E /* Payment.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Payment.storyboard; path = Gui/Controllers/Payment/Payment.storyboard; sourceTree = "<group>"; };
 		8DDDA8011F4E25050098CB6E /* UIKit+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIKit+Ext.swift"; path = "Gui/Extensions/UIKit+Ext.swift"; sourceTree = "<group>"; };
 		8DDDA8031F4E25180098CB6E /* Keychain+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Keychain+Ext.swift"; path = "Gui/Extensions/Keychain+Ext.swift"; sourceTree = "<group>"; };
 		8DDDA8071F4E259F0098CB6E /* RegisterController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RegisterController.swift; path = Gui/Controllers/Login/RegisterController.swift; sourceTree = "<group>"; };
@@ -137,6 +143,23 @@
 				1060078F8FBCADE2269793D6 /* Pods-SaitamaUITests.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		8D144A9C1F4F028A003EAB1B /* Order */ = {
+			isa = PBXGroup;
+			children = (
+				8D144AA51F4F1225003EAB1B /* OrderController.swift */,
+				8D144AA41F4F1225003EAB1B /* Order.storyboard */,
+			);
+			name = Order;
+			sourceTree = "<group>";
+		};
+		8D144AA11F4F0A4E003EAB1B /* Card */ = {
+			isa = PBXGroup;
+			children = (
+				8D144AA21F4F0A77003EAB1B /* Card.swift */,
+			);
+			name = Card;
 			sourceTree = "<group>";
 		};
 		8D7798301F4DD0A1006D76F6 = {
@@ -206,6 +229,7 @@
 		8DDDA7E21F4E228A0098CB6E /* Api */ = {
 			isa = PBXGroup;
 			children = (
+				8D144AA11F4F0A4E003EAB1B /* Card */,
 				8DDDA7E41F4E22AA0098CB6E /* Payment */,
 				8DDDA7E51F4E22B00098CB6E /* Place */,
 				8DDDA7E61F4E22B50098CB6E /* User */,
@@ -271,6 +295,7 @@
 				8DDDA7F41F4E239C0098CB6E /* BaseController.swift */,
 				8DDDA7F61F4E23A10098CB6E /* Login */,
 				8DDDA7F71F4E23A90098CB6E /* Map */,
+				8D144A9C1F4F028A003EAB1B /* Order */,
 				8DDDA7F81F4E23B30098CB6E /* Payment */,
 			);
 			name = Controllers;
@@ -296,8 +321,8 @@
 		8DDDA7F81F4E23B30098CB6E /* Payment */ = {
 			isa = PBXGroup;
 			children = (
-				8DDDA7FD1F4E240B0098CB6E /* PaymentController.swift */,
-				8DDDA7FF1F4E241B0098CB6E /* Payment.storyboard */,
+				8D144AA81F4F1270003EAB1B /* PaymentsController.swift */,
+				8D144AAC1F4F1367003EAB1B /* PaymentCell.swift */,
 			);
 			name = Payment;
 			sourceTree = "<group>";
@@ -426,9 +451,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8DDDA8001F4E241B0098CB6E /* Payment.storyboard in Resources */,
 				8D7798471F4DD0A2006D76F6 /* LaunchScreen.storyboard in Resources */,
 				8D7798441F4DD0A2006D76F6 /* Assets.xcassets in Resources */,
+				8D144AA61F4F1225003EAB1B /* Order.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -591,16 +616,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D144AA71F4F1225003EAB1B /* OrderController.swift in Sources */,
 				8D77983D1F4DD0A2006D76F6 /* AppDelegate.swift in Sources */,
+				8D144AAA1F4F1270003EAB1B /* PaymentsController.swift in Sources */,
+				8D144AA31F4F0A77003EAB1B /* Card.swift in Sources */,
 				8DDDA7F51F4E239C0098CB6E /* BaseController.swift in Sources */,
 				8DDDA7DF1F4E226C0098CB6E /* Constants.swift in Sources */,
 				8DDDA7FC1F4E23EE0098CB6E /* MapController.swift in Sources */,
 				8DDDA7F01F4E23620098CB6E /* WebService.swift in Sources */,
 				8DDDA7E81F4E22FD0098CB6E /* Payment.swift in Sources */,
 				8DDDA7EC1F4E232B0098CB6E /* Place.swift in Sources */,
+				8D144AAD1F4F1367003EAB1B /* PaymentCell.swift in Sources */,
 				8DDDA7EA1F4E230C0098CB6E /* User.swift in Sources */,
 				8DDDA8021F4E25050098CB6E /* UIKit+Ext.swift in Sources */,
-				8DDDA7FE1F4E240B0098CB6E /* PaymentController.swift in Sources */,
 				8DDDA7E11F4E22830098CB6E /* NavigationManager.swift in Sources */,
 				8DDDA8081F4E259F0098CB6E /* RegisterController.swift in Sources */,
 				8DDDA8041F4E25180098CB6E /* Keychain+Ext.swift in Sources */,

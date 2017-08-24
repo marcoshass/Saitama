@@ -11,7 +11,7 @@ import UIKit
 class NavigationManager {
     
     let window: UIWindow
-    let paymentStoryboard = "Payment"
+    let orderStoryboard = "Order"
     
     init(window: UIWindow) {
         self.window = window
@@ -25,7 +25,7 @@ class NavigationManager {
     func showMap(parent: UIViewController, animated: Bool) {
         let mapController = MapController()
         mapController.didTapLogout = { self.dismiss(viewController: mapController) }
-        mapController.didTapPayment = { self.showPayment(parent: mapController) }
+        mapController.didTapMyOrders = { self.showMyPayments(parent: mapController) }
         
         parent.present(UINavigationController(rootViewController: mapController), animated: animated, completion: nil)
     }
@@ -38,9 +38,14 @@ class NavigationManager {
         parent.present(UINavigationController(rootViewController:registerController), animated: true, completion: nil)
     }
     
-    func showPayment(parent: UIViewController) {
-        guard let paymentController = UIStoryboard.init(name: paymentStoryboard, bundle: nil).instantiateInitialViewController() else { return }
-        parent.navigationController?.pushViewController(paymentController, animated: true)
+    func showMyPayments(parent: UIViewController) {
+        let paymentsController = PaymentsController()
+        parent.navigationController?.pushViewController(paymentsController, animated: true)
+    }
+    
+    func showOrder(parent: UIViewController) {
+        guard let orderController = UIStoryboard.init(name: orderStoryboard, bundle: nil).instantiateInitialViewController() else { return }
+        parent.navigationController?.pushViewController(orderController, animated: true)
     }
     
     func dismiss(viewController: UIViewController) {

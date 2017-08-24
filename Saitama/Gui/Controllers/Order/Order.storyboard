@@ -13,7 +13,7 @@
         <!--Payment-->
         <scene sceneID="nik-b5-E9P">
             <objects>
-                <tableViewController title="Payment" id="h2M-Tr-7TK" customClass="PaymentController" customModule="Saitama" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Payment" id="h2M-Tr-7TK" customClass="OrderController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="nmR-G4-hHN">
                         <rect key="frame" x="0.0" y="0.0" width="500" height="900"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
