@@ -8,11 +8,11 @@
 
 import Foundation
 
-private let UPDATEDAT = "id"
-private let CREATEDAT = "name"
-private let CREDITCARD = "surname"
-private let EMAIL = "cardNumber"
-private let PLACEID = "expiration"
+private let UPDATEDAT = "updatedAt"
+private let CREATEDAT = "createdAt"
+private let CREDITCARD = "creditCard"
+private let CARDNUMBER = "email"
+private let PLACEID = "placeId"
 
 struct Payment {
     let updatedAt: String?
@@ -27,18 +27,18 @@ extension Payment {
         self.updatedAt = dictionary[UPDATEDAT] as? String
         self.createdAt = dictionary[CREATEDAT] as? String
         self.creditCard = dictionary[CREDITCARD] as? Card
-        self.email = dictionary[EMAIL] as? String
+        self.email = dictionary[CARDNUMBER] as? String
         self.placeId = dictionary[PLACEID] as? String
     }
 }
 
 extension Payment {
     
-    static func all(user: User) -> Resource<[Payment]> {
+    static func all(user: User) -> Resource<Payment> {
         let url = URL(string: "http://www.mocky.io/v2/599ed8232c00004e0051d3cb")!
-        return Resource(url: url, parseJSON: { (json) -> [Payment]? in
-            guard let dictionaries = json as? [JSONDictionary] else { return nil }
-            return dictionaries.flatMap{Payment(dictionary: $0)}
+        return Resource(url: url, parseJSON: { (json) -> Payment? in
+            guard let dictionary = json as? JSONDictionary else { return nil }
+            return Payment(dictionary: dictionary)
         })
     }
     
