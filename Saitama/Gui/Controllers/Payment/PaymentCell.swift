@@ -13,8 +13,6 @@ class PaymentCell : UITableViewCell {
     var payment: Payment? {
         didSet {
             guard let payment = payment else { return }
-            
-            //imageView.image = UIImage(named: "bike")
             textView.attributedText = self.attributedText(payment: payment)
         }
     }
