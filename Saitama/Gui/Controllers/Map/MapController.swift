@@ -25,7 +25,7 @@ class MapController: BaseController {
     
     // myorders
     lazy var myOrdersButtonItem : UIBarButtonItem = {
-        let button = UIBarButtonItem(title: NSLocalizedString("My Orders", comment: "My Orders"), style: .plain, target: self, action: #selector(self.handlePayment))
+        let button = UIBarButtonItem(title: NSLocalizedString("MyOrders", comment: "MyOrders"), style: .plain, target: self, action: #selector(self.handlePayment))
         return button
     }()
     
