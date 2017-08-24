@@ -27,7 +27,6 @@
 		8DDDA8001F4E241B0098CB6E /* Payment.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8DDDA7FF1F4E241B0098CB6E /* Payment.storyboard */; };
 		8DDDA8021F4E25050098CB6E /* UIKit+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDA8011F4E25050098CB6E /* UIKit+Ext.swift */; };
 		8DDDA8041F4E25180098CB6E /* Keychain+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDA8031F4E25180098CB6E /* Keychain+Ext.swift */; };
-		8DDDA8061F4E257D0098CB6E /* ForgotController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDA8051F4E257D0098CB6E /* ForgotController.swift */; };
 		8DDDA8081F4E259F0098CB6E /* RegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDA8071F4E259F0098CB6E /* RegisterController.swift */; };
 		9FD26773CE439A8FEE05E636 /* Pods_SaitamaUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 629413920AD086BCABBA8611 /* Pods_SaitamaUITests.framework */; };
 		A03B00CEA08FB21E368237AA /* Pods_SaitamaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A1A6B017C275FCA30282097 /* Pods_SaitamaTests.framework */; };
@@ -83,7 +82,6 @@
 		8DDDA7FF1F4E241B0098CB6E /* Payment.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Payment.storyboard; path = Gui/Controllers/Payment/Payment.storyboard; sourceTree = "<group>"; };
 		8DDDA8011F4E25050098CB6E /* UIKit+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIKit+Ext.swift"; path = "Gui/Extensions/UIKit+Ext.swift"; sourceTree = "<group>"; };
 		8DDDA8031F4E25180098CB6E /* Keychain+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Keychain+Ext.swift"; path = "Gui/Extensions/Keychain+Ext.swift"; sourceTree = "<group>"; };
-		8DDDA8051F4E257D0098CB6E /* ForgotController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ForgotController.swift; path = Gui/Controllers/Login/ForgotController.swift; sourceTree = "<group>"; };
 		8DDDA8071F4E259F0098CB6E /* RegisterController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RegisterController.swift; path = Gui/Controllers/Login/RegisterController.swift; sourceTree = "<group>"; };
 		9A1A6B017C275FCA30282097 /* Pods_SaitamaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SaitamaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAC158550E81DA31C5A7DD41 /* Pods_Saitama.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Saitama.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -282,7 +280,6 @@
 			isa = PBXGroup;
 			children = (
 				8DDDA7F91F4E23D90098CB6E /* LoginController.swift */,
-				8DDDA8051F4E257D0098CB6E /* ForgotController.swift */,
 				8DDDA8071F4E259F0098CB6E /* RegisterController.swift */,
 			);
 			name = Login;
@@ -604,7 +601,6 @@
 				8DDDA7EA1F4E230C0098CB6E /* User.swift in Sources */,
 				8DDDA8021F4E25050098CB6E /* UIKit+Ext.swift in Sources */,
 				8DDDA7FE1F4E240B0098CB6E /* PaymentController.swift in Sources */,
-				8DDDA8061F4E257D0098CB6E /* ForgotController.swift in Sources */,
 				8DDDA7E11F4E22830098CB6E /* NavigationManager.swift in Sources */,
 				8DDDA8081F4E259F0098CB6E /* RegisterController.swift in Sources */,
 				8DDDA8041F4E25180098CB6E /* Keychain+Ext.swift in Sources */,

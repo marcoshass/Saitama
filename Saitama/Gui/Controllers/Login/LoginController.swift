@@ -15,18 +15,22 @@ class LoginController: BaseController, UITextFieldDelegate {
     let keychain = Keychain(service: Constants.Keychain.service)
     
     var didTapLogin: (Bool) -> () = {_ in }
-    var didTapForgot: () -> () = {}
     var didTapCreate: () -> () = {}
     
     // topconstraint
     var topViewConstraint: NSLayoutConstraint?
-    let topHeightNormal: CGFloat = 180
-    let topHeightKeyboard: CGFloat = 63
+    let topHeightNormal: CGFloat = 200
+    let topHeightRetracted: CGFloat = 20
     
     // bottomconstraint
     var buttonConstraint: NSLayoutConstraint?
     let bottomHeightNormal: CGFloat = -16
-    let bottomHeightKeyboard: CGFloat = -232
+    let bottomHeightExpanded: CGFloat = -232
+    
+    // imageDimensions
+    let imageSize: CGFloat = 54
+    var imageHeightConstraint: NSLayoutConstraint?
+    var imageWidthConstraint: NSLayoutConstraint?
     
     // topview
     lazy var topLogoView: UIView = {
@@ -35,6 +39,17 @@ class LoginController: BaseController, UITextFieldDelegate {
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBackgroundTap)))
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
+    }()
+    
+    // logo
+    let imageView: UIImageView = {
+        let iv = UIImageView()
+        iv.image = UIImage(named: "bike")
+        iv.layer.cornerRadius = 5.0
+        iv.contentMode = .scaleAspectFill
+        iv.clipsToBounds = true
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        return iv
     }()
     
     // container
@@ -113,21 +128,8 @@ class LoginController: BaseController, UITextFieldDelegate {
         return activity
     }()
     
-    // forgotlabel
-    lazy var forgotPasswordLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightSemibold)
-        label.text = NSLocalizedString("Forgot password?", comment: "Forgot password?")
-        label.textColor = Constants.Color.darkBlue
-        label.textAlignment = .center
-        label.isUserInteractionEnabled = true
-        label.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleForgot)))
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    // divider2
-    lazy var createDividerView: UIView = {
+    // orlineView
+    lazy var orLineView: UIView = {
         let view = UIView()
         view.layer.borderWidth = 0.5
         view.layer.borderColor = UIColor.blue.cgColor
@@ -136,8 +138,8 @@ class LoginController: BaseController, UITextFieldDelegate {
         return view
     }()
     
-    // createlabel
-    lazy var createAccountLabel: UILabel = {
+    // orlabel
+    lazy var orLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .white
         label.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightMedium)
@@ -148,7 +150,7 @@ class LoginController: BaseController, UITextFieldDelegate {
     }()
     
     // createbutton
-    lazy var createAccountButton: UIButton = {
+    lazy var createButton: UIButton = {
         let button = UIButton(type: .system)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightSemibold)
         button.layer.cornerRadius = 3
@@ -201,11 +203,16 @@ class LoginController: BaseController, UITextFieldDelegate {
     
     // Avoid login button being covered by keyboard
     func keyboardWillShow(notification: Notification) {
-        topViewConstraint?.constant = topHeightKeyboard
-        buttonConstraint?.constant = bottomHeightKeyboard
+        topViewConstraint?.constant = topHeightRetracted
+        buttonConstraint?.constant = bottomHeightExpanded
         
-        createDividerView.isHidden = true
-        createAccountLabel.isHidden = true
+        // hides OR components
+        orLineView.isHidden = true
+        orLabel.isHidden = true
+        
+        // decrease logo size
+        imageHeightConstraint?.constant = 0
+        imageWidthConstraint?.constant = 0
         
         UIView.animate(withDuration: 0.5) {
             self.view.layoutIfNeeded()
@@ -216,15 +223,19 @@ class LoginController: BaseController, UITextFieldDelegate {
     func keyboardWillHide(notification: Notification) {
         topViewConstraint?.constant = topHeightNormal
         buttonConstraint?.constant = bottomHeightNormal
+
+        // restore OR components
+        orLineView.isHidden = false
+        orLabel.isHidden = false
         
-        self.createDividerView.isHidden = false
-        self.createAccountLabel.isHidden = false
+        // restore logo size
+        imageHeightConstraint?.constant = imageSize
+        imageWidthConstraint?.constant = imageSize
+
         
-        UIView.animate(withDuration: 0.5, animations: {
-            self.view.layoutIfNeeded()
-        }) { (completion) in
-            self.createDividerView.isHidden = false
-            self.createAccountLabel.isHidden = false
+        UIView.animate(withDuration: 0.5, animations: { self.view.layoutIfNeeded() }) { (completion) in
+            self.orLineView.isHidden = false
+            self.orLabel.isHidden = false
         }
     }
     
@@ -234,31 +245,35 @@ class LoginController: BaseController, UITextFieldDelegate {
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBackgroundTap)))
         
         view.addSubview(topLogoView)
+        view.addSubview(imageView)
         view.addSubview(containerView)
         view.addSubview(loginButton)
         view.addSubview(loginIndicator)
-        view.addSubview(forgotPasswordLabel)
         
-        view.addSubview(createDividerView)
-        view.addSubview(createAccountLabel)
-        view.addSubview(createAccountButton)
+        view.addSubview(orLineView)
+        view.addSubview(orLabel)
+        view.addSubview(createButton)
         
         setupContainerView()
     }
     
     func setupContainerView() {
-        // topview + saved constraint
+// top half
         topLogoView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         topLogoView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         topLogoView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        topViewConstraint = topLogoView.heightAnchor.constraint(equalToConstant: topHeightNormal)
-        topViewConstraint?.isActive = true
+        topViewConstraint = topLogoView.heightAnchor.constraint(equalToConstant: topHeightNormal); topViewConstraint?.isActive = true
+        
+        imageView.centerXAnchor.constraint(equalTo: topLogoView.centerXAnchor).isActive = true
+        imageView.centerYAnchor.constraint(equalTo: topLogoView.centerYAnchor).isActive = true
+        imageHeightConstraint = imageView.heightAnchor.constraint(equalToConstant: imageSize); imageHeightConstraint?.isActive = true
+        imageWidthConstraint = imageView.widthAnchor.constraint(equalToConstant: imageSize); imageWidthConstraint?.isActive = true
         
         containerView.addSubview(emailTextField)
         containerView.addSubview(containerDividerView)
         containerView.addSubview(passwordTextField)
         
-        containerView.topAnchor.constraint(equalTo: topLogoView.bottomAnchor, constant: 32).isActive = true
+        containerView.topAnchor.constraint(equalTo: topLogoView.bottomAnchor, constant: 12).isActive = true
         containerView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16).isActive = true
         containerView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16).isActive = true
         containerView.heightAnchor.constraint(equalToConstant: 85).isActive = true
@@ -285,27 +300,25 @@ class LoginController: BaseController, UITextFieldDelegate {
         
         loginIndicator.centerYAnchor.constraint(equalTo: loginButton.centerYAnchor).isActive = true
         loginIndicator.rightAnchor.constraint(equalTo: loginButton.rightAnchor, constant: -16).isActive = true
+        loginIndicator.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        loginIndicator.widthAnchor.constraint(equalToConstant: 20).isActive = true
+
+// bottom half
+        buttonConstraint = createButton.bottomAnchor.constraint(equalTo: self.bottomLayoutGuide.topAnchor, constant: bottomHeightNormal); buttonConstraint?.isActive = true
+        createButton.heightAnchor.constraint(equalToConstant: 36).isActive = true
+        createButton.leftAnchor.constraint(equalTo: loginButton.leftAnchor).isActive = true
+        createButton.rightAnchor.constraint(equalTo: loginButton.rightAnchor).isActive = true
+
+        orLineView.bottomAnchor.constraint(equalTo: createButton.topAnchor, constant: -27).isActive = true
+        orLineView.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        orLineView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 43).isActive = true
+        orLineView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -43).isActive = true
+
+        // OR
+        orLabel.centerYAnchor.constraint(equalTo: orLineView.centerYAnchor, constant: 0).isActive = true
+        orLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        orLabel.widthAnchor.constraint(equalToConstant: 30).isActive = true
         
-        forgotPasswordLabel.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 20).isActive = true
-        forgotPasswordLabel.leftAnchor.constraint(equalTo: loginButton.leftAnchor).isActive = true
-        forgotPasswordLabel.rightAnchor.constraint(equalTo: loginButton.rightAnchor).isActive = true
-        
-        createDividerView.heightAnchor.constraint(equalToConstant: 1).isActive = true
-        createDividerView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 43).isActive = true
-        createDividerView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -43).isActive = true
-        createDividerView.bottomAnchor.constraint(equalTo: createAccountButton.topAnchor, constant: -27).isActive = true
-        
-        createAccountLabel.centerYAnchor.constraint(equalTo: createDividerView.centerYAnchor, constant: 0).isActive = true
-        createAccountLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        createAccountLabel.widthAnchor.constraint(equalToConstant: 30).isActive = true
-        
-        createAccountButton.heightAnchor.constraint(equalToConstant: 36).isActive = true
-        createAccountButton.leftAnchor.constraint(equalTo: loginButton.leftAnchor).isActive = true
-        createAccountButton.rightAnchor.constraint(equalTo: loginButton.rightAnchor).isActive = true
-        
-        // save bottom constraint for modification
-        buttonConstraint = createAccountButton.bottomAnchor.constraint(equalTo: self.bottomLayoutGuide.topAnchor, constant: bottomHeightNormal)
-        buttonConstraint?.isActive = true
     }
     
     // MARK: - MainLogic
@@ -314,8 +327,7 @@ class LoginController: BaseController, UITextFieldDelegate {
         emailTextField.isEnabled = !emailTextField.isEnabled
         passwordTextField.isEnabled = !passwordTextField.isEnabled
         loginButton.isEnabled = !loginButton.isEnabled
-        forgotPasswordLabel.isUserInteractionEnabled = !forgotPasswordLabel.isUserInteractionEnabled
-        createAccountButton.isEnabled = !createAccountButton.isEnabled
+        createButton.isEnabled = !createButton.isEnabled
     }
     
     func toggleStart() {
@@ -375,11 +387,7 @@ class LoginController: BaseController, UITextFieldDelegate {
     func handleLogin(_ sender: Any) {
         processLogin()
     }
-    
-    func handleForgot(_ sender: UITapGestureRecognizer) {
-        didTapForgot()
-    }
-    
+
     func handleCreateAccount(_ sender: Any) {
         didTapCreate()
     }

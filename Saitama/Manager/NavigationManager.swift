@@ -17,7 +17,6 @@ class NavigationManager {
         self.window = window
         let loginController = LoginController()
         loginController.didTapLogin = { (animate) in self.showMap(parent: loginController, animated: animate) }
-        loginController.didTapForgot = { self.showForgot(parent: loginController) }
         loginController.didTapCreate = { self.showRegister(parent: loginController) }
         
         window.rootViewController = loginController
@@ -29,12 +28,6 @@ class NavigationManager {
         mapController.didTapPayment = { self.showPayment(parent: mapController) }
         
         parent.present(UINavigationController(rootViewController: mapController), animated: animated, completion: nil)
-    }
-    
-    func showForgot(parent: UIViewController) {
-        let forgotController = ForgotController()
-        forgotController.didTapClose = { self.dismiss(viewController: forgotController) }
-        parent.present(UINavigationController(rootViewController:forgotController), animated: true, completion: nil)
     }
     
     func showRegister(parent: UIViewController) {
