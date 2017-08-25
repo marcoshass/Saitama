@@ -25,7 +25,7 @@ class NavigationManager {
     func showMap(parent: UIViewController, animated: Bool) {
         let mapController = MapController()
         mapController.didTapLogout = { self.dismiss(viewController: mapController) }
-        mapController.didTapMyOrders = { self.showPayments(parent: mapController) }
+        mapController.didTapHistory = { self.showHistory(parent: mapController) }
         mapController.didTapRent = { (place) in self.showOrder(parent: mapController, place: place) }
         parent.present(UINavigationController(rootViewController: mapController), animated: animated, completion: nil)
     }
@@ -38,7 +38,7 @@ class NavigationManager {
         parent.present(UINavigationController(rootViewController:registerController), animated: true, completion: nil)
     }
     
-    func showPayments(parent: UIViewController) {
+    func showHistory(parent: UIViewController) {
         let paymentsController = PaymentsController()
         parent.navigationController?.pushViewController(paymentsController, animated: true)
     }

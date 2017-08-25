@@ -15,7 +15,7 @@ class MapController: BaseController, MKMapViewDelegate {
     // MARK: - Properties
 
     var didTapLogout: () -> () = {}
-    var didTapMyOrders: () -> () = {}
+    var didTapHistory: () -> () = {}
     var didTapRent: (Place) -> () = {_ in}
     var selected: Place?
     
@@ -150,7 +150,7 @@ class MapController: BaseController, MKMapViewDelegate {
     }
     
     func handleHistory(_ sender: Any) {
-        didTapMyOrders()
+        didTapHistory()
     }
     
     func handleRent(_ sender: Any) {
