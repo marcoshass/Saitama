@@ -10,13 +10,6 @@ import UIKit
 
 class PaymentCell : UITableViewCell {
     
-    var payment: Payment? {
-        didSet {
-            guard let payment = payment else { return }
-            textView.attributedText = self.attributedText(payment: payment)
-        }
-    }
-    
     let cardImageView: UIImageView = {
         let iv = UIImageView(image: UIImage(named: "card"))
         iv.layer.cornerRadius = 5.0
@@ -35,8 +28,18 @@ class PaymentCell : UITableViewCell {
         tv.translatesAutoresizingMaskIntoConstraints = false
         return tv
     }()
-
-    func attributedText(payment: Payment) -> NSAttributedString {
+    
+    /**
+     Set the content of the cell, placename was sent as a
+     different parameter to not modify the Place struct
+     and keep the model layer consistent
+     */
+    func setPayment(payment: Payment?, placeName: String?) {
+        guard let payment = payment else { return }
+        textView.attributedText = self.attributedText(payment: payment, placeName: placeName ?? NSLocalizedString("no place found", comment: ""))
+    }
+    
+    func attributedText(payment: Payment, placeName: String) -> NSAttributedString {
         let text = NSMutableAttributedString()
         let emptyStr = NSLocalizedString("empty", comment: "empty")
         
@@ -83,7 +86,7 @@ class PaymentCell : UITableViewCell {
         var placeAttr = [String: Any]()
         placeAttr[NSFontAttributeName] = UIFont.systemFont(ofSize: 14, weight: UIFontWeightRegular)
         placeAttr[NSForegroundColorAttributeName] = Constants.Color.darkBlue
-        text.append(NSAttributedString(string: "REVIEW...REVIEW...REVIEW...REVIEW", attributes: placeAttr))
+        text.append(NSAttributedString(string: placeName, attributes: placeAttr))
         
         return text
     }

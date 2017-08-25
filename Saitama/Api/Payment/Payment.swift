@@ -8,7 +8,6 @@
 
 import Foundation
 
-private let PAYMENTS = "payments"
 private let UPDATEDAT = "updatedAt"
 private let CREATEDAT = "createdAt"
 private let CREDITCARD = "creditCard"
@@ -31,18 +30,5 @@ extension Payment {
         self.email = dictionary[CARDNUMBER] as? String
         self.placeId = dictionary[PLACEID] as? String
     }
-}
-
-extension Payment {
-    
-    static func all(user: User) -> Resource<[Payment]> {
-        let url = URL(string: "http://www.mocky.io/v2/599ed8232c00004e0051d3cb")!
-        return Resource(url: url, parseJSON: { (json) -> [Payment]? in
-            guard let dictionaries = json as? JSONDictionary else { return nil }
-            guard let payments = dictionaries[PAYMENTS] as? [JSONDictionary] else { return nil }
-            return payments.flatMap{Payment(dictionary: $0)}
-        })
-    }
-    
 }
 

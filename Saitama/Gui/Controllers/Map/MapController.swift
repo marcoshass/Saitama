@@ -10,14 +10,19 @@ import UIKit
 import KeychainAccess
 import MapKit
 
+typealias PlaceDictionary = [String: String]
+
 class MapController: BaseController, MKMapViewDelegate {
     
     // MARK: - Properties
 
     var didTapLogout: () -> () = {}
-    var didTapHistory: () -> () = {}
+    var didTapHistory: (PlaceDictionary) -> () = {_ in}
     var didTapRent: (Place) -> () = {_ in}
     var selected: Place?
+
+    // Dictionary to payments history
+    var placeNames = PlaceDictionary()
     
 // mapstart(saitama)
     let startLatitude: CLLocationDegrees = 35.7090259
@@ -105,10 +110,6 @@ class MapController: BaseController, MKMapViewDelegate {
     }
     
     func reloadData() {
-        // clear all annotations
-        let allAnnotations = mapView.annotations
-        self.mapView.removeAnnotations(allAnnotations)
-        
         WebService().load(Place.all(), completion: { (data, error) in
             DispatchQueue.main.async {
                 if let error = error {
@@ -125,10 +126,22 @@ class MapController: BaseController, MKMapViewDelegate {
         })
     }
     
+    /**
+     Iterate over the places and place the annotations
+     over the map. At the same time a dictionary with the
+     place id and name will be fed to be sent to the payments
+     history screen.
+     */
     func addPlaces(_ places: [Place]) {
+        // clear the map and dicionary
+        let allAnnotations = mapView.annotations
+        mapView.removeAnnotations(allAnnotations)
+        placeNames.removeAll()
+        
         for place in places {
-            guard let name = place.name, let lat = place.location?.lat, let lng = place.location?.lng else { continue }
-            self.mapView.addAnnotation(BikePlace(title: name, coordinate: CLLocationCoordinate2D(latitude: lat, longitude: lng), place: place))
+            guard let id = place.id, let name = place.name, let lat = place.location?.lat, let lng = place.location?.lng else { continue }
+            mapView.addAnnotation(BikePlace(title: name, coordinate: CLLocationCoordinate2D(latitude: lat, longitude: lng), place: place))
+            placeNames[id] = name
         }
     }
     
@@ -151,7 +164,7 @@ class MapController: BaseController, MKMapViewDelegate {
     }
     
     func handleHistory(_ sender: Any) {
-        didTapHistory()
+        didTapHistory(placeNames)
     }
     
     func handleRent(_ sender: Any) {

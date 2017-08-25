@@ -8,6 +8,7 @@
 
 import Foundation
 
+private let PAYMENTS = "payments"
 private let ID = "id"
 private let EMAIL = "email"
 private let PASSWORD = "password"
@@ -64,4 +65,17 @@ extension User {
             return User(dictionary: dictionary)
         })
     }
+
+    /**
+     Retrieves all payments placed by the user.
+     */
+    func all() -> Resource<[Payment]> {
+        let url = URL(string: "http://www.mocky.io/v2/599ed8232c00004e0051d3cb")!
+        return Resource(url: url, parseJSON: { (json) -> [Payment]? in
+            guard let dictionaries = json as? JSONDictionary else { return nil }
+            guard let payments = dictionaries[PAYMENTS] as? [JSONDictionary] else { return nil }
+            return payments.flatMap{Payment(dictionary: $0)}
+        })
+    }
+    
 }

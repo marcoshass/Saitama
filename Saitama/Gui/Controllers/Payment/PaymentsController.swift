@@ -9,11 +9,17 @@
 import UIKit
 
 class PaymentsController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
+
+// localization
     let cellId = "cellId"
     let myTitle = NSLocalizedString("History", comment: "")
     let loadingTitle = NSLocalizedString("Loading...", comment: "")
+
     var payments = [Payment]()
+
+    // User and places must be sent to show the payments history
+    let user: User
+    let places: PlaceDictionary
 
 // tableview
     lazy var tableView: UITableView = {
@@ -30,6 +36,16 @@ class PaymentsController: UIViewController, UITableViewDataSource, UITableViewDe
         tv.estimatedRowHeight = 44
         return tv
     }()
+    
+    init(user: User, places: PlaceDictionary) {
+        self.user = user
+        self.places = places
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,18 +58,16 @@ class PaymentsController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func reload() {
-        let user = User(id: 1, email: "marcoshass@gmail.com", password: "123", token: "123")
-
         self.title = loadingTitle
-        WebService().load(Payment.all(user: user), completion: { (data, error) in
+        WebService().load(self.user.all()) { (data, error) in
             DispatchQueue.main.async {
                 self.title = self.myTitle
-                
+
                 if let error = error {
                     self.show(message: error.message())
                     return
                 }
-                
+
                 guard let data = data else {
                     return
                 }
@@ -61,7 +75,7 @@ class PaymentsController: UIViewController, UITableViewDataSource, UITableViewDe
                 self.payments = data
                 self.tableView.reloadData()
             }
-        })
+        }
     }
     
     func setupViews() {
@@ -79,9 +93,11 @@ class PaymentsController: UIViewController, UITableViewDataSource, UITableViewDe
         return payments.count
     }
 
+    // Set the payment data on the cell and the place name
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! PaymentCell
-        cell.payment = payments[indexPath.item]
+        let payment = payments[indexPath.item]
+        cell.setPayment(payment: payment, placeName: places[payment.placeId ?? ""])
         return cell
     }
     
