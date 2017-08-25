@@ -16,8 +16,8 @@ private let NAME = "name"
 private let LOCATION = "location"
 
 struct Place {
-    let updatedAt: String?
-    let createdAt: String?
+    var updatedAt: Date?
+    var createdAt: Date?
     let id: String?
     let name: String?
     var location: Location?
@@ -25,13 +25,11 @@ struct Place {
 
 extension Place {
     init?(dictionary: JSONDictionary) {
-        self.updatedAt = dictionary[UPDATEDAT] as? String
-        self.createdAt = dictionary[CREATEDAT] as? String
+        if let updatedAt = dictionary[UPDATEDAT] as? String { self.updatedAt = Format.utc.date(from: updatedAt) }
+        if let createdAt = dictionary[CREATEDAT] as? String { self.createdAt = Format.utc.date(from: createdAt) }
         self.id = dictionary[ID] as? String
         self.name = dictionary[NAME] as? String
-        if let dict = dictionary[LOCATION] as? JSONDictionary {
-            self.location = Location(dictionary: dict)
-        }
+        if let dict = dictionary[LOCATION] as? JSONDictionary { self.location = Location(dictionary: dict) }
     }
 }
 

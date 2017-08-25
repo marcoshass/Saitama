@@ -301,6 +301,12 @@ WebService().load(Payment.all(user: user), completion: { (data, error) in
 //  "placeId": "45c0b5209973fcec652817e16e20f1d0b4ecb602"
 //}]
 
+let format: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+    return formatter
+}()
 
+let value = format.date(from: "2016-12-23T19:32:59.144Z")
 
 

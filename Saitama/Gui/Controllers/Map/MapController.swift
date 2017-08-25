@@ -105,6 +105,7 @@ class MapController: BaseController, MKMapViewDelegate {
     }
     
     func reloadData() {
+        // clear all annotations
         let allAnnotations = mapView.annotations
         self.mapView.removeAnnotations(allAnnotations)
         

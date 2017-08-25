@@ -14,7 +14,7 @@ class LoginController: BaseController, UITextFieldDelegate {
     // MARK: - Properties
     let keychain = Keychain(service: Constants.Keychain.service)
     
-    var didTapLogin: (Bool) -> () = {_ in }
+    var didTapLogin: (Bool, User) -> () = {_ in }
     var didTapCreate: () -> () = {}
     
     // topconstraint
@@ -171,11 +171,26 @@ class LoginController: BaseController, UITextFieldDelegate {
         registerForKeyboardNotifications()
     }
     
+    /**
+     Check if there is a user on the keychain, if the keychain
+     is not empty a user is built and forwarded to the navigation 
+     manager.
+     */
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if isLoggedIn() {
-            self.didTapLogin(false)
+        
+        guard let user = getLastUser() else { return }
+        self.didTapLogin(false, user)
+    }
+
+    func getLastUser() -> User? {
+        guard let dict = keychain.first(),
+            let email = dict["key"] as? String,
+            let token = dict["value"] as? String else {
+                return nil
         }
+
+        return User(email: email, token: token)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -351,29 +366,19 @@ class LoginController: BaseController, UITextFieldDelegate {
                     return
                 }
                 
-                guard let user = user else {
-                    self.show(message: NSLocalizedString("Error getting user data", comment: ""))
-                    return
-                }
-                
-                // check token
-                guard let token = user.token else {
-                    self.show(message: NSLocalizedString("Invalid token", comment: ""))
+                guard let user = user, let token = user.token else {
+                    self.show(message: NSLocalizedString("User or token not received", comment: ""))
                     return
                 }
                 
                 // write token to keychain
-                if self.keychain.persist(token: token, email: email) {
-                    self.didTapLogin(true)
+                if self.keychain.write(token: token, email: email) {
+                    self.didTapLogin(true, User(email: email, token: token))
                 } else {
-                    self.show(message: NSLocalizedString("Error persisting token", comment: ""))
+                    self.show(message: NSLocalizedString("Error writing token", comment: ""))
                 }
             }
         })
-    }
-    
-    func isLoggedIn() -> Bool {
-        return !keychain.isEmpty()
     }
     
     // MARK: - Handlers

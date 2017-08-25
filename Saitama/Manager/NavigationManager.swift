@@ -10,13 +10,26 @@ import UIKit
 
 class NavigationManager {
     
-    let window: UIWindow
     let orderStoryboard = "Order"
+    
+    let window: UIWindow
+    
+    var user: User? {
+        didSet {
+            guard let email = user?.email, let token = user?.token else { return }
+            print("found in keychain: user=\(email) token(5 digits)=\(String(token.characters.prefix(5)))")
+        }
+    }
     
     init(window: UIWindow) {
         self.window = window
+        
         let loginController = LoginController()
-        loginController.didTapLogin = { (animate) in self.showMap(parent: loginController, animated: animate) }
+        loginController.didTapLogin = { (animate, user) in
+            self.showMap(parent: loginController, animated: animate)
+            self.user = user
+        }
+        
         loginController.didTapCreate = { self.showRegister(parent: loginController) }
         
         window.rootViewController = loginController

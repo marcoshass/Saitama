@@ -15,10 +15,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var navigation: NavigationManager?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        setupTheme()
         window = UIWindow(frame: UIScreen.main.bounds)
         navigation = NavigationManager(window: window!)
-
-        setupTheme()
         window?.makeKeyAndVisible()
         return true
     }

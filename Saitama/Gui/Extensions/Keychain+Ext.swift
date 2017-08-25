@@ -10,17 +10,13 @@ import KeychainAccess
 
 extension Keychain {
     
-    func isEmpty() -> Bool {
-        let keys = self.allKeys()
-        for key in keys {
-            print("key=\(key) found on keychain")
-        }
-        
-        if keys.isEmpty {
-            print("keychain empty")
-        }
-        
-        return keys.isEmpty
+    typealias KeyDictionary = [String: Any]
+    
+    /** 
+     Check the first item present into the keychain.
+     */
+    func first() -> KeyDictionary? {
+        return self.allItems().first
     }
     
     func clear() -> Bool {
@@ -37,15 +33,15 @@ extension Keychain {
         return true
     }
     
-    func persist(token: String, email: String) -> Bool {
+    /**
+     Write the token value to keychain under the email key.
+     */
+    func write(token: String, email: String) -> Bool {
         do {
             try self.set(token, key: email)
-            print("token=\(token) for=\(email) written")
         } catch {
-            print("error persisting token=\(token) for=\(email)")
             return false
         }
-        
         return true
     }
     

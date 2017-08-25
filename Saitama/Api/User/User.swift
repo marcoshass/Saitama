@@ -34,6 +34,13 @@ extension User {
         self.password = password
         self.token = nil
     }
+    
+    init(email: String?, token: String) {
+        self.id = nil
+        self.email = email
+        self.password = nil
+        self.token = token
+    }
 }
 
 extension User {

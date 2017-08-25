@@ -34,3 +34,13 @@ struct Constants {
     }
     
 }
+
+struct Format {
+    
+    static let utc: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        return formatter
+    }()
+    
+}
