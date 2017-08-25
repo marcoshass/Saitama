@@ -35,6 +35,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
         UINavigationBar.appearance().shadowImage = UIImage()
         
+        // uitoolbar
+        UIToolbar.appearance().backgroundColor = .white
+        
         // uibarbuttonitem
         UIBarButtonItem.appearance().setTitleTextAttributes(Constants.UIBarButtonItem.enableTextAttributes, for: .normal)
         UIBarButtonItem.appearance().setTitleTextAttributes(Constants.UIBarButtonItem.disableTextAttributes, for: .disabled)

@@ -32,9 +32,17 @@ class MapController: BaseController, MKMapViewDelegate {
         return button
     }()
     
-// history
+// historybutton
     lazy var historyButtonItem : UIBarButtonItem = {
-        let button = UIBarButtonItem(title: NSLocalizedString("History", comment: ""), style: .plain, target: self, action: #selector(self.handlePayment))
+        let button = UIBarButtonItem(title: NSLocalizedString("History", comment: ""), style: .plain, target: self, action: #selector(self.handleHistory))
+        return button
+    }()
+    
+// rentbutton
+    lazy var rentButtonItem : UIBarButtonItem = {
+        let button = UIBarButtonItem(title: NSLocalizedString("Rent ", comment: ""), style: .plain, target: self, action: #selector(self.handleRent))
+        // set different color, otherwise it will be invisible (theme is default white)
+        button.setTitleTextAttributes(Constants.ToolbarButtonItem.enableTextAttributes, for: .normal)
         return button
     }()
     
@@ -48,9 +56,11 @@ class MapController: BaseController, MKMapViewDelegate {
     
     override func setupViews() {
         super.setupViews()
+        view.backgroundColor = .white
+        
         self.title = NSLocalizedString("BikeMap", comment: "")
         setupNavigationBar()
-        view.backgroundColor = .white
+        setupToolbar()
         
         view.addSubview(mapView)
         
@@ -66,6 +76,26 @@ class MapController: BaseController, MKMapViewDelegate {
     func setupNavigationBar() {
         self.navigationItem.leftBarButtonItem = logoutButtonItem
         self.navigationItem.rightBarButtonItem = historyButtonItem
+    }
+    
+    func setupToolbar() {
+//        UIBarButtonItem *leftButton = [[[UIBarButtonItem alloc] initWithTitle:@"Item" style:UIBarButtonItemStyleBordered target:self action:@selector(btnItem1Pressed:)] autorelease];
+//        
+//        UIBarButtonItem *flex = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil] autorelease];
+//        
+//        UIBarButtonItem *rightButton = [[[UIBarButtonItem alloc] initWithTitle:@"Item" style:UIBarButtonItemStyleBordered target:self action:@selector(btnItem2Pressed:)] autorelease];
+        let flex = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        self.setToolbarItems([flex, flex, self.rentButtonItem], animated: false)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setToolbarHidden(false, animated: false)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.setToolbarHidden(true, animated: false)
     }
 
     // MARK: - MapKit
@@ -123,7 +153,11 @@ class MapController: BaseController, MKMapViewDelegate {
         })
     }
     
-    func handlePayment(_ sender: Any) {
+    func handleHistory(_ sender: Any) {
+        didTapMyOrders()
+    }
+    
+    func handleRent(_ sender: Any) {
         didTapMyOrders()
     }
     

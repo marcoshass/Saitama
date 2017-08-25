@@ -25,6 +25,10 @@ struct Constants {
         static let disableTextAttributes = [NSForegroundColorAttributeName: Color.disableBlue, NSFontAttributeName: UIFont.systemFont(ofSize: 16, weight: UIFontWeightRegular)]
     }
     
+    struct ToolbarButtonItem {
+        static let enableTextAttributes = [NSForegroundColorAttributeName: Constants.Color.darkBlue, NSFontAttributeName: UIFont.systemFont(ofSize: 16, weight: UIFontWeightRegular)]
+    }
+    
     struct Keychain {
         static let service = "br.com.marcoshass.crossoverapp"
     }
