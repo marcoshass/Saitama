@@ -161,7 +161,7 @@ class MapController: BaseController, MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         guard let bikePlace = view.annotation as? BikePlace, let title = bikePlace.title else { return }
         selected = bikePlace.place
-        let pickStr = NSLocalizedString("Pick at", comment: "")
+        let pickStr = NSLocalizedString("Rent at", comment: "")
         rentButtonItem.title = "\(pickStr): \(title)"
     }
     
