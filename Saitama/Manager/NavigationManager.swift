@@ -17,7 +17,7 @@ class NavigationManager {
     var user: User? {
         didSet {
             guard let email = user?.email, let token = user?.token else { return }
-            print("found in keychain: user=\(email) token(5 digits)=\(String(token.characters.prefix(5)))")
+            print("NavigationManager: user=\(email) token(5 digits)=\(String(token.characters.prefix(5)))")
         }
     }
     

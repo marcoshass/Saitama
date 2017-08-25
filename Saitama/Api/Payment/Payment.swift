@@ -16,8 +16,8 @@ private let CARDNUMBER = "email"
 private let PLACEID = "placeId"
 
 struct Payment {
-    let updatedAt: String?
-    let createdAt: String?
+    var updatedAt: Date?
+    var createdAt: Date?
     var creditCard: Card?
     let email: String?
     let placeId: String?
@@ -25,11 +25,9 @@ struct Payment {
 
 extension Payment {
     init?(dictionary: JSONDictionary) {
-        self.updatedAt = dictionary[UPDATEDAT] as? String
-        self.createdAt = dictionary[CREATEDAT] as? String
-        if let dict = dictionary[CREDITCARD] as? JSONDictionary {
-            self.creditCard = Card(dictionary: dict)
-        }
+        if let updatedAt = dictionary[UPDATEDAT] as? String { self.updatedAt = Format.utc.date(from: updatedAt) }
+        if let createdAt = dictionary[CREATEDAT] as? String { self.createdAt = Format.utc.date(from: createdAt) }
+        if let dict = dictionary[CREDITCARD] as? JSONDictionary { self.creditCard = Card(dictionary: dict) }
         self.email = dictionary[CARDNUMBER] as? String
         self.placeId = dictionary[PLACEID] as? String
     }
