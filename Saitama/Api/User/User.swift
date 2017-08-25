@@ -71,7 +71,7 @@ extension User {
      */
     func all() -> Resource<[Payment]> {
         let url = URL(string: "http://www.mocky.io/v2/599ed8232c00004e0051d3cb")!
-        return Resource(url: url, parseJSON: { (json) -> [Payment]? in
+        return Resource(url: url, headers: [self.token ?? "": AUTHORIZATIONHEADER], parseJSON: { (json) -> [Payment]? in
             guard let dictionaries = json as? JSONDictionary else { return nil }
             guard let payments = dictionaries[PAYMENTS] as? [JSONDictionary] else { return nil }
             return payments.flatMap{Payment(dictionary: $0)}

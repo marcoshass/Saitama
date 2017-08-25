@@ -16,8 +16,8 @@ class NavigationManager {
     // User for view controller that require auth
     var user: User? {
         didSet {
-            guard let email = user?.email, let token = user?.token else { return }
-            print("NavigationManager: user=\(email) token(5 digits)=\(String(token.characters.prefix(5)))")
+            //guard let email = user?.email, let token = user?.token else { return }
+            //print("NavigationManager: user=\(email) token(5 digits)=\(String(token.characters.prefix(5)))")
         }
     }
     

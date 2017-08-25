@@ -32,11 +32,10 @@ enum ServiceError: Error {
     }
 }
 
-// URLRequest.setValue(token, forHTTPHeaderField: "Authorization")
 extension NSMutableURLRequest {
     convenience init<A>(resource: Resource<A>) {
         self.init(url: resource.url)
-        addValue("application/json", forHTTPHeaderField: "Content-Type")
+        _ = resource.headers.map { (k,v) in addValue(k, forHTTPHeaderField: v) }
         httpMethod = resource.method.method
         if case let .post(data) = resource.method {
             httpBody = data

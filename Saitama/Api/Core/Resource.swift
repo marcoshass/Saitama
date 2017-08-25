@@ -8,7 +8,12 @@
 
 import Foundation
 
+let APPPLICATIONJSONHEADER = "application/json"
+let CONTENTTYPEHEADER = "Content-Type"
+let AUTHORIZATIONHEADER = "Authorization"
+
 typealias JSONDictionary = [String: AnyObject]
+typealias HeaderDictionary = [String: String]
 
 enum HttpMethod<Body> {
     case get
@@ -42,15 +47,16 @@ extension HttpMethod {
 struct Resource<T> {
     let url: URL
     let method: HttpMethod<Data>
+    var headers: HeaderDictionary
     let parse: (Data) -> T?
 }
 
 extension Resource {
     
     /** Initializer with url and parseJSON:AnyObject -> T? */
-    init(url: URL, method: HttpMethod<AnyObject> = .get, parseJSON: @escaping (AnyObject) -> T?) {
+    init(url: URL, method: HttpMethod<AnyObject> = .get, headers: HeaderDictionary? = nil, parseJSON: @escaping (AnyObject) -> T?) {
         self.url = url
-        
+
         self.method = method.map{ json in
             try! JSONSerialization.data(withJSONObject: json, options: [])
         }
@@ -59,6 +65,20 @@ extension Resource {
             let json = try? JSONSerialization.jsonObject(with: data, options: []) as AnyObject
             return json.flatMap(parseJSON)
         }
+
+        var result: HeaderDictionary = [APPPLICATIONJSONHEADER: CONTENTTYPEHEADER]
+        if let headers = headers {
+            _ = headers.map { (k,v) in result[k] = v }
+        }
+        self.headers = result
+        print("headers=\(self.headers)")
     }
     
 }
+
+
+
+
+
+
+
