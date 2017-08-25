@@ -11,8 +11,8 @@ import UIKit
 class PaymentsController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     let cellId = "cellId"
-    let myTitle = NSLocalizedString("History", comment: "History")
-    let loadingTitle = NSLocalizedString("Loading...", comment: "Loading...")
+    let myTitle = NSLocalizedString("History", comment: "")
+    let loadingTitle = NSLocalizedString("Loading...", comment: "")
     var payments = [Payment]()
 
 // tableview

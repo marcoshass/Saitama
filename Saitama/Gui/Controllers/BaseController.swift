@@ -16,7 +16,6 @@ class BaseController: UIViewController {
     }
     
     func setupViews() {
-        
     }
     
     func handleBackgroundTap(_ send: UITapGestureRecognizer) {

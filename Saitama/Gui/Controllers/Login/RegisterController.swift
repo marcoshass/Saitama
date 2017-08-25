@@ -38,7 +38,7 @@ class RegisterController: BaseController, UITextFieldDelegate {
     lazy var emailTextField: UITextField = {
         let textField = UITextField()
         textField.font = UIFont.systemFont(ofSize: 16)
-        textField.placeholder = NSLocalizedString("Email", comment: "Email")
+        textField.placeholder = NSLocalizedString("Email", comment: "")
         textField.keyboardType = .emailAddress
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
@@ -63,7 +63,7 @@ class RegisterController: BaseController, UITextFieldDelegate {
     lazy var passwordTextField: UITextField = {
         let textField = UITextField()
         textField.font = UIFont.systemFont(ofSize: 16)
-        textField.placeholder = NSLocalizedString("Password", comment: "Password")
+        textField.placeholder = NSLocalizedString("Password", comment: "")
         textField.isSecureTextEntry = true
         textField.clearButtonMode = .whileEditing
         textField.delegate = self
@@ -87,7 +87,7 @@ class RegisterController: BaseController, UITextFieldDelegate {
     lazy var confirmPasswordTextField: UITextField = {
         let textField = UITextField()
         textField.font = UIFont.systemFont(ofSize: 16)
-        textField.placeholder = NSLocalizedString("Confirm password", comment: "Confirm password")
+        textField.placeholder = NSLocalizedString("Confirm password", comment: "")
         textField.isSecureTextEntry = true
         textField.clearButtonMode = .whileEditing
         textField.delegate = self
@@ -105,7 +105,7 @@ class RegisterController: BaseController, UITextFieldDelegate {
         button.layer.borderWidth = 1
         button.layer.borderColor = Constants.Color.darkBlue.cgColor
         button.backgroundColor = .clear
-        button.setTitle(NSLocalizedString("Register", comment: "Register"), for: .normal)
+        button.setTitle(NSLocalizedString("Register", comment: ""), for: .normal)
         button.setTitleColor(Constants.Color.darkBlue, for: .normal)
         button.addTarget(self, action: #selector(handleRegister), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -125,7 +125,7 @@ class RegisterController: BaseController, UITextFieldDelegate {
     lazy var returnToLoginLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightSemibold)
-        label.text = NSLocalizedString("Already have an account?", comment: "Already have an account?")
+        label.text = NSLocalizedString("Already have an account?", comment: "")
         label.textColor = Constants.Color.darkBlue
         label.textAlignment = .center
         label.isUserInteractionEnabled = true
@@ -142,7 +142,7 @@ class RegisterController: BaseController, UITextFieldDelegate {
     
     override func setupViews() {
         super.setupViews()
-        self.title = NSLocalizedString("Register Account", comment: "Register Account")
+        self.title = NSLocalizedString("Register Account", comment: "")
         setupNavigationBar()
         
         view.backgroundColor = .white
@@ -236,16 +236,16 @@ class RegisterController: BaseController, UITextFieldDelegate {
         guard let email = emailTextField.text,
             let password = passwordTextField.text,
             let confirmPassword = confirmPasswordTextField.text else {
-                return NSLocalizedString("Check fields", comment: "Check fields")
+                return NSLocalizedString("Check fields", comment: "")
         }
         
         if email.characters.count == 0 ||
             password.characters.count == 0 {
-            return NSLocalizedString("Fields cannot be empty", comment: "Fields cannot be empty")
+            return NSLocalizedString("Fields cannot be empty", comment: "")
         }
         
         if password != confirmPassword {
-            return NSLocalizedString("Passwords don't match", comment: "Passwords don't match")
+            return NSLocalizedString("Passwords don't match", comment: "")
         }
         
         return nil
@@ -270,17 +270,17 @@ class RegisterController: BaseController, UITextFieldDelegate {
                 }
                 
                 guard let user = user else {
-                    self.show(message: NSLocalizedString("Error registering user", comment: "Error registering user"))
+                    self.show(message: NSLocalizedString("Error registering user", comment: ""))
                     return
                 }
                 
                 // check token
                 guard let _ = user.token else {
-                    self.show(message: NSLocalizedString("Invalid token", comment: "Invalid token"))
+                    self.show(message: NSLocalizedString("Invalid token", comment: ""))
                     return
                 }
                 
-                self.show(message: NSLocalizedString("User registered successfully", comment: "User registered successfully"), confirmHandler: {(action) in
+                self.show(message: NSLocalizedString("User registered successfully", comment: ""), confirmHandler: {(action) in
                     self.didTapRegister()
                 })
             }

@@ -28,13 +28,13 @@ class MapController: BaseController, MKMapViewDelegate {
     
 // logoutbutton
     lazy var logoutButtonItem : UIBarButtonItem = {
-        let button = UIBarButtonItem(title: NSLocalizedString("Signout", comment: "Signout"), style: .plain, target: self, action: #selector(self.handleLogout))
+        let button = UIBarButtonItem(title: NSLocalizedString("Signout", comment: ""), style: .plain, target: self, action: #selector(self.handleLogout))
         return button
     }()
     
 // history
     lazy var historyButtonItem : UIBarButtonItem = {
-        let button = UIBarButtonItem(title: NSLocalizedString("History", comment: "History"), style: .plain, target: self, action: #selector(self.handlePayment))
+        let button = UIBarButtonItem(title: NSLocalizedString("History", comment: ""), style: .plain, target: self, action: #selector(self.handlePayment))
         return button
     }()
     
@@ -48,7 +48,7 @@ class MapController: BaseController, MKMapViewDelegate {
     
     override func setupViews() {
         super.setupViews()
-        self.title = NSLocalizedString("BikeMap", comment: "BikeMap")
+        self.title = NSLocalizedString("BikeMap", comment: "")
         setupNavigationBar()
         view.backgroundColor = .white
         

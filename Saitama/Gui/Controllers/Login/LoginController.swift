@@ -67,7 +67,7 @@ class LoginController: BaseController, UITextFieldDelegate {
     lazy var emailTextField: UITextField = {
         let textField = UITextField()
         textField.font = UIFont.systemFont(ofSize: 16)
-        textField.placeholder = NSLocalizedString("Email", comment: "Email")
+        textField.placeholder = NSLocalizedString("Email", comment: "")
         textField.text = "crossover@crossover.com"
         textField.keyboardType = .emailAddress
         textField.autocapitalizationType = .none
@@ -94,7 +94,7 @@ class LoginController: BaseController, UITextFieldDelegate {
     lazy var passwordTextField: UITextField = {
         let textField = UITextField()
         textField.font = UIFont.systemFont(ofSize: 16)
-        textField.placeholder = NSLocalizedString("Password", comment: "Password")
+        textField.placeholder = NSLocalizedString("Password", comment: "")
         textField.text = "crossover"
         textField.isSecureTextEntry = true
         textField.clearButtonMode = .whileEditing
@@ -112,7 +112,7 @@ class LoginController: BaseController, UITextFieldDelegate {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightSemibold)
         button.layer.cornerRadius = 3
         button.backgroundColor = Constants.Color.darkBlue
-        button.setTitle(NSLocalizedString("Login", comment: "Login"), for: .normal)
+        button.setTitle(NSLocalizedString("Login", comment: ""), for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.setTitleColor(Constants.Color.disableBlue, for: .disabled)
         button.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
@@ -157,7 +157,7 @@ class LoginController: BaseController, UITextFieldDelegate {
         button.layer.borderWidth = 1
         button.layer.borderColor = Constants.Color.darkBlue.cgColor
         button.backgroundColor = .clear
-        button.setTitle(NSLocalizedString("Create new account", comment: "Create new account"), for: .normal)
+        button.setTitle(NSLocalizedString("Create new account", comment: ""), for: .normal)
         button.setTitleColor(Constants.Color.darkBlue, for: .normal)
         button.addTarget(self, action: #selector(handleCreateAccount), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -343,7 +343,7 @@ class LoginController: BaseController, UITextFieldDelegate {
     func processLogin() {
         guard let email = emailTextField.text,
             let password = passwordTextField.text else {
-                self.show(message: NSLocalizedString("Credentials cannot be empty", comment: "Credentials cannot be empty"))
+                self.show(message: NSLocalizedString("Credentials cannot be empty", comment: ""))
                 return
         }
         
@@ -358,13 +358,13 @@ class LoginController: BaseController, UITextFieldDelegate {
                 }
                 
                 guard let user = user else {
-                    self.show(message: NSLocalizedString("Error getting user data", comment: "Error getting user data"))
+                    self.show(message: NSLocalizedString("Error getting user data", comment: ""))
                     return
                 }
                 
                 // check token
                 guard let token = user.token else {
-                    self.show(message: NSLocalizedString("Invalid token", comment: "Invalid token"))
+                    self.show(message: NSLocalizedString("Invalid token", comment: ""))
                     return
                 }
                 
@@ -372,7 +372,7 @@ class LoginController: BaseController, UITextFieldDelegate {
                 if self.keychain.persist(token: token, email: email) {
                     self.didTapLogin(true)
                 } else {
-                    self.show(message: NSLocalizedString("Error persisting token", comment: "Error persisting token"))
+                    self.show(message: NSLocalizedString("Error persisting token", comment: ""))
                 }
             }
         })

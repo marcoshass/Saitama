@@ -32,7 +32,7 @@ class OrderController: UITableViewController, UITextFieldDelegate {
     
     // paymentbutton
     lazy var payButtonItem : UIBarButtonItem = {
-        let button = UIBarButtonItem(title: NSLocalizedString("Pay", comment: "Pay"), style: .plain, target: self, action: #selector(self.handlePay))
+        let button = UIBarButtonItem(title: NSLocalizedString("Pay", comment: ""), style: .plain, target: self, action: #selector(self.handlePay))
         button.isEnabled = false
         return button
     }()

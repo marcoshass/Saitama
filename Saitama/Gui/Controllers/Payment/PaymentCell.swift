@@ -50,7 +50,7 @@ class PaymentCell : UITableViewCell {
             let expiryMonth = card.expiryMonth,
             let expiryYear = card.expiryYear,
             let cvv = card.cvv else {
-                text.append(NSAttributedString(string: NSLocalizedString("Incomplete card info", comment: "Incomplete card info")))
+                text.append(NSAttributedString(string: NSLocalizedString("Incomplete card info", comment: "")))
                 return text
         }
         
@@ -67,8 +67,8 @@ class PaymentCell : UITableViewCell {
         text.append(NSAttributedString(string: "\n\(Card.format(number))", attributes: numberAttr))
         
         // goodthru cvv
-        let goodThru = NSLocalizedString("GOODTHRU", comment: "GOODTHRU")
-        let cvvStr = NSLocalizedString("CVV", comment: "CVV")
+        let goodThru = NSLocalizedString("GOODTHRU", comment: "")
+        let cvvStr = NSLocalizedString("CVV", comment: "")
         var goodThruAttr = [String: Any]()
         goodThruAttr[NSFontAttributeName] = UIFont.systemFont(ofSize: 13)
         goodThruAttr[NSForegroundColorAttributeName] = UIColor.lightGray
