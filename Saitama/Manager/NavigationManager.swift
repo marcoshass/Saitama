@@ -65,7 +65,7 @@ class NavigationManager {
         parent.present(UINavigationController(rootViewController:registerController), animated: true, completion: nil)
     }
 
-// requiresauthent
+// requiresauthentication
     
     /**
      PaymentsController (requires authentication token)

@@ -32,6 +32,7 @@ enum ServiceError: Error {
     }
 }
 
+// URLRequest.setValue(token, forHTTPHeaderField: "Authorization")
 extension NSMutableURLRequest {
     convenience init<A>(resource: Resource<A>) {
         self.init(url: resource.url)
