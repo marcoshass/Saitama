@@ -69,6 +69,7 @@ class PaymentsController: UIViewController, UITableViewDataSource, UITableViewDe
                 }
 
                 guard let data = data else {
+                    self.show(message: NSLocalizedString("No data returned", comment: "No data returned"))
                     return
                 }
                 

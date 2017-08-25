@@ -58,7 +58,7 @@ extension User {
     }
     
     static func register(user: User) -> Resource<User> {
-        let url = URL(string: "http://www.mocky.io/v2/599e3560250000f406d303d2")! // OK
+        let url = URL(string: "http://www.mocky.io/v2/599e3560250000f406d303d2")!
         let dictionary = ["\(EMAIL)": user.email, "\(PASSWORD)": user.password]
         return Resource(url: url, method: .put(dictionary as AnyObject), parseJSON: { (json) -> User? in
             guard let dictionary = json as? JSONDictionary else { return nil }
@@ -67,9 +67,11 @@ extension User {
     }
 
     /**
-     Retrieves all payments placed by the user.
+     Retrieves all payments placed by the user with the authentication token
      */
     func all() -> Resource<[Payment]> {
+        // let url = URL(string: "http://www.mocky.io/v2/59a0a3cb110000c9056442aa")! // Malformed Json (Tested)
+        // let url = URL(string: "http://www.mocky.io/v2/59a0a313110000c0056442a9")! // Unauthorized (Tested)
         let url = URL(string: "http://www.mocky.io/v2/599ed8232c00004e0051d3cb")!
         return Resource(url: url, headers: [self.token ?? "": AUTHORIZATIONHEADER], parseJSON: { (json) -> [Payment]? in
             guard let dictionaries = json as? JSONDictionary else { return nil }
