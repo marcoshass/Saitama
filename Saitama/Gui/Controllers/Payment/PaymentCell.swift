@@ -80,13 +80,18 @@ class PaymentCell : UITableViewCell {
         // spacer
         var spacerAttr = [String: Any]()
         spacerAttr[NSFontAttributeName] = UIFont.systemFont(ofSize: 5)
-        text.append(NSAttributedString(string: "\n\n" , attributes: spacerAttr))
+        text.append(NSAttributedString(string: "\n" , attributes: spacerAttr))
         
-        // place info
+        // place info (with date)
+        var dateStr = ""
+        if let createdAt = payment.createdAt {
+            dateStr += "\n\(Format.utcShort.string(from: createdAt))"
+        }
+        
         var placeAttr = [String: Any]()
         placeAttr[NSFontAttributeName] = UIFont.systemFont(ofSize: 14, weight: UIFontWeightRegular)
         placeAttr[NSForegroundColorAttributeName] = Constants.Color.darkBlue
-        text.append(NSAttributedString(string: placeName, attributes: placeAttr))
+        text.append(NSAttributedString(string: "\(placeName)\(dateStr)", attributes: placeAttr))
         
         return text
     }
