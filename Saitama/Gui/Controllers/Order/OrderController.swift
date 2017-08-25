@@ -12,6 +12,9 @@ class OrderController: UITableViewController, UITextFieldDelegate {
     
     // MARK: - Properties
     
+    let myTitle = NSLocalizedString("Order", comment: "")
+    let loadingTitle = NSLocalizedString("Renting...", comment: "")
+    
     var place: Place?
     
     @IBOutlet var labels: [UILabel]!
@@ -39,6 +42,7 @@ class OrderController: UITableViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = myTitle
         updateWidthsForLabels(labels: self.labels)
         setupViews()
         print("place=\(self.place?.name ?? "empty place")")
@@ -47,8 +51,14 @@ class OrderController: UITableViewController, UITextFieldDelegate {
     func setupViews() {
         setupNavigationBar()
         
-        // adjust handlers
-        //nameTextField.addTarget(self, action: #selector(handleInputText), for: .editingChanged)
+        // setup handlers
+        idTextField.addTarget(self, action: #selector(handleInputText), for: .editingChanged)
+        placeNameTextField.addTarget(self, action: #selector(handleInputText), for: .editingChanged)
+        cardNumberTextField.addTarget(self, action: #selector(handleInputText), for: .editingChanged)
+        cardNameTextField.addTarget(self, action: #selector(handleInputText), for: .editingChanged)
+        cvvTextField.addTarget(self, action: #selector(handleInputText), for: .editingChanged)
+        expiryMonthTextField.addTarget(self, action: #selector(handleInputText), for: .editingChanged)
+        expiryYearTextField.addTarget(self, action: #selector(handleInputText), for: .editingChanged)
     }
     
     func setupNavigationBar() {
@@ -56,20 +66,6 @@ class OrderController: UITableViewController, UITextFieldDelegate {
     }
     
     // MARK: - MainLogic
-    
-    func toggleFields() {
-        //        closeButtonItem.isEnabled = !closeButtonItem.isEnabled
-    }
-    
-    func toggleStart() {
-        toggleFields()
-        //        paymentIndicator.startAnimating()
-    }
-    
-    func toggleStop() {
-        toggleFields()
-        //        paymentIndicator.stopAnimating()
-    }
     
     func validateFields() -> String? {
         // (msgBox)
@@ -101,40 +97,48 @@ class OrderController: UITableViewController, UITextFieldDelegate {
             return
         }
         
-        //        let newUser = User(id: 0, name: nameTextField.text, email: emailTextField.text, password: passwordTextField.text, token: "\(nameTextField.text!)\(generateToken(newTokenLength))")
-        //
-        //        toggleStart()
-        //        WebService().load(User.register(user: newUser), completion: { (user, error) in
-        //            DispatchQueue.main.async{
-        //                self.toggleStop()
-        //
-        //                if error != nil {
-        //                    self.show(message: error?.localizedDescription ?? NSLocalizedString("Internal Error", comment: "Internal Error"))
-        //                    print("error=\(error.debugDescription)")
-        //                    return
-        //                }
-        //
-        //                guard let _ = user else {
-        //                    self.show(message: NSLocalizedString("Error registering user", comment: "Error registering user"))
-        //                    return
-        //                }
-        //
-        //                self.show(message: NSLocalizedString("User registered successfully", comment: "User registered successfully"), actionHandler: {(action) in
-        //                    self.didTapRegister()
-        //                })
-        //            }
-        //        })
+//        let newUser = User(email: emailTextField.text, password: passwordTextField.text)
+//        
+//        self.title = loadingTitle
+//        WebService().load(User.register(user: newUser), completion: { (user, error) in
+//            DispatchQueue.main.async {
+//                self.title = myTitle
+//                
+//                if let error = error {
+//                    self.show(message: error.message())
+//                    return
+//                }
+//                
+//                guard let user = user else {
+//                    self.show(message: NSLocalizedString("Error registering user", comment: ""))
+//                    return
+//                }
+//                
+//                // check token
+//                guard let _ = user.token else {
+//                    self.show(message: NSLocalizedString("Invalid token", comment: ""))
+//                    return
+//                }
+//                
+//                self.show(message: NSLocalizedString("User registered successfully", comment: ""), confirmHandler: {(action) in
+//                    self.didTapRegister()
+//                })
+//            }
+//        })
     }
     
     // MARK: - Handlers
+    
+    // Enable action only if all fields were filled
     func handleInputText(_ sender: Any) {
-//        payButtonItem.isEnabled =
-//            nameTextField.text?.characters.count ?? 0 > 0 &&
-//            surnameTextField.text?.characters.count ?? 0 > 0 &&
-//            cvvTextField.text?.characters.count ?? 0 > 0 &&
-//            address1TextField.text?.characters.count ?? 0 > 0 &&
-//            postalCodeTextField.text?.characters.count ?? 0 > 0 &&
-//            cityTextField.text?.characters.count ?? 0 > 0
+        payButtonItem.isEnabled =
+            idTextField.text?.characters.count ?? 0 > 0 &&
+            placeNameTextField.text?.characters.count ?? 0 > 0 &&
+            cardNumberTextField.text?.characters.count ?? 0 > 0 &&
+            cardNameTextField.text?.characters.count ?? 0 > 0 &&
+            cvvTextField.text?.characters.count ?? 0 > 0 &&
+            expiryMonthTextField.text?.characters.count ?? 0 > 0 &&
+            expiryYearTextField.text?.characters.count ?? 0 > 0
     }
     
     func handlePay(_ sender: Any) {
