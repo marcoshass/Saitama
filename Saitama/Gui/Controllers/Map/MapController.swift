@@ -10,7 +10,7 @@ import UIKit
 import KeychainAccess
 import MapKit
 
-class MapController: BaseController {
+class MapController: BaseController, MKMapViewDelegate {
     
     // MARK: - Properties
     
@@ -24,6 +24,7 @@ class MapController: BaseController {
     
     var didTapLogout: () -> () = {}
     var didTapMyOrders: () -> () = {}
+    var didTapRent: () -> () = {}
     
 // logoutbutton
     lazy var logoutButtonItem : UIBarButtonItem = {
@@ -31,15 +32,16 @@ class MapController: BaseController {
         return button
     }()
     
-// myorders
-    lazy var myOrdersButtonItem : UIBarButtonItem = {
-        let button = UIBarButtonItem(title: NSLocalizedString("MyOrders", comment: "MyOrders"), style: .plain, target: self, action: #selector(self.handlePayment))
+// history
+    lazy var historyButtonItem : UIBarButtonItem = {
+        let button = UIBarButtonItem(title: NSLocalizedString("History", comment: "History"), style: .plain, target: self, action: #selector(self.handlePayment))
         return button
     }()
     
 // mapview
     lazy var mapView: MKMapView = {
         let map = MKMapView()
+        map.delegate = self
         map.translatesAutoresizingMaskIntoConstraints = false
         return map
     }()
@@ -63,7 +65,7 @@ class MapController: BaseController {
     
     func setupNavigationBar() {
         self.navigationItem.leftBarButtonItem = logoutButtonItem
-        self.navigationItem.rightBarButtonItem = myOrdersButtonItem
+        self.navigationItem.rightBarButtonItem = historyButtonItem
     }
 
     // MARK: - MapKit
@@ -106,7 +108,7 @@ class MapController: BaseController {
     func processLogout() {
         let keychain = Keychain(service: Constants.Keychain.service)
         if !keychain.clear() {
-            self.show(message: NSLocalizedString("Could not clear keychain", comment: "Could not clear keychain"))
+            self.show(message: NSLocalizedString("Could not clear keychain", comment: ""))
         }
         didTapLogout()
     }
@@ -114,8 +116,8 @@ class MapController: BaseController {
     // MARK: - Handlers
     
     func handleLogout(_ sender: Any) {
-        let message = NSLocalizedString("Do you really want to signout?", comment: "Do you really want to signout?")
-        let signout = NSLocalizedString("Signout", comment: "Signout")
+        let message = NSLocalizedString("Do you really want to signout?", comment: "")
+        let signout = NSLocalizedString("Signout", comment: "")
         self.show(actionSet: .OkCancel, title: "", message: message, style: .actionSheet, confirmTitle: signout, confirmHandler: {(action) in
             self.processLogout()
         })
@@ -123,6 +125,18 @@ class MapController: BaseController {
     
     func handlePayment(_ sender: Any) {
         didTapMyOrders()
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        guard let bikePlace = view.annotation, let title = bikePlace.title else { return }
+        if let title = title {
+            let message = NSLocalizedString("Do you want to rent a bike at\n\(title)?", comment: "")
+            self.show(actionSet: .OkCancel, message: message, confirmHandler: {(action) in
+                self.didTapRent()
+            })
+        } else {
+            self.show(message: NSLocalizedString("Place unknown", comment: ""))
+        }
     }
     
 }

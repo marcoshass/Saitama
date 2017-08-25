@@ -102,7 +102,7 @@ extension UIAlertController {
         let alert = UIAlertController(title: defaultAlertTitle, message: message, preferredStyle: style)
         
         // confirm action
-        let actionStyle: UIAlertActionStyle = actionSet == .OkCancel ? .destructive : .default
+        let actionStyle: UIAlertActionStyle = .default
         let defaultConfirmTitle = confirmTitle == nil ? NSLocalizedString("OK", comment: "OK") : confirmTitle
         let confirmAction = (UIAlertAction(title: defaultConfirmTitle, style: actionStyle, handler: confirmHandler))
         
