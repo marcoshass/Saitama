@@ -59,7 +59,7 @@ class PaymentsController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func reload() {
         self.title = loadingTitle
-        WebService().load(self.user.all()) { (data, error) in
+        WebService().load(self.user.allPayments()) { (data, error) in
             DispatchQueue.main.async {
                 self.title = self.myTitle
 

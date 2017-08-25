@@ -66,10 +66,8 @@ extension User {
         })
     }
 
-    /**
-     Retrieves all payments placed by the user with the authentication token
-     */
-    func all() -> Resource<[Payment]> {
+    // Retrieves all payments placed by the user with the authentication token
+    func allPayments() -> Resource<[Payment]> {
         // let url = URL(string: "http://www.mocky.io/v2/59a0a3cb110000c9056442aa")! // Malformed Json (Tested)
         // let url = URL(string: "http://www.mocky.io/v2/59a0a313110000c0056442a9")! // Unauthorized (Tested)
         let url = URL(string: "http://www.mocky.io/v2/599ed8232c00004e0051d3cb")!
