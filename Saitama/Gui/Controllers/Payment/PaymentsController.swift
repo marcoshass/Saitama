@@ -30,12 +30,6 @@ class PaymentsController: UIViewController, UITableViewDataSource, UITableViewDe
         tv.estimatedRowHeight = 44
         return tv
     }()
-    
-    override var shouldAutorotate: Bool {
-        get {
-            return false
-        }
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

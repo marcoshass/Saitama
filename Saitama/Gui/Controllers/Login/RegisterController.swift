@@ -133,13 +133,7 @@ class RegisterController: BaseController, UITextFieldDelegate {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
-    override var shouldAutorotate: Bool {
-        get {
-            return false
-        }
-    }
-    
+
     override func setupViews() {
         super.setupViews()
         self.title = NSLocalizedString("Register Account", comment: "")

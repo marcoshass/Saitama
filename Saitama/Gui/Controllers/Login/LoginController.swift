@@ -184,13 +184,7 @@ class LoginController: BaseController, UITextFieldDelegate {
     }
     
     // MARK: - Layout
-    
-    override var shouldAutorotate: Bool {
-        get {
-            return false
-        }
-    }
-    
+
     func registerForKeyboardNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: .UIKeyboardWillHide, object: nil)

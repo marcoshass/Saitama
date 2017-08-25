@@ -13,6 +13,11 @@ import MapKit
 class MapController: BaseController, MKMapViewDelegate {
     
     // MARK: - Properties
+
+    var didTapLogout: () -> () = {}
+    var didTapMyOrders: () -> () = {}
+    var didTapRent: (Place) -> () = {_ in}
+    var selected: Place?
     
 // mapstart(saitama)
     let startLatitude: CLLocationDegrees = 35.7090259
@@ -21,10 +26,7 @@ class MapController: BaseController, MKMapViewDelegate {
     let longitudinalMeters: CLLocationDistance = 800
     let spanLongitudeDelta: CLLocationDegrees = 0.300
     let spanLatitudeDelta: CLLocationDegrees = 0.300
-    
-    var didTapLogout: () -> () = {}
-    var didTapMyOrders: () -> () = {}
-    var didTapRent: (Place) -> () = {_ in}
+
     
 // logoutbutton
     lazy var logoutButtonItem : UIBarButtonItem = {
@@ -40,9 +42,8 @@ class MapController: BaseController, MKMapViewDelegate {
     
 // rentbutton
     lazy var rentButtonItem : UIBarButtonItem = {
-        let button = UIBarButtonItem(title: NSLocalizedString("Rent ", comment: ""), style: .plain, target: self, action: #selector(self.handleRent))
-        // set different color, otherwise it will be invisible (theme is default white)
-        button.setTitleTextAttributes(Constants.ToolbarButtonItem.enableTextAttributes, for: .normal)
+        let button = UIBarButtonItem(title: NSLocalizedString("No place selected ", comment: ""), style: .plain, target: self, action: #selector(self.handleRent))
+        button.setTitleTextAttributes(Constants.ToolbarButtonItem.textAttributes, for: .normal) // blue
         return button
     }()
     
@@ -79,11 +80,6 @@ class MapController: BaseController, MKMapViewDelegate {
     }
     
     func setupToolbar() {
-//        UIBarButtonItem *leftButton = [[[UIBarButtonItem alloc] initWithTitle:@"Item" style:UIBarButtonItemStyleBordered target:self action:@selector(btnItem1Pressed:)] autorelease];
-//        
-//        UIBarButtonItem *flex = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil] autorelease];
-//        
-//        UIBarButtonItem *rightButton = [[[UIBarButtonItem alloc] initWithTitle:@"Item" style:UIBarButtonItemStyleBordered target:self action:@selector(btnItem2Pressed:)] autorelease];
         let flex = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         self.setToolbarItems([flex, flex, self.rentButtonItem], animated: false)
     }
@@ -158,15 +154,15 @@ class MapController: BaseController, MKMapViewDelegate {
     }
     
     func handleRent(_ sender: Any) {
-        didTapMyOrders()
+        guard let selected = selected else { self.show(message: NSLocalizedString("Pick a bike rental place on the map", comment: "")); return }
+        self.didTapRent(selected)
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         guard let bikePlace = view.annotation as? BikePlace, let title = bikePlace.title else { return }
-        let message = NSLocalizedString("Do you want to rent a bike at\n\(title)?", comment: "")
-        self.show(actionSet: .OkCancel, message: message, confirmHandler: {(action) in
-            self.didTapRent(bikePlace.place)
-        })
+        selected = bikePlace.place
+        let pickStr = NSLocalizedString("Pick at", comment: "")
+        rentButtonItem.title = "\(pickStr): \(title)"
     }
     
 }

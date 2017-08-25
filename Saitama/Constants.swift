@@ -26,7 +26,7 @@ struct Constants {
     }
     
     struct ToolbarButtonItem {
-        static let enableTextAttributes = [NSForegroundColorAttributeName: Constants.Color.darkBlue, NSFontAttributeName: UIFont.systemFont(ofSize: 16, weight: UIFontWeightRegular)]
+        static let textAttributes = [NSForegroundColorAttributeName: Color.darkBlue, NSFontAttributeName: UIFont.systemFont(ofSize: 16, weight: UIFontWeightRegular)]
     }
     
     struct Keychain {
