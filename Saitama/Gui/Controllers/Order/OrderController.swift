@@ -10,33 +10,25 @@ import UIKit
 
 class OrderController: UITableViewController, UITextFieldDelegate {
     
+    // MARK: - Properties
+    
+    var place: Place?
+    
     @IBOutlet var labels: [UILabel]!
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var nameTextField: UITextField!
-    @IBOutlet weak var surnameLabel: UILabel!
-    @IBOutlet weak var surnameTextField: UITextField!
+    @IBOutlet weak var idLabel: UILabel!
+    @IBOutlet weak var idTextField: UITextField!
+    @IBOutlet weak var placeNameLabel: UILabel!
+    @IBOutlet weak var placeNameTextField: UITextField!
     @IBOutlet weak var cardNumberLabel: UILabel!
     @IBOutlet weak var cardNumberTextField: UITextField!
-    @IBOutlet weak var expirationLabel: UILabel!
-    @IBOutlet weak var expirationTextField: UITextField!
+    @IBOutlet weak var cardNameLabel: UILabel!
+    @IBOutlet weak var cardNameTextField: UITextField!
     @IBOutlet weak var cvvLabel: UILabel!
     @IBOutlet weak var cvvTextField: UITextField!
-    @IBOutlet weak var address1Label: UILabel!
-    @IBOutlet weak var address1TextField: UITextField!
-    @IBOutlet weak var address2Label: UILabel!
-    @IBOutlet weak var address2TextField: UITextField!
-    @IBOutlet weak var postalCodeLabel: UILabel!
-    @IBOutlet weak var postalCodeTextField: UITextField!
-    @IBOutlet weak var cityLabel: UILabel!
-    @IBOutlet weak var cityTextField: UITextField!
-    @IBOutlet weak var countyLabel: UILabel!
-    @IBOutlet weak var countyTextField: UITextField!
-    @IBOutlet weak var countryLabel: UILabel!
-    @IBOutlet weak var countryTextField: UITextField!
-    @IBOutlet weak var areaCodeLabel: UILabel!
-    @IBOutlet weak var areaCodeTextField: UITextField!
-    @IBOutlet weak var phoneLabel: UILabel!
-    @IBOutlet weak var phoneTextField: UITextField!
+    @IBOutlet weak var expiryMonthLabel: UILabel!
+    @IBOutlet weak var expiryMonthTextField: UITextField!
+    @IBOutlet weak var expiryYearLabel: UILabel!
+    @IBOutlet weak var expiryYearTextField: UITextField!
     
     // paymentbutton
     lazy var payButtonItem : UIBarButtonItem = {
@@ -49,25 +41,14 @@ class OrderController: UITableViewController, UITextFieldDelegate {
         super.viewDidLoad()
         updateWidthsForLabels(labels: self.labels)
         setupViews()
+        print("place=\(self.place?.name ?? "empty place")")
     }
     
     func setupViews() {
         setupNavigationBar()
         
         // adjust handlers
-        nameTextField.addTarget(self, action: #selector(handleInputText), for: .editingChanged)
-        surnameTextField.addTarget(self, action: #selector(handleInputText), for: .editingChanged)
-        cardNumberTextField.addTarget(self, action: #selector(handleInputText), for: .editingChanged)
-        expirationTextField.addTarget(self, action: #selector(handleInputText), for: .editingChanged)
-        cvvTextField.addTarget(self, action: #selector(handleInputText), for: .editingChanged)
-        address1TextField.addTarget(self, action: #selector(handleInputText), for: .editingChanged)
-        address2TextField.addTarget(self, action: #selector(handleInputText), for: .editingChanged)
-        postalCodeTextField.addTarget(self, action: #selector(handleInputText), for: .editingChanged)
-        cityTextField.addTarget(self, action: #selector(handleInputText), for: .editingChanged)
-        countyTextField.addTarget(self, action: #selector(handleInputText), for: .editingChanged)
-        countryTextField.addTarget(self, action: #selector(handleInputText), for: .editingChanged)
-        areaCodeTextField.addTarget(self, action: #selector(handleInputText), for: .editingChanged)
-        phoneTextField.addTarget(self, action: #selector(handleInputText), for: .editingChanged)
+        //nameTextField.addTarget(self, action: #selector(handleInputText), for: .editingChanged)
     }
     
     func setupNavigationBar() {
@@ -147,13 +128,13 @@ class OrderController: UITableViewController, UITextFieldDelegate {
     
     // MARK: - Handlers
     func handleInputText(_ sender: Any) {
-        payButtonItem.isEnabled =
-            nameTextField.text?.characters.count ?? 0 > 0 &&
-            surnameTextField.text?.characters.count ?? 0 > 0 &&
-            cvvTextField.text?.characters.count ?? 0 > 0 &&
-            address1TextField.text?.characters.count ?? 0 > 0 &&
-            postalCodeTextField.text?.characters.count ?? 0 > 0 &&
-            cityTextField.text?.characters.count ?? 0 > 0
+//        payButtonItem.isEnabled =
+//            nameTextField.text?.characters.count ?? 0 > 0 &&
+//            surnameTextField.text?.characters.count ?? 0 > 0 &&
+//            cvvTextField.text?.characters.count ?? 0 > 0 &&
+//            address1TextField.text?.characters.count ?? 0 > 0 &&
+//            postalCodeTextField.text?.characters.count ?? 0 > 0 &&
+//            cityTextField.text?.characters.count ?? 0 > 0
     }
     
     func handlePay(_ sender: Any) {

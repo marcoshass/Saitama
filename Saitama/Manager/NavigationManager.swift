@@ -26,8 +26,7 @@ class NavigationManager {
         let mapController = MapController()
         mapController.didTapLogout = { self.dismiss(viewController: mapController) }
         mapController.didTapMyOrders = { self.showPayments(parent: mapController) }
-        mapController.didTapRent = { self.showOrder(parent: mapController) }
-        
+        mapController.didTapRent = { (place) in self.showOrder(parent: mapController, place: place) }
         parent.present(UINavigationController(rootViewController: mapController), animated: animated, completion: nil)
     }
     
@@ -44,8 +43,9 @@ class NavigationManager {
         parent.navigationController?.pushViewController(paymentsController, animated: true)
     }
     
-    func showOrder(parent: UIViewController) {
-        guard let orderController = UIStoryboard.init(name: orderStoryboard, bundle: nil).instantiateInitialViewController() else { return }
+    func showOrder(parent: UIViewController, place: Place) {
+        let orderController = UIStoryboard.init(name: orderStoryboard, bundle: nil).instantiateInitialViewController() as! OrderController
+        orderController.place = place
         parent.navigationController?.pushViewController(orderController, animated: true)
     }
     

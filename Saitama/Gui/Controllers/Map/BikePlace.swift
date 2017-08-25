@@ -12,9 +12,11 @@ import MapKit
 class BikePlace: NSObject, MKAnnotation {
     var title: String?
     var coordinate: CLLocationCoordinate2D
+    var place: Place
     
-    init(title: String, coordinate: CLLocationCoordinate2D) {
+    init(title: String, coordinate: CLLocationCoordinate2D, place: Place) {
         self.title = title
         self.coordinate = coordinate
+        self.place = place
     }
 }

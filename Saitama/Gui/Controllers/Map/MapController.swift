@@ -24,7 +24,7 @@ class MapController: BaseController, MKMapViewDelegate {
     
     var didTapLogout: () -> () = {}
     var didTapMyOrders: () -> () = {}
-    var didTapRent: () -> () = {}
+    var didTapRent: (Place) -> () = {_ in}
     
 // logoutbutton
     lazy var logoutButtonItem : UIBarButtonItem = {
@@ -101,7 +101,7 @@ class MapController: BaseController, MKMapViewDelegate {
     func addPlaces(_ places: [Place]) {
         for place in places {
             guard let name = place.name, let lat = place.location?.lat, let lng = place.location?.lng else { continue }
-            self.mapView.addAnnotation(BikePlace(title: name, coordinate: CLLocationCoordinate2D(latitude: lat, longitude: lng)))
+            self.mapView.addAnnotation(BikePlace(title: name, coordinate: CLLocationCoordinate2D(latitude: lat, longitude: lng), place: place))
         }
     }
     
@@ -128,15 +128,11 @@ class MapController: BaseController, MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        guard let bikePlace = view.annotation, let title = bikePlace.title else { return }
-        if let title = title {
-            let message = NSLocalizedString("Do you want to rent a bike at\n\(title)?", comment: "")
-            self.show(actionSet: .OkCancel, message: message, confirmHandler: {(action) in
-                self.didTapRent()
-            })
-        } else {
-            self.show(message: NSLocalizedString("Place unknown", comment: ""))
-        }
+        guard let bikePlace = view.annotation as? BikePlace, let title = bikePlace.title else { return }
+        let message = NSLocalizedString("Do you want to rent a bike at\n\(title)?", comment: "")
+        self.show(actionSet: .OkCancel, message: message, confirmHandler: {(action) in
+            self.didTapRent(bikePlace.place)
+        })
     }
     
 }
