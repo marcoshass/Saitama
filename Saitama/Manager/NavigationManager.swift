@@ -86,7 +86,7 @@ class NavigationManager {
      */
     func showOrder(parent: UIViewController, place: Place) {
         let orderController = UIStoryboard.init(name: orderStoryboard, bundle: nil).instantiateInitialViewController() as! OrderController
-        orderController.didTapPay = { self.dismiss(viewController: orderController) }
+        orderController.didTapPay = { _ = orderController.navigationController?.popViewController(animated: true) }
         
         // Set the place and user for the order controller .The constructor 
         // couldn't be modified because it was built in interface builder
