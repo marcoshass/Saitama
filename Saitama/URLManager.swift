@@ -8,6 +8,12 @@
 
 import Foundation
 
+// places       http://www.mocky.io/v2/599f29ea2c0000820151d480  https://localhost:3000/places/   (GET)
+// login        http://www.mocky.io/v2/599e0f552500009705d303b2  https://localhost:3000/users/    (POST)
+// register     http://www.mocky.io/v2/599e3560250000f406d303d2  https://localhost:3000/users/    (PUT)
+// allPayments  http://www.mocky.io/v2/599ed8232c00004e0051d3cb  https://localhost:3000/payments/ (GET)
+// rent         http://www.mocky.io/v2/59a0b0f111000010066442b5  https://localhost:3000/payments/ (PUT)
+
 enum Env: String {
     case dev = "dev"
     case pro = "pro"
@@ -62,13 +68,3 @@ enum URLManager {
         return Bundle.main.object(forInfoDictionaryKey: "ProductionBaseUrl") as? String
     }
 }
-
-//      let places = URL(string: "http://www.mocky.io/v2/599f29ea2c0000820151d480")!   // https://localhost:3000/places/ (GET)
-
-//      let login = URL(string: "http://www.mocky.io/v2/599e0f552500009705d303b2")!   // https://localhost:3000/users/ (POST)
-
-//      let register = URL(string: "http://www.mocky.io/v2/599e3560250000f406d303d2")!   // https://localhost:3000/users/ (PUT)
-
-//      let allPayments = URL(string: "http://www.mocky.io/v2/599ed8232c00004e0051d3cb")!   // https://localhost:3000/payments/ (GET)
-
-//      let rent = URL(string: "http://www.mocky.io/v2/59a0b0f111000010066442b5")!   // https://localhost:3000/payments/ (PUT)
