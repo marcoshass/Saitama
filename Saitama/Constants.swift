@@ -32,7 +32,7 @@ struct Constants {
     struct Keychain {
         static let service = "br.com.marcoshass.crossoverapp"
     }
-    
+
 }
 
 struct Format {

@@ -47,9 +47,7 @@ extension User {
 extension User {
 
     static func login(email: String, password: String) -> Resource<User> {
-        let url = URL(string: "http://www.mocky.io/v2/599e0f552500009705d303b2")! // OK
-//        let url = URL(string: "http://www.mocky.io/v2/599e11b8250000b405d303b5")! // user not found
-//        let url = URL(string: "http://10.10.1.143:3000/users")! // Timeout        
+        let url = URL(string: "http://www.mocky.io/v2/599e0f552500009705d303b2")!
         let dictionary = ["\(EMAIL)": email, "\(PASSWORD)": password]
         return Resource(url: url, method: .post(dictionary as AnyObject), parseJSON: { (json) -> User? in
             guard let dictionary = json as? JSONDictionary else { return nil }
@@ -68,8 +66,6 @@ extension User {
 
     /** Retrieves all payments placed by the user with the authentication token */
     func allPayments() -> Resource<[Payment]> {
-        // let url = URL(string: "http://www.mocky.io/v2/59a0a3cb110000c9056442aa")! // Malformed Json (Tested)
-        // let url = URL(string: "http://www.mocky.io/v2/59a0a313110000c0056442a9")! // Unauthorized (Tested)
         let url = URL(string: "http://www.mocky.io/v2/599ed8232c00004e0051d3cb")!
         return Resource(url: url, headers: [self.token ?? "": AUTHORIZATIONHEADER], parseJSON: { (json) -> [Payment]? in
             guard let dictionaries = json as? JSONDictionary else { return nil }
