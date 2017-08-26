@@ -35,8 +35,9 @@ extension Place {
 
 extension Place {
     
+    /** Retrieves all places where bikes can be rent, auth token not needed */
     static func all() -> Resource<[Place]> {
-        let url = URL(string: "http://www.mocky.io/v2/599f29ea2c0000820151d480")!
+        let url = URL(string: "http://www.mocky.io/v2/599f29ea2c0000820151d480")!   // https://localhost:3000/places/ (GET)
         return Resource(url: url, parseJSON: { (json) -> [Place]? in
             guard let dictionaries = json as? JSONDictionary else { return nil }
             guard let places = dictionaries[PLACES] as? [JSONDictionary] else { return nil }

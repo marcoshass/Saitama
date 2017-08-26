@@ -49,6 +49,9 @@ extension Card {
         return formatted
     }
     
+    /**
+     Put the card into a dictionary for the rent service url
+     */
     func toHttpParams() -> HttpParameters {
         let result: HttpParameters = [NUMBER: self.number ?? "", NAME: self.name ?? "", CVV: self.cvv ?? "", EXPIRYMONTH: self.expiryMonth ?? "", EXPIRYYEAR: self.expiryYear ?? ""]
         return result
