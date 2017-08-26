@@ -65,6 +65,24 @@ extension Card {
     }
 }
 
+extension Card {
+    static func format(_ input: String) -> String {
+        var formatted = ""
+        var formatted4 = ""
+        for character in input.characters {
+            if formatted4.characters.count == 4 {
+                formatted += formatted4 + " "
+                formatted4 = ""
+            }
+            formatted4.append(character)
+        }
+        
+        formatted += formatted4
+        return formatted
+    }
+}
+
+
 // ----------------------------------------------------------------------------
 // Payment
 // ----------------------------------------------------------------------------
@@ -267,49 +285,78 @@ extension Payment {
 let user = User(id: 1, email: "marcoshass@gmail.com", password: "123", token: "123")
 WebService().load(Payment.all(user: user), completion: { (data, error) in
     if let error = error {
-        print(error.message())
+        //print(error.message())
         return
     }
     
     guard let data = data else { return }
-    print(data)
+    //print(data)
 })
 
-//"payments": [{
-//  "updatedAt": "2016-12-23T19:32:59.144Z",
-//  "createdAt": "2016-12-23T19:32:59.144Z",
-//  "creditCard": {
-//      "number": "4111111111111111",
-//      "name": "adrianobragaalencar",
-//      "cvv": "123",
-//      "expiryMonth": "03",
-//      "expiryYear": "2100"
-//  },
-//  "email": "adrianobragaalencar@gmail.com",
-//  "placeId": "45c0b5209973fcec652817e16e20f1d0b4ecb602"
-//},{
-//  "updatedAt": "2016-12-23T19:33:25.497Z",
-//  "createdAt": "2016-12-23T19:33:25.497Z",
-//  "creditCard": {
-//  "number": "4111111111111111",
-//  "name": "adrianobragaalencar",
-//  "cvv": "123",
-//  "expiryMonth": "12",
-//  "expiryYear": "2020"
-//  },
-//  "email": "adrianobragaalencar@gmail.com",
-//  "placeId": "45c0b5209973fcec652817e16e20f1d0b4ecb602"
-//}]
+//placeId
+//number
+//name
+//cvv
+//expiryMonth
+//expiryYear
 
-let format: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-    return formatter
-}()
+typealias HttpParameters = [String: String]
 
-let value = format.date(from: "2016-12-23T19:32:59.144Z")
+extension URL {
+
+    func buildURL(params: HttpParameters) -> URL? {
+        guard var components = URLComponents(url: self, resolvingAgainstBaseURL: false) else { return nil }
+        components.queryItems = params.map { URLQueryItem(name: String($0), value: String($1)) }
+        return components.url
+    }
+    
+}
+
+
+var parameters: HttpParameters = ["number": "123", "name": "Marcos", "cvv": "079", "expiryMonth": "10", "expiryYear": "2023"]
+parameters["placeId"] = "123456"
+print(parameters)
+
+let finalURL = URL(string: "https://localhost:3000")!.buildURL(params: parameters)
+print(finalURL!)
+
+//let url = buildUrl(baseUrl: URL(string: "https://localhost:3000")!, params: parameters)
+//print(url!)
 
 
 
+//
+//let baseUrl = URL(string: "https://localhost:3000")!
+//var components = URLComponents(url: baseUrl, resolvingAgainstBaseURL: false)!
+//components.queryItems = parameters.map { URLQueryItem(name: String($0), value: String($1)) }
+//let finalUrl = components.url
+//print(finalUrl)
 
 
+
+//func requestWithBaseURL(_ baseURL: URL) -> URLRequest {
+//    let URL = baseURL.appendingPathComponent(path)
+//    
+//    // NSURLComponents can fail due to programming errors, so
+//    // prefer crashing than returning an optional
+//    
+//    guard let components = URLComponents(url: URL, resolvingAgainstBaseURL: false) else {
+//        fatalError("Unable to create URL components from \(URL)")
+//    }
+//    
+//    components.queryItems = parameters.map {
+//        URLQueryItem(name: String($0), value: String($1))
+//    }
+//    
+//    guard let finalURL = components.url else {
+//        fatalError("Unable to retrieve final URL")
+//    }
+//    
+//    let request = NSMutableURLRequest(url: finalURL)
+//    request.httpMethod = method.rawValue
+//    
+//    return request as URLRequest
+//}
+//
+//
+//

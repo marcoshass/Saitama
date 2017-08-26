@@ -76,11 +76,28 @@ extension User {
     
     /** Place an order for bike rental, the parameters will be sent in the url */
     func rent(placeId: String, card: Card) -> Resource<User> {
-        let url = URL(string: "http://www.mocky.io/v2/59a0b0f111000010066442b5")!
+        // append placeId
+        var params = card.toHttpParams()
+        params["placeId"] = placeId
+        
+        let baseUrl = URL(string: "http://www.mocky.io/v2/59a0b0f111000010066442b5")!
+        let url = baseUrl.withParams(params: params)!
+        print("card_url=\(url)")
         return Resource(url: url, method: .put([:] as AnyObject), parseJSON: { (json) -> User? in
             guard let dictionary = json as? JSONDictionary else { return nil }
             return User(dictionary: dictionary)
         })
+    }
+    
+}
+
+extension URL {
+    
+    /** Build a url with the parameters received */
+    func withParams(params: HttpParameters) -> URL? {
+        guard var components = URLComponents(url: self, resolvingAgainstBaseURL: false) else { return nil }
+        components.queryItems = params.map { URLQueryItem(name: String($0), value: String($1)) }
+        return components.url
     }
     
 }

@@ -14,6 +14,7 @@ let AUTHORIZATIONHEADER = "Authorization"
 
 typealias JSONDictionary = [String: AnyObject]
 typealias HeaderDictionary = [String: String]
+typealias HttpParameters = [String: String]
 
 enum HttpMethod<Body> {
     case get

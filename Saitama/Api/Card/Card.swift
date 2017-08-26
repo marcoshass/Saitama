@@ -33,6 +33,7 @@ extension Card {
 }
 
 extension Card {
+    
     static func format(_ input: String) -> String {
         var formatted = ""
         var formatted4 = ""
@@ -46,5 +47,10 @@ extension Card {
         
         formatted += formatted4
         return formatted
+    }
+    
+    func toHttpParams() -> HttpParameters {
+        let result: HttpParameters = [NUMBER: self.number ?? "", NAME: self.name ?? "", CVV: self.cvv ?? "", EXPIRYMONTH: self.expiryMonth ?? "", EXPIRYYEAR: self.expiryYear ?? ""]
+        return result
     }
 }
