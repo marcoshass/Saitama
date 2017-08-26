@@ -18,7 +18,7 @@
 		8D7798471F4DD0A2006D76F6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D7798451F4DD0A2006D76F6 /* LaunchScreen.storyboard */; };
 		8D7798521F4DD0A2006D76F6 /* SaitamaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7798511F4DD0A2006D76F6 /* SaitamaTests.swift */; };
 		8D77985D1F4DD0A2006D76F6 /* SaitamaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D77985C1F4DD0A2006D76F6 /* SaitamaUITests.swift */; };
-		8DDDA7DF1F4E226C0098CB6E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDA7DE1F4E226C0098CB6E /* Constants.swift */; };
+		8DDDA7DF1F4E226C0098CB6E /* Constants+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDA7DE1F4E226C0098CB6E /* Constants+Util.swift */; };
 		8DDDA7E11F4E22830098CB6E /* NavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDA7E01F4E22830098CB6E /* NavigationManager.swift */; };
 		8DDDA7E81F4E22FD0098CB6E /* Payment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDA7E71F4E22FD0098CB6E /* Payment.swift */; };
 		8DDDA7EA1F4E230C0098CB6E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDA7E91F4E230C0098CB6E /* User.swift */; };
@@ -79,7 +79,7 @@
 		8D77985C1F4DD0A2006D76F6 /* SaitamaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaitamaUITests.swift; sourceTree = "<group>"; };
 		8D77985E1F4DD0A2006D76F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DDDA7DC1F4E1E3D0098CB6E /* Saitama.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Saitama.entitlements; sourceTree = "<group>"; };
-		8DDDA7DE1F4E226C0098CB6E /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		8DDDA7DE1F4E226C0098CB6E /* Constants+Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Constants+Util.swift"; sourceTree = "<group>"; };
 		8DDDA7E01F4E22830098CB6E /* NavigationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NavigationManager.swift; path = Manager/NavigationManager.swift; sourceTree = "<group>"; };
 		8DDDA7E71F4E22FD0098CB6E /* Payment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Payment.swift; path = Api/Payment/Payment.swift; sourceTree = "<group>"; };
 		8DDDA7E91F4E230C0098CB6E /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = Api/User/User.swift; sourceTree = "<group>"; };
@@ -197,7 +197,7 @@
 			children = (
 				8DDDA7DC1F4E1E3D0098CB6E /* Saitama.entitlements */,
 				8D77983C1F4DD0A2006D76F6 /* AppDelegate.swift */,
-				8DDDA7DE1F4E226C0098CB6E /* Constants.swift */,
+				8DDDA7DE1F4E226C0098CB6E /* Constants+Util.swift */,
 				8DDDA7DD1F4E223C0098CB6E /* Manager */,
 				8DDDA7E21F4E228A0098CB6E /* Api */,
 				8DDDA7F11F4E236E0098CB6E /* Gui */,
@@ -640,7 +640,7 @@
 				8D144AAA1F4F1270003EAB1B /* PaymentsController.swift in Sources */,
 				8D144AA31F4F0A77003EAB1B /* Card.swift in Sources */,
 				8DDDA7F51F4E239C0098CB6E /* BaseController.swift in Sources */,
-				8DDDA7DF1F4E226C0098CB6E /* Constants.swift in Sources */,
+				8DDDA7DF1F4E226C0098CB6E /* Constants+Util.swift in Sources */,
 				8DDDA7FC1F4E23EE0098CB6E /* MapController.swift in Sources */,
 				8DE8ECF81F4F6C00003F15B5 /* BikePlace.swift in Sources */,
 				8DDDA7F01F4E23620098CB6E /* WebService.swift in Sources */,

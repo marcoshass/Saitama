@@ -356,6 +356,11 @@ class LoginController: BaseController, UITextFieldDelegate {
                 return
         }
         
+        if !Email.isValid(email) {
+            self.show(message: NSLocalizedString("Invalid email address", comment: ""))
+            return
+        }
+        
         toggleStart()
         WebService().load(User.login(email: email, password: password), completion: { (user, error) in
             DispatchQueue.main.async {

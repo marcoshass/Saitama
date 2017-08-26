@@ -238,6 +238,10 @@ class RegisterController: BaseController, UITextFieldDelegate {
             return NSLocalizedString("Fields cannot be empty", comment: "")
         }
         
+        if !Email.isValid(email) {
+            return NSLocalizedString("Invalid email address", comment: "")
+        }
+        
         if password != confirmPassword {
             return NSLocalizedString("Passwords don't match", comment: "")
         }
