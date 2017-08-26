@@ -8,10 +8,12 @@
 
 import Foundation
 
+// Header constants
 let APPPLICATIONJSONHEADER = "application/json"
 let CONTENTTYPEHEADER = "Content-Type"
 let AUTHORIZATIONHEADER = "Authorization"
 
+// Aliases
 typealias JSONDictionary = [String: AnyObject]
 typealias HeaderDictionary = [String: String]
 typealias HttpParameters = [String: String]
@@ -35,6 +37,9 @@ extension HttpMethod {
     }
 }
 
+/**
+ Custom map extension that sends the HttpBody
+ */
 extension HttpMethod {
     func map<B>(f: (Body) -> B) -> HttpMethod<B> {
         switch self {
@@ -45,6 +50,9 @@ extension HttpMethod {
     }
 }
 
+/**
+ Resource that will be sumitted to the server
+ */
 struct Resource<T> {
     let url: URL
     let method: HttpMethod<Data>
@@ -54,7 +62,11 @@ struct Resource<T> {
 
 extension Resource {
     
-    /** Initializer with url and parseJSON:AnyObject -> T? */
+    /**
+     Default initializer that will receive the url, httpmethod (default .get),
+     HeaderDictionary with the parameters that will be sent into the header and
+     the parseJSON responsible to transform the data received into the model entity
+     */
     init(url: URL, method: HttpMethod<AnyObject> = .get, headers: HeaderDictionary? = nil, parseJSON: @escaping (AnyObject) -> T?) {
         self.url = url
 

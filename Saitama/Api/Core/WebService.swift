@@ -8,6 +8,11 @@
 
 import Foundation
 
+/**
+ Utility extension to detected when something go wrong in the
+ response, avoiding to put conditionals inside of the WebService
+ class
+ */
 extension HTTPURLResponse {
     var isSuccess: Bool { return self.statusCode >= 200 && self.statusCode <= 299 }
     var isInformational: Bool { return self.statusCode >= 100 && self.statusCode <= 199 }
@@ -16,6 +21,11 @@ extension HTTPURLResponse {
     var isServerError: Bool{ return self.statusCode >= 500 && self.statusCode <= 599 }
 }
 
+/**
+ Custom error implementation that is sent as a result of
+ the server requests. When the error is not identified it's
+ wrapped into one of the .case
+ */
 enum ServiceError: Error {
     case badStatus(status: Int, code: Int?, message: String?)
     case other(Error)
@@ -32,6 +42,11 @@ enum ServiceError: Error {
     }
 }
 
+/**
+ NSMutableURLRequest extension that builds up that
+ parameters that were embedded into the Resource
+ like the method, body and authentication header
+ */
 extension NSMutableURLRequest {
     convenience init<A>(resource: Resource<A>) {
         self.init(url: resource.url)
@@ -45,23 +60,32 @@ extension NSMutableURLRequest {
     }
 }
 
+/**
+ Responsible for the interaction with the rest api, receives a 
+ Resource object that carries the url, methods, headers and the 
+ json parse function. This class was created this way to avoid
+ a singleton misuse in the application
+ */
 final class WebService {
     
     func load<T>(_ resource: Resource<T>, completion: @escaping (T?, ServiceError?) -> ()) {
         let request = NSMutableURLRequest(resource: resource)
         URLSession.shared.dataTask(with: request as URLRequest) { (data, response, error) in
+            // Wraps unknown error to conform to ServiceError enum
+            // so the client will just receive ServiceError items
             if let error = error {
                 completion(nil, ServiceError.other(error))
                 return
             }
             
-            // prepare status code and service error
+            // Check the status code that's a standard of the Saitama
+            // api and encapsulates the responde with the code and the
+            // description providede by the api 
             if let httpStatus = response as? HTTPURLResponse, !httpStatus.isSuccess {
                 guard let data = data, let dict = try? JSONSerialization.jsonObject(with: data, options: []) as? JSONDictionary else {
                     completion(nil, ServiceError.badStatus(status: httpStatus.statusCode, code: nil, message: nil))
                     return
                 }
-                
                 completion(nil, ServiceError.badStatus(status: httpStatus.statusCode, code: dict?["code"] as? Int, message: dict?["message"] as? String))
                 return
             }
