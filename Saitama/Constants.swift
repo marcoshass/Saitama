@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ Nested structs with relevant constants used in the application
+ */
 struct Constants {
     
     struct Color {
@@ -35,6 +38,10 @@ struct Constants {
 
 }
 
+/**
+ Static DateFormatters to be used throughout the
+ application and save resources for data parsing
+ */
 struct Format {
     
     static let utc: DateFormatter = {

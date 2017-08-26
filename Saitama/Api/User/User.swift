@@ -83,7 +83,7 @@ extension User {
         let baseUrl = URL(string: "http://www.mocky.io/v2/59a0b0f111000010066442b5")!
         let url = baseUrl.withParams(params: params)!
         print("card_url=\(url)")
-        return Resource(url: url, method: .put([:] as AnyObject), parseJSON: { (json) -> User? in
+        return Resource(url: url, method: .put([:] as AnyObject), headers: [self.token ?? "": AUTHORIZATIONHEADER], parseJSON: { (json) -> User? in
             guard let dictionary = json as? JSONDictionary else { return nil }
             return User(dictionary: dictionary)
         })

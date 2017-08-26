@@ -312,51 +312,29 @@ extension URL {
     
 }
 
+class InsecureTest: NSObject, URLSessionDelegate {
 
-var parameters: HttpParameters = ["number": "123", "name": "Marcos", "cvv": "079", "expiryMonth": "10", "expiryYear": "2023"]
-parameters["placeId"] = "123456"
-print(parameters)
+    func selfSigned() {
+        let url = URL(string: "https://www.pcwebshop.co.uk/")!
+        let session = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
+        session.dataTask(with: url) { (data, response, error) in
+            if let error = error {
+                print("error=\(error)")
+                return
+            }
+            
+            let content = String(data: data!, encoding: String.Encoding.utf8)
+            print(content!)
+        }.resume()
+    }
 
-let finalURL = URL(string: "https://localhost:3000")!.buildURL(params: parameters)
-print(finalURL!)
+    func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+        completionHandler(.useCredential, URLCredential(trust: challenge.protectionSpace.serverTrust!))
+    }
 
-//let url = buildUrl(baseUrl: URL(string: "https://localhost:3000")!, params: parameters)
-//print(url!)
+}
 
-
-
-//
-//let baseUrl = URL(string: "https://localhost:3000")!
-//var components = URLComponents(url: baseUrl, resolvingAgainstBaseURL: false)!
-//components.queryItems = parameters.map { URLQueryItem(name: String($0), value: String($1)) }
-//let finalUrl = components.url
-//print(finalUrl)
+InsecureTest().selfSigned()
 
 
 
-//func requestWithBaseURL(_ baseURL: URL) -> URLRequest {
-//    let URL = baseURL.appendingPathComponent(path)
-//    
-//    // NSURLComponents can fail due to programming errors, so
-//    // prefer crashing than returning an optional
-//    
-//    guard let components = URLComponents(url: URL, resolvingAgainstBaseURL: false) else {
-//        fatalError("Unable to create URL components from \(URL)")
-//    }
-//    
-//    components.queryItems = parameters.map {
-//        URLQueryItem(name: String($0), value: String($1))
-//    }
-//    
-//    guard let finalURL = components.url else {
-//        fatalError("Unable to retrieve final URL")
-//    }
-//    
-//    let request = NSMutableURLRequest(url: finalURL)
-//    request.httpMethod = method.rawValue
-//    
-//    return request as URLRequest
-//}
-//
-//
-//

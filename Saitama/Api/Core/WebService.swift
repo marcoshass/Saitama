@@ -66,11 +66,17 @@ extension NSMutableURLRequest {
  json parse function. This class was created this way to avoid
  a singleton misuse in the application
  */
-final class WebService {
+final class WebService: NSObject, URLSessionDelegate {
     
+    /**
+     Loads the data through the network. http and self signed 
+     certificates were allowed just for testing purposes at
+     this method and at Info.plist
+     */
     func load<T>(_ resource: Resource<T>, completion: @escaping (T?, ServiceError?) -> ()) {
         let request = NSMutableURLRequest(resource: resource)
-        URLSession.shared.dataTask(with: request as URLRequest) { (data, response, error) in
+        let session = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
+        session.dataTask(with: request as URLRequest) { (data, response, error) in
             // Wraps unknown error to conform to ServiceError enum
             // so the client will just receive ServiceError items
             if let error = error {
@@ -95,5 +101,11 @@ final class WebService {
         }.resume()
     }
     
+    /** Allow self signed certificates just for testing purposes */
+    func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+        completionHandler(.useCredential, URLCredential(trust: challenge.protectionSpace.serverTrust!))
+    }
+    
+
 }
 
