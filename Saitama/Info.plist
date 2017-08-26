@@ -48,8 +48,8 @@
 	<key>AppRelease</key>
 	<string>dev</string>
 	<key>DevelopmentBaseUrl</key>
-	<string>http://www.mocky.io/v2/</string>
+	<string>http://www.mocky.io/v2</string>
 	<key>ProductionBaseUrl</key>
-	<string>https://localhost:3000/</string>
+	<string>https://localhost:3000</string>
 </dict>
 </plist>

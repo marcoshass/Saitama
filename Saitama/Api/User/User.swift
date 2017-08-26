@@ -47,8 +47,8 @@ extension User {
 extension User {
 
     static func login(email: String, password: String) -> Resource<User> {
-//      let url = URL(string: "http://www.mocky.io/v2/599e0f552500009705d303b2")!   // https://localhost:3000/users/ (POST)
         let url = URL(string: URLManager.login.url)!
+        print("login=\(url)")
         let dictionary = ["\(EMAIL)": email, "\(PASSWORD)": password]
         return Resource(url: url, method: .post(dictionary as AnyObject), parseJSON: { (json) -> User? in
             guard let dictionary = json as? JSONDictionary else { return nil }
@@ -57,7 +57,6 @@ extension User {
     }
     
     static func register(user: User) -> Resource<User> {
-//      let url = URL(string: "http://www.mocky.io/v2/599e3560250000f406d303d2")!   // https://localhost:3000/users/ (PUT)
         let url = URL(string: URLManager.register.url)!
         let dictionary = ["\(EMAIL)": user.email, "\(PASSWORD)": user.password]
         return Resource(url: url, method: .put(dictionary as AnyObject), parseJSON: { (json) -> User? in
@@ -68,7 +67,6 @@ extension User {
 
     /** Retrieves all payments placed by the user with the authentication token */
     func allPayments() -> Resource<[Payment]> {
-//      let url = URL(string: "http://www.mocky.io/v2/599ed8232c00004e0051d3cb")!   // https://localhost:3000/payments/ (GET)
         let url = URL(string: URLManager.payments.url)!
         return Resource(url: url, headers: [self.token ?? "": AUTHORIZATIONHEADER], parseJSON: { (json) -> [Payment]? in
             guard let dictionaries = json as? JSONDictionary else { return nil }
@@ -82,8 +80,7 @@ extension User {
         // append placeId
         var params = card.toHttpParams()
         params["placeId"] = placeId
-        
-//      let baseUrl = URL(string: "http://www.mocky.io/v2/59a0b0f111000010066442b5")!   // https://localhost:3000/payments/ (PUT)
+
         let baseUrl = URL(string: URLManager.rent.url)!
         let url = baseUrl.withParams(params: params)!
         print("card_url=\(url)")
