@@ -50,7 +50,12 @@ class NavigationManager {
         mapController.didTapHistory = { (places) in
             self.showHistory(parent: mapController, places: places)
         }
-        mapController.didTapRent = { (place) in self.showOrder(parent: mapController, place: place) }
+        
+        // Send the place to the order controller it will be built with the user+place
+        mapController.didTapRent = { (place) in
+            self.showOrder(parent: mapController, place: place)
+        }
+        
         parent.present(UINavigationController(rootViewController: mapController), animated: animated, completion: nil)
     }
     
@@ -81,7 +86,13 @@ class NavigationManager {
      */
     func showOrder(parent: UIViewController, place: Place) {
         let orderController = UIStoryboard.init(name: orderStoryboard, bundle: nil).instantiateInitialViewController() as! OrderController
+        orderController.didTapPay = { self.dismiss(viewController: orderController) }
+        
+        // Set the place and user for the order controller .The constructor 
+        // couldn't be modified because it was built in interface builder
         orderController.place = place
+        orderController.user = user
+        
         parent.navigationController?.pushViewController(orderController, animated: true)
     }
 

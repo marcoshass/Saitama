@@ -14,8 +14,14 @@ class OrderController: UITableViewController, UITextFieldDelegate {
     
     let myTitle = NSLocalizedString("Order", comment: "")
     let loadingTitle = NSLocalizedString("Renting...", comment: "")
+    let msgProvideUser = NSLocalizedString("User must be provided to rent a bike", comment: "")
+    let msgProvidePlace = NSLocalizedString("Place must be provided to rent a bike", comment: "")
     
+    var didTapPay: ()->() = {}
+    
+    // Variables needed to rent a bike
     var place: Place?
+    var user: User?
     
     @IBOutlet var labels: [UILabel]!
     @IBOutlet weak var idLabel: UILabel!
@@ -45,7 +51,13 @@ class OrderController: UITableViewController, UITextFieldDelegate {
         self.title = myTitle
         updateWidthsForLabels(labels: self.labels)
         setupViews()
-        print("place=\(self.place?.name ?? "empty place")")
+        loadPlace()
+    }
+    
+    func loadPlace() {
+        guard let placeId = place?.id, let placeName = place?.name else { return }
+        idTextField.text = placeId
+        placeNameTextField.text = placeName
     }
     
     func setupViews() {
@@ -68,26 +80,25 @@ class OrderController: UITableViewController, UITextFieldDelegate {
     // MARK: - MainLogic
     
     func validateFields() -> String? {
-        // (msgBox)
-        // códigddearea, telefone, numerocartao, vencimento, cvv
+        guard let _ = user else { return msgProvideUser }
+        guard let _ = place?.id, let _ = place?.name else { return msgProvidePlace }
         
-        //        guard let name = nameTextField.text,
-        //            let email = emailTextField.text,
-        //            let password = passwordTextField.text,
-        //            let confirmPassword = confirmPasswordTextField.text else {
-        //                return NSLocalizedString("Check fields", comment: "Check fields")
-        //        }
-        //
-        //        if name.characters.count == 0 ||
-        //            email.characters.count == 0 ||
-        //            password.characters.count == 0 {
-        //            return NSLocalizedString("Fields cannot be empty", comment: "Fields cannot be empty")
-        //        }
-        //
-        //        if password != confirmPassword {
-        //            return NSLocalizedString("Passwords don't match", comment: "Passwords don't match")
-        //        }
-        
+        guard let number = cardNumberTextField.text,
+            let name = cardNameTextField.text,
+            let cvv = cvvTextField.text,
+            let expiryMonth = expiryMonthTextField.text,
+            let expiryYear = expiryYearTextField.text else {
+                return NSLocalizedString("Check fields", comment: "")
+        }
+
+        if number.characters.count == 0 ||
+            name.characters.count == 0 ||
+            cvv.characters.count == 0 ||
+            expiryMonth.characters.count == 0 ||
+            expiryYear.characters.count == 0 {
+            return NSLocalizedString("Fields cannot be empty", comment: "")
+        }
+
         return nil
     }
     
@@ -97,34 +108,38 @@ class OrderController: UITableViewController, UITextFieldDelegate {
             return
         }
         
-//        let newUser = User(email: emailTextField.text, password: passwordTextField.text)
-//        
-//        self.title = loadingTitle
-//        WebService().load(User.register(user: newUser), completion: { (user, error) in
-//            DispatchQueue.main.async {
-//                self.title = myTitle
-//                
-//                if let error = error {
-//                    self.show(message: error.message())
-//                    return
-//                }
-//                
-//                guard let user = user else {
-//                    self.show(message: NSLocalizedString("Error registering user", comment: ""))
-//                    return
-//                }
-//                
-//                // check token
-//                guard let _ = user.token else {
-//                    self.show(message: NSLocalizedString("Invalid token", comment: ""))
-//                    return
-//                }
-//                
-//                self.show(message: NSLocalizedString("User registered successfully", comment: ""), confirmHandler: {(action) in
-//                    self.didTapRegister()
-//                })
-//            }
-//        })
+        let card = Card(number: cardNumberTextField.text, name: cardNameTextField.text, cvv: cvvTextField.text, expiryMonth: expiryMonthTextField.text, expiryYear: expiryYearTextField.text)
+  
+        guard let user = user else {
+            self.show(message: msgProvideUser)
+            return
+        }
+        
+        guard let placeId = place?.id else {
+            self.show(message: msgProvidePlace)
+            return
+        }
+        
+        self.title = loadingTitle
+        WebService().load(user.rent(placeId: placeId, card: card), completion: { (data, error) in
+            DispatchQueue.main.async {
+                self.title = self.myTitle
+
+                if let error = error {
+                    self.show(message: error.message())
+                    return
+                }
+
+                guard let _ = data else {
+                    self.show(message: NSLocalizedString("Error, bike was not rent", comment: ""))
+                    return
+                }
+
+                self.show(message: NSLocalizedString("Bike rent successfully", comment: ""), confirmHandler: {(action) in
+                    self.didTapPay()
+                })
+            }
+        })
     }
     
     // MARK: - Handlers

@@ -66,7 +66,7 @@ extension User {
         })
     }
 
-    // Retrieves all payments placed by the user with the authentication token
+    /** Retrieves all payments placed by the user with the authentication token */
     func allPayments() -> Resource<[Payment]> {
         // let url = URL(string: "http://www.mocky.io/v2/59a0a3cb110000c9056442aa")! // Malformed Json (Tested)
         // let url = URL(string: "http://www.mocky.io/v2/59a0a313110000c0056442a9")! // Unauthorized (Tested)
@@ -75,6 +75,15 @@ extension User {
             guard let dictionaries = json as? JSONDictionary else { return nil }
             guard let payments = dictionaries[PAYMENTS] as? [JSONDictionary] else { return nil }
             return payments.flatMap{Payment(dictionary: $0)}
+        })
+    }
+    
+    /** Place an order for bike rental, the parameters will be sent in the url */
+    func rent(placeId: String, card: Card) -> Resource<User> {
+        let url = URL(string: "http://www.mocky.io/v2/59a0b0f111000010066442b5")!
+        return Resource(url: url, method: .put([:] as AnyObject), parseJSON: { (json) -> User? in
+            guard let dictionary = json as? JSONDictionary else { return nil }
+            return User(dictionary: dictionary)
         })
     }
     
