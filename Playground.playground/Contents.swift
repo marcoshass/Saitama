@@ -300,41 +300,71 @@ WebService().load(Payment.all(user: user), completion: { (data, error) in
 //expiryMonth
 //expiryYear
 
-typealias HttpParameters = [String: String]
+//typealias HttpParameters = [String: String]
 
-extension URL {
+//extension URL {
+//
+//    func buildURL(params: HttpParameters) -> URL? {
+//        guard var components = URLComponents(url: self, resolvingAgainstBaseURL: false) else { return nil }
+//        components.queryItems = params.map { URLQueryItem(name: String($0), value: String($1)) }
+//        return components.url
+//    }
+//    
+//}
+//
+//class InsecureTest: NSObject, URLSessionDelegate {
+//
+//    func selfSigned() {
+//        let url = URL(string: "https://www.pcwebshop.co.uk/")!
+//        let session = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
+//        session.dataTask(with: url) { (data, response, error) in
+//            if let error = error {
+//                print("error=\(error)")
+//                return
+//            }
+//            
+//            let content = String(data: data!, encoding: String.Encoding.utf8)
+//            print(content!)
+//        }.resume()
+//    }
+//
+//    func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+//        completionHandler(.useCredential, URLCredential(trust: challenge.protectionSpace.serverTrust!))
+//    }
+//
+//}
+//
+//InsecureTest().selfSigned()
 
-    func buildURL(params: HttpParameters) -> URL? {
-        guard var components = URLComponents(url: self, resolvingAgainstBaseURL: false) else { return nil }
-        components.queryItems = params.map { URLQueryItem(name: String($0), value: String($1)) }
-        return components.url
-    }
+
+// ----------------------------------------------------------------------------
+// Enum
+// ----------------------------------------------------------------------------
+
+// "http://www.mocky.io/v2/599e0f552500009705d303b2")!   // https://localhost:3000/users/
+
+enum Env: String {
+    case dev = "dev"
+    case pro = "pro"
+}
+
+enum UserUrl {
+    case login(env: Env)
+    case register(env: Env)
+    case payments(env: Env)
+    case rent(env: Env)
     
+    var baseUrl: String {
+        let dev = "http://www.mocky.io/v2"
+        let pro = "https://localhost:3000" // from Info.plist
+        
+        switch self {
+        case .login(let env): return env == .dev ? "\(dev)/v2/599e0f552500009705d303b2": "\(pro)/users/"
+        case .register(let env): return env == .dev ? "\(dev)/v2/599e0f552500009705d303b2": "\(pro)/users/"
+        case .payments(let env): return env == .dev ? "\(dev)/v2/599e0f552500009705d303b2": "\(pro)/users/"
+        case .rent(let env): return env == .dev ? "\(dev)/v2/599e0f552500009705d303b2": "\(pro)/users/"
+        }
+    }
 }
 
-class InsecureTest: NSObject, URLSessionDelegate {
-
-    func selfSigned() {
-        let url = URL(string: "https://www.pcwebshop.co.uk/")!
-        let session = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
-        session.dataTask(with: url) { (data, response, error) in
-            if let error = error {
-                print("error=\(error)")
-                return
-            }
-            
-            let content = String(data: data!, encoding: String.Encoding.utf8)
-            print(content!)
-        }.resume()
-    }
-
-    func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-        completionHandler(.useCredential, URLCredential(trust: challenge.protectionSpace.serverTrust!))
-    }
-
-}
-
-InsecureTest().selfSigned()
-
-
-
+let url = UserUrl.login(env: Env(rawValue: "pro")!).baseUrl
