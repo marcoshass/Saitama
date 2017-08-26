@@ -348,23 +348,33 @@ enum Env: String {
     case pro = "pro"
 }
 
-enum UserUrl {
-    case login(env: Env)
-    case register(env: Env)
-    case payments(env: Env)
-    case rent(env: Env)
+enum URLManager {
+    case login
+    case register
+    case payments
+    case rent
+    case places
     
     var baseUrl: String {
-        let dev = "http://www.mocky.io/v2"
-        let pro = "https://localhost:3000" // from Info.plist
+        let release = Env(rawValue: "dev")!         // from .plist
+        let devBase = "http://www.mocky.io/v2/" // from .plist
+        let proBase = "https://localhost:3000/" // from .plist
         
         switch self {
-        case .login(let env): return env == .dev ? "\(dev)/v2/599e0f552500009705d303b2": "\(pro)/users/"
-        case .register(let env): return env == .dev ? "\(dev)/v2/599e0f552500009705d303b2": "\(pro)/users/"
-        case .payments(let env): return env == .dev ? "\(dev)/v2/599e0f552500009705d303b2": "\(pro)/users/"
-        case .rent(let env): return env == .dev ? "\(dev)/v2/599e0f552500009705d303b2": "\(pro)/users/"
+        case .login: return release == .dev ? "\(devBase)599e0f552500009705d303b2": "\(proBase)users/"
+        case .register: return release == .dev ? "\(devBase)599e0f552500009705d303b2": "\(proBase)users/"
+        case .payments: return release == .dev ? "\(devBase)599e0f552500009705d303b2": "\(proBase)users/"
+        case .rent: return release == .dev ? "\(devBase)599e0f552500009705d303b2": "\(proBase)users/"
+        case .places: return release == .dev ? "\(devBase)599f29ea2c0000820151d480": "\(proBase)places/"
         }
     }
 }
 
-let url = UserUrl.login(env: Env(rawValue: "pro")!).baseUrl
+let url = URLManager.places.baseUrl
+
+
+
+
+
+
+
