@@ -370,7 +370,122 @@ enum URLManager {
     }
 }
 
-let url = URLManager.places.baseUrl
+//let url = URLManager.places.baseUrl
+
+// ----------------------------------------------------------------------------
+// URLSessionDataTask
+// ----------------------------------------------------------------------------
+
+protocol URLSessionDataTaskProtocol {
+    func resume()
+}
+
+extension URLSessionDataTask: URLSessionDataTaskProtocol {}
+
+/**
+ Mock implementation that stores a flag indicating that resume() was called
+ */
+class MockURLSessionDataTask: URLSessionDataTaskProtocol {
+    var resumeWasCalled = false
+    
+    func resume() {
+        resumeWasCalled = true
+    }
+}
+
+// ----------------------------------------------------------------------------
+// URLSessionProtocol
+// ----------------------------------------------------------------------------
+
+typealias DataTaskResult = (Data?, URLResponse?, Error?) -> Void
+
+protocol URLSessionProtocol {
+    func dataTask(with: URL, completionHandler: @escaping DataTaskResult) -> URLSessionDataTaskProtocol
+}
+
+extension URLSession: URLSessionProtocol {
+    internal func dataTask(with url: URL, completionHandler: @escaping DataTaskResult) -> URLSessionDataTaskProtocol {
+        return (dataTask(with: url, completionHandler: completionHandler)
+            as URLSessionDataTask) as URLSessionDataTaskProtocol
+    }
+}
+
+/** 
+ Mock url session that stores the url address received 
+ */
+class MockURLSession: URLSessionProtocol {
+    var lastURL: URL?
+    var nextDataTask:URLSessionDataTaskProtocol
+    
+    init(dataTask: URLSessionDataTaskProtocol = MockURLSessionDataTask()) {
+        self.nextDataTask = dataTask
+    }
+    
+    func dataTask(with url: URL, completionHandler: @escaping DataTaskResult) -> URLSessionDataTaskProtocol {
+        lastURL = url
+        return nextDataTask
+    }
+}
+
+// ----------------------------------------------------------------------------
+// App
+// ----------------------------------------------------------------------------
+
+/**
+ Perform the network call much like the WebService class,
+ for unit testing purposes receive an implementation of
+ URLSessionProtocol that will be faked on unit tests.
+ */
+class HTTPClient {
+    let session: URLSessionProtocol
+ 
+    init(session: URLSessionProtocol = URLSession.shared) {
+        self.session = session
+    }
+    
+    func load(url: URL, completion: @escaping DataTaskResult) -> URLSessionDataTaskProtocol {
+        let task = self.session.dataTask(with: url, completionHandler: completion)
+        task.resume()
+        return task
+    }
+}
+
+// ----------------------------------------------------------------------------
+// Test client
+// ----------------------------------------------------------------------------
+
+func test_ClientUrlEqualsToSentUrl() {
+    let session = MockURLSession()
+    let subject = HTTPClient(session: session)
+    
+    let url = URL(string: "http://masilotti.com")!
+    subject.load(url: url) { (_, _, _) in }
+    
+    print("lasturl_match=\(session.lastURL == url)")
+}
+
+func test_ClientResumeRequest() {
+    let dataTask = MockURLSessionDataTask()
+    let session = MockURLSession(dataTask: dataTask)
+
+    let subject = HTTPClient(session: session)
+    let url = URL(string: "http://masilotti.com")!
+    
+    subject.load(url: url) { (_, _, _) in }
+    print("resume_called=\(dataTask.resumeWasCalled)")
+}
+
+test_ClientUrlEqualsToSentUrl()
+test_ClientResumeRequest()
+print("")
+
+// test if api works
+let url = URL(string: "http://masilotti.com")!
+HTTPClient().load(url: url) { (data, _, _) in
+    guard let data = data else { print("nodata"); return  }
+    let str = String(data: data, encoding: String.Encoding.utf8)
+    print("data=\(str)")
+}
 
 
 
