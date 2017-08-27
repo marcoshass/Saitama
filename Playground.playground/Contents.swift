@@ -415,15 +415,25 @@ extension URLSession: URLSessionProtocol {
  */
 class MockURLSession: URLSessionProtocol {
     var lastURL: URL?
-    var nextDataTask:URLSessionDataTaskProtocol
+    var dataTask:URLSessionDataTaskProtocol
+// data,error for dataTask(with...)
+    var nextData: Data?
+    var nextError: Error?
     
+    /** Initializer that creates a mock datatask by default */
     init(dataTask: URLSessionDataTaskProtocol = MockURLSessionDataTask()) {
-        self.nextDataTask = dataTask
+        self.dataTask = dataTask
     }
     
+    /**
+     Returns by default the MockURLSessionDataTask and this datatask
+     just marks a flag indicating that the resume() method was called
+     */
     func dataTask(with url: URL, completionHandler: @escaping DataTaskResult) -> URLSessionDataTaskProtocol {
         lastURL = url
-        return nextDataTask
+        // Invokes the completionhandler to the caller
+        completionHandler(nextData, nil, nextError)
+        return dataTask
     }
 }
 
@@ -475,16 +485,23 @@ func test_ClientResumeRequest() {
     print("resume_called=\(dataTask.resumeWasCalled)")
 }
 
+func test_ClientAssertDataIsNilForMockSession() {
+    let url = URL(string: "http://masilotti.com")!
+    MockURLSession().dataTask(with: url, completionHandler: { (data, _, _) in
+        print("data_nil=\(data == nil)")
+    }).resume()
+}
+
+func test_ClientReturnRealData() {
+    let url = URL(string: "http://masilotti.com")!
+    HTTPClient().load(url: url) { (data, _, _) in
+        print("\nreal_data=\(data != nil)")
+    }
+}
+
 test_ClientUrlEqualsToSentUrl()
 test_ClientResumeRequest()
-print("")
-
-// final api code
-let url = URL(string: "http://masilotti.com")!
-HTTPClient().load(url: url) { (data, _, _) in
-    guard let data = data else { print("nodata"); return  }
-    print("\nwebsite_data=\(data)")
-}
+test_ClientAssertDataIsNilForMockSession()
 
 
 
