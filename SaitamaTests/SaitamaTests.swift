@@ -21,9 +21,19 @@ class SaitamaTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testGetToWebSite() {
+        let url = URL(string: "http://masilotti.com")!
+        let exp = expectation(description: "Wait for \(url) to load")
+        var data: Data?
+        
+        URLSession.shared.dataTask(with: url) { (netData, _, _) in
+            data = netData
+            exp.fulfill()
+
+        }.resume()
+        
+        waitForExpectations(timeout: 5, handler: nil)
+        XCTAssertNotNil(data)
     }
     
     func testPerformanceExample() {
