@@ -67,6 +67,17 @@ extension NSMutableURLRequest {
  a singleton misuse in the application
  */
 final class WebService: NSObject, URLSessionDelegate {
+    var session: URLSessionProtocol?
+    
+    /**
+     Initializer that receives the URLSession protocol 
+     added to provide support to unit testing
+     */
+    init(session: URLSessionProtocol? = nil) {
+        super.init()
+        guard let session = session else { self.session = URLSession(configuration: .default, delegate: self, delegateQueue: nil); return }
+        self.session = session
+    }
     
     /**
      Loads the data through the network. http and self signed 
@@ -75,7 +86,7 @@ final class WebService: NSObject, URLSessionDelegate {
      */
     func load<T>(_ resource: Resource<T>, completion: @escaping (T?, ServiceError?) -> ()) {
         let request = NSMutableURLRequest(resource: resource)
-        let session = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
+        guard let session = session else { return }
         session.dataTask(with: request as URLRequest) { (data, response, error) in
             // Wraps unknown error to conform to ServiceError enum
             // so the client will just receive ServiceError items
@@ -109,3 +120,30 @@ final class WebService: NSObject, URLSessionDelegate {
 
 }
 
+// ----------------------------------------------------------------------------
+// Test support for URLSession
+// ----------------------------------------------------------------------------
+
+typealias DataTaskResult = (Data?, URLResponse?, Error?) -> ()
+
+protocol URLSessionProtocol {
+    func dataTask(with: URLRequest, completionHandler: @escaping DataTaskResult) -> URLSessionDataTaskProtocol
+}
+
+extension URLSession: URLSessionProtocol {
+    func dataTask(with request: URLRequest, completionHandler: @escaping DataTaskResult) -> URLSessionDataTaskProtocol {
+        return (dataTask(with: request, completionHandler: completionHandler) as URLSessionDataTask) as URLSessionDataTaskProtocol
+    }
+}
+
+// ----------------------------------------------------------------------------
+// Test support for URLSessionDataTask
+// ----------------------------------------------------------------------------
+
+protocol URLSessionDataTaskProtocol {
+    func resume()
+}
+
+extension URLSessionDataTask: URLSessionDataTaskProtocol {
+    
+}

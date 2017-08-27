@@ -11,36 +11,62 @@ import XCTest
 
 class SaitamaTests: XCTestCase {
     
+    let url = URL(string: "http://masilotti.com")!
+    var webservice: WebService!
+    let session = MockURLSession()
+
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        self.webservice = WebService(session: session)
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
     
-    func testGetToWebSite() {
-        let url = URL(string: "http://masilotti.com")!
-        let exp = expectation(description: "Wait for \(url) to load")
-        var data: Data?
-        
-        URLSession.shared.dataTask(with: url) { (netData, _, _) in
-            data = netData
-            exp.fulfill()
+    func testServiceKeepTrackURL() {
+        let resource = Resource(url: url, parseJSON: { (_) -> NSObject? in return nil })
 
-        }.resume()
+        webservice.load(resource) { (_, _) in }
+        XCTAssert(session.lastRequest?.url == url)
+    }
+    
+    func testServiceResumeCalled() {
+        let dataTask = MockURLSessionDataTask()
+        session.nextDataTask = dataTask
         
-        waitForExpectations(timeout: 5, handler: nil)
-        XCTAssertNotNil(data)
+        let resource = Resource(url: url, parseJSON: { (_) -> NSObject? in return nil })
+        webservice.load(resource) { (_, _) in }
+        
+        XCTAssertTrue(dataTask.resumeCalled)
     }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
+}
+
+/**
+ Mock implementation for URLSession that tracks the last request
+ */
+class MockURLSession: URLSessionProtocol {
+    var lastRequest: URLRequest?
+    var nextDataTask = MockURLSessionDataTask()
     
+    var nextData: Data?
+    var nextError: Error?
+    
+    func dataTask(with request: URLRequest, completionHandler: @escaping DataTaskResult) -> URLSessionDataTaskProtocol {
+        lastRequest = request
+        completionHandler(nextData, nil, nextError)
+        return nextDataTask
+    }
+}
+
+/**
+ Mock implementation for URLSessionDataTask that tracks resume()
+ */
+class MockURLSessionDataTask: URLSessionDataTaskProtocol {
+    var resumeCalled = false
+    
+    func resume() {
+        resumeCalled = true
+    }
 }

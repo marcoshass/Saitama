@@ -499,13 +499,18 @@ func test_ClientReturnRealData() {
     }
 }
 
-test_ClientUrlEqualsToSentUrl()
-test_ClientResumeRequest()
-test_ClientAssertDataIsNilForMockSession()
+func test_Resource() {
+    let resource = Resource<AnyObject>(url: URL(string: "http://www.mocky.io/v2/599f29ea2c0000820151d480")!, parseJSON: { (rawData) -> AnyObject? in
+        return rawData
+    })
+    
+    WebService().load(resource) { (data, error) in
+        print(data ?? "nodata")
+    }
+}
 
-
-
-
-
-
+test_Resource()
+//test_ClientUrlEqualsToSentUrl()
+//test_ClientResumeRequest()
+//test_ClientAssertDataIsNilForMockSession()
 
