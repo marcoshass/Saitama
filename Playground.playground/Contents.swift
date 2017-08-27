@@ -479,12 +479,11 @@ test_ClientUrlEqualsToSentUrl()
 test_ClientResumeRequest()
 print("")
 
-// test if api works
+// final api code
 let url = URL(string: "http://masilotti.com")!
 HTTPClient().load(url: url) { (data, _, _) in
     guard let data = data else { print("nodata"); return  }
-    let str = String(data: data, encoding: String.Encoding.utf8)
-    print("data=\(str)")
+    print("\nwebsite_data=\(data)")
 }
 
 
