@@ -9,6 +9,11 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>SaitamaPlayground.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
@@ -23,6 +28,11 @@
 			<true/>
 		</dict>
 		<key>8D7798571F4DD0A2006D76F6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8D829AB81F542A4F00172B40</key>
 		<dict>
 			<key>primary</key>
 			<true/>

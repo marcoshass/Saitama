@@ -14,17 +14,17 @@ let CONTENTTYPEHEADER = "Content-Type"
 let AUTHORIZATIONHEADER = "Authorization"
 
 // Aliases
-typealias JSONDictionary = [String: AnyObject]
-typealias HeaderDictionary = [String: String]
-typealias HttpParameters = [String: String]
+public typealias JSONDictionary = [String: AnyObject]
+public typealias HeaderDictionary = [String: String]
+public typealias HttpParameters = [String: String]
 
-enum HttpMethod<Body> {
+public enum HttpMethod<Body> {
     case get
     case post(Body)
     case put(Body)
 }
 
-extension HttpMethod {
+public extension HttpMethod {
     var method: String {
         switch self {
         case .get:
@@ -53,7 +53,7 @@ extension HttpMethod {
 /**
  Resource that will be sumitted to the server
  */
-struct Resource<T> {
+public struct Resource<T> {
     let url: URL
     let method: HttpMethod<Data>
     var headers: HeaderDictionary
@@ -67,7 +67,7 @@ extension Resource {
      HeaderDictionary with the parameters that will be sent into the header and
      the parseJSON responsible to transform the data received into the model entity
      */
-    init(url: URL, method: HttpMethod<AnyObject> = .get, headers: HeaderDictionary? = nil, parseJSON: @escaping (AnyObject) -> T?) {
+    public init(url: URL, method: HttpMethod<AnyObject> = .get, headers: HeaderDictionary? = nil, parseJSON: @escaping (AnyObject) -> T?) {
         self.url = url
 
         self.method = method.map{ json in

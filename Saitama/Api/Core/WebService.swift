@@ -26,7 +26,7 @@ extension HTTPURLResponse {
  the server requests. When the error is not identified it's
  wrapped into one of the .case
  */
-enum ServiceError: Error {
+public enum ServiceError: Error {
     case badStatus(status: Int, code: Int?, message: String?)
     case other(Error)
     
@@ -48,7 +48,7 @@ enum ServiceError: Error {
  like the method, body and authentication header
  */
 extension NSMutableURLRequest {
-    convenience init<A>(resource: Resource<A>) {
+    public convenience init<A>(resource: Resource<A>) {
         self.init(url: resource.url)
         _ = resource.headers.map { (k,v) in addValue(k, forHTTPHeaderField: v) }
         httpMethod = resource.method.method
@@ -66,14 +66,14 @@ extension NSMutableURLRequest {
  json parse function. This class was created this way to avoid
  a singleton misuse in the application
  */
-final class WebService: NSObject, URLSessionDelegate {
+public final class WebService: NSObject, URLSessionDelegate {
     var session: URLSessionProtocol?
     
     /**
      Initializer that receives the URLSession protocol 
      added to provide support to unit testing
      */
-    init(session: URLSessionProtocol? = nil) {
+    public init(session: URLSessionProtocol? = nil) {
         super.init()
         guard let session = session else { self.session = URLSession(configuration: .default, delegate: self, delegateQueue: nil); return }
         self.session = session
@@ -84,7 +84,7 @@ final class WebService: NSObject, URLSessionDelegate {
      certificates were allowed just for testing purposes at
      this method and at Info.plist
      */
-    func load<T>(_ resource: Resource<T>, completion: @escaping (T?, ServiceError?) -> ()) {
+    public func load<T>(_ resource: Resource<T>, completion: @escaping (T?, ServiceError?) -> ()) {
         let request = NSMutableURLRequest(resource: resource)
         guard let session = session else { return }
         session.dataTask(with: request as URLRequest) { (data, response, error) in
@@ -113,7 +113,7 @@ final class WebService: NSObject, URLSessionDelegate {
     }
     
     /** Allow self signed certificates just for testing purposes */
-    func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+    public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
         completionHandler(.useCredential, URLCredential(trust: challenge.protectionSpace.serverTrust!))
     }
     
@@ -124,14 +124,14 @@ final class WebService: NSObject, URLSessionDelegate {
 // Test support for URLSession
 // ----------------------------------------------------------------------------
 
-typealias DataTaskResult = (Data?, URLResponse?, Error?) -> ()
+public typealias DataTaskResult = (Data?, URLResponse?, Error?) -> ()
 
-protocol URLSessionProtocol {
+public protocol URLSessionProtocol {
     func dataTask(with: URLRequest, completionHandler: @escaping DataTaskResult) -> URLSessionDataTaskProtocol
 }
 
 extension URLSession: URLSessionProtocol {
-    func dataTask(with request: URLRequest, completionHandler: @escaping DataTaskResult) -> URLSessionDataTaskProtocol {
+    public func dataTask(with request: URLRequest, completionHandler: @escaping DataTaskResult) -> URLSessionDataTaskProtocol {
         return (dataTask(with: request, completionHandler: completionHandler) as URLSessionDataTask) as URLSessionDataTaskProtocol
     }
 }
@@ -140,7 +140,7 @@ extension URLSession: URLSessionProtocol {
 // Test support for URLSessionDataTask
 // ----------------------------------------------------------------------------
 
-protocol URLSessionDataTaskProtocol {
+public protocol URLSessionDataTaskProtocol {
     func resume()
 }
 
