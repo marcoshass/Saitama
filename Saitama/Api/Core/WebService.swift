@@ -106,10 +106,14 @@ public final class WebService: NSObject, URLSessionDelegate {
             // api and encapsulates the responde with the code and the
             // description providede by the api 
             if let httpStatus = response as? HTTPURLResponse, !httpStatus.isSuccess {
-                guard let data = data, let dict = try? JSONSerialization.jsonObject(with: data, options: []) as? JSONDictionary else {
+                guard let errorData = data, let dict = try? JSONSerialization.jsonObject(with: errorData, options: []) as? JSONDictionary
+                else {
+                    // couldn't desserialize the error from json response
                     completion(nil, ServiceError.badStatus(status: httpStatus.statusCode, code: nil, message: nil))
                     return
                 }
+
+                // error has a valid json format
                 completion(nil, ServiceError.badStatus(status: httpStatus.statusCode, code: dict?["code"] as? Int, message: dict?["message"] as? String))
                 return
             }

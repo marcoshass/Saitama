@@ -16,7 +16,7 @@
 		8D77983D1F4DD0A2006D76F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D77983C1F4DD0A2006D76F6 /* AppDelegate.swift */; };
 		8D7798441F4DD0A2006D76F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D7798431F4DD0A2006D76F6 /* Assets.xcassets */; };
 		8D7798471F4DD0A2006D76F6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D7798451F4DD0A2006D76F6 /* LaunchScreen.storyboard */; };
-		8D7798521F4DD0A2006D76F6 /* SaitamaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7798511F4DD0A2006D76F6 /* SaitamaTests.swift */; };
+		8D7798521F4DD0A2006D76F6 /* UserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7798511F4DD0A2006D76F6 /* UserTests.swift */; };
 		8D77985D1F4DD0A2006D76F6 /* SaitamaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D77985C1F4DD0A2006D76F6 /* SaitamaUITests.swift */; };
 		8D829ABD1F542A4F00172B40 /* SaitamaPlayground.h in Headers */ = {isa = PBXBuildFile; fileRef = 8D829ABB1F542A4F00172B40 /* SaitamaPlayground.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8D829AC01F542A4F00172B40 /* SaitamaPlayground.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D829AB91F542A4F00172B40 /* SaitamaPlayground.framework */; };
@@ -24,6 +24,7 @@
 		8D829AC61F542A5D00172B40 /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDA7ED1F4E233F0098CB6E /* Resource.swift */; };
 		8D829AC71F542A6200172B40 /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDA7EF1F4E23620098CB6E /* WebService.swift */; };
 		8D9BC3D81F51AC8800EDF5B4 /* URLManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9BC3D71F51AC8800EDF5B4 /* URLManager.swift */; };
+		8DD69A771F57513700E4711B /* MockSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD69A761F57513700E4711B /* MockSession.swift */; };
 		8DDDA7DF1F4E226C0098CB6E /* Constants+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDA7DE1F4E226C0098CB6E /* Constants+Util.swift */; };
 		8DDDA7E11F4E22830098CB6E /* NavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDA7E01F4E22830098CB6E /* NavigationManager.swift */; };
 		8DDDA7E81F4E22FD0098CB6E /* Payment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDA7E71F4E22FD0098CB6E /* Payment.swift */; };
@@ -100,7 +101,7 @@
 		8D7798461F4DD0A2006D76F6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8D7798481F4DD0A2006D76F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D77984D1F4DD0A2006D76F6 /* SaitamaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SaitamaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		8D7798511F4DD0A2006D76F6 /* SaitamaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaitamaTests.swift; sourceTree = "<group>"; };
+		8D7798511F4DD0A2006D76F6 /* UserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTests.swift; sourceTree = "<group>"; };
 		8D7798531F4DD0A2006D76F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D7798581F4DD0A2006D76F6 /* SaitamaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SaitamaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D77985C1F4DD0A2006D76F6 /* SaitamaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaitamaUITests.swift; sourceTree = "<group>"; };
@@ -109,6 +110,7 @@
 		8D829ABB1F542A4F00172B40 /* SaitamaPlayground.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SaitamaPlayground.h; sourceTree = "<group>"; };
 		8D829ABC1F542A4F00172B40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D9BC3D71F51AC8800EDF5B4 /* URLManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLManager.swift; sourceTree = "<group>"; };
+		8DD69A761F57513700E4711B /* MockSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockSession.swift; sourceTree = "<group>"; };
 		8DDDA7DC1F4E1E3D0098CB6E /* Saitama.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Saitama.entitlements; sourceTree = "<group>"; };
 		8DDDA7DE1F4E226C0098CB6E /* Constants+Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Constants+Util.swift"; sourceTree = "<group>"; };
 		8DDDA7E01F4E22830098CB6E /* NavigationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NavigationManager.swift; path = Manager/NavigationManager.swift; sourceTree = "<group>"; };
@@ -253,7 +255,8 @@
 		8D7798501F4DD0A2006D76F6 /* SaitamaTests */ = {
 			isa = PBXGroup;
 			children = (
-				8D7798511F4DD0A2006D76F6 /* SaitamaTests.swift */,
+				8DD69A761F57513700E4711B /* MockSession.swift */,
+				8D7798511F4DD0A2006D76F6 /* UserTests.swift */,
 				8D7798531F4DD0A2006D76F6 /* Info.plist */,
 			);
 			path = SaitamaTests;
@@ -757,7 +760,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D7798521F4DD0A2006D76F6 /* SaitamaTests.swift in Sources */,
+				8DD69A771F57513700E4711B /* MockSession.swift in Sources */,
+				8D7798521F4DD0A2006D76F6 /* UserTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
