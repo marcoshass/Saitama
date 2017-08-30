@@ -9,28 +9,50 @@
 import XCTest
 
 class SaitamaUITests: XCTestCase {
-        
+    let app = XCUIApplication()
+    
     override func setUp() {
         super.setUp()
-        
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-        
-        // In UI tests it is usually best to stop immediately when a failure occurs.
         continueAfterFailure = false
-        // UI tests must launch the application that they test. Doing this in setup will make sure it happens for each test method.
-        XCUIApplication().launch()
 
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
+        app.launchArguments += ["UI-TESTING"]
+        app.launchEnvironment["http://www.mocky.io/v2/599f29ea2c0000820151d480"] =
+            "{                                                          " +
+            "\"places\": [                                              " +
+            "  {                                                        " +
+            "    \"updatedAt\": \"2016-12-23T19:31:10.340Z\",           " +
+            "    \"createdAt\": \"2016-12-23T19:31:10.340Z\",           " +
+            "    \"id\": \"45c0b5209973fcec652817e16e20f1d0b4ecb602\",  " +
+            "    \"name\": \"Tokyo\",                                   " +
+            "    \"location\": {                                        " +
+            "      \"lat\": \"35.7090259\",                             " +
+            "      \"lng\": \"139.7319925\"                             " +
+            "    }                                                      " +
+            "  },                                                       " +
+            "  {                                                        " +
+            "    \"updatedAt\": \"2016-12-23T19:31:10.354Z\",           " +
+            "    \"createdAt\": \"2016-12-23T19:31:10.354Z\",           " +
+            "    \"id\": \"83489d15abb8214530f554d5731b902bf4de9d08\",  " +
+            "    \"name\": \"Hotel Mid In Akabane Ekimae\",             " +
+            "    \"location\": {                                        " +
+            "      \"lat\": \"35.776904\",                              " +
+            "      \"lng\": \"139.7222837\"                             " +
+            "  }                                                        " +
+            "}]                                                         " +
+        "}"
+        app.launch()
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
     
     func testExample() {
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
     
 }
+
+
+
+
+

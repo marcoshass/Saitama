@@ -75,7 +75,14 @@ public final class WebService: NSObject, URLSessionDelegate {
      */
     public init(session: URLSessionProtocol? = nil) {
         super.init()
-        guard let session = session else { self.session = URLSession(configuration: .default, delegate: self, delegateQueue: nil); return }
+        guard let session = session else {
+            if UITesting() {
+                self.session = SeededURLSession()
+            } else {
+                self.session = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
+            }
+            return
+        }
         self.session = session
     }
     
@@ -117,8 +124,11 @@ public final class WebService: NSObject, URLSessionDelegate {
         completionHandler(.useCredential, URLCredential(trust: challenge.protectionSpace.serverTrust!))
     }
     
-
+    func UITesting() -> Bool {
+        return ProcessInfo.processInfo.arguments.contains("UI-TESTING")
+    }
 }
+
 
 // ----------------------------------------------------------------------------
 // Test support for URLSession
@@ -146,4 +156,35 @@ public protocol URLSessionDataTaskProtocol {
 
 extension URLSessionDataTask: URLSessionDataTaskProtocol {
     
+}
+
+// ----------------------------------------------------------------------------
+// Seedeed Session&DataTask
+// ----------------------------------------------------------------------------
+
+typealias DataCompletion = (Data?, URLResponse?, Error?)->()
+
+class SeededURLSession: URLSession {
+    override func dataTask(with url: URL, completionHandler: @escaping DataCompletion) -> URLSessionDataTask {
+        return SeededDataTask(url: url, completion: completionHandler)
+    }
+}
+
+class SeededDataTask: URLSessionDataTask {
+    let url: URL
+    let completion: DataCompletion
+    
+    init(url: URL, completion: @escaping DataCompletion) {
+        self.url = url
+        self.completion = completion
+    }
+    
+    override func resume() {
+        guard let json = ProcessInfo.processInfo.environment[url.absoluteString],
+            let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil),
+            let data = json.data(using: String.Encoding.utf8) else {
+                return
+        }
+        completion(data, response, nil)
+    }
 }
