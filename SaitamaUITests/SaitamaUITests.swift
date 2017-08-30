@@ -23,7 +23,7 @@ class SaitamaUITests: XCTestCase {
             "    \"updatedAt\": \"2016-12-23T19:31:10.340Z\",           " +
             "    \"createdAt\": \"2016-12-23T19:31:10.340Z\",           " +
             "    \"id\": \"45c0b5209973fcec652817e16e20f1d0b4ecb602\",  " +
-            "    \"name\": \"Tokyo\",                                   " +
+            "    \"name\": \"Tokyo Japan\",                             " +
             "    \"location\": {                                        " +
             "      \"lat\": \"35.7090259\",                             " +
             "      \"lng\": \"139.7319925\"                             " +
@@ -33,7 +33,7 @@ class SaitamaUITests: XCTestCase {
             "    \"updatedAt\": \"2016-12-23T19:31:10.354Z\",           " +
             "    \"createdAt\": \"2016-12-23T19:31:10.354Z\",           " +
             "    \"id\": \"83489d15abb8214530f554d5731b902bf4de9d08\",  " +
-            "    \"name\": \"Hotel Mid In Akabane Ekimae\",             " +
+            "    \"name\": \"Japan Mid In Akabane Ekimae\",             " +
             "    \"location\": {                                        " +
             "      \"lat\": \"35.776904\",                              " +
             "      \"lng\": \"139.7222837\"                             " +
@@ -47,7 +47,10 @@ class SaitamaUITests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
+    func XXtestTapMapItem() {
+        let app = XCUIApplication()
+        app.otherElements["Japan Mid In Akabane Ekimae"].tap()
+        app.otherElements["PopoverDismissRegion"].tap()
     }
     
 }

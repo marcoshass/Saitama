@@ -164,9 +164,9 @@ extension URLSessionDataTask: URLSessionDataTaskProtocol {
 
 typealias DataCompletion = (Data?, URLResponse?, Error?)->()
 
-class SeededURLSession: URLSession {
-    override func dataTask(with url: URL, completionHandler: @escaping DataCompletion) -> URLSessionDataTask {
-        return SeededDataTask(url: url, completion: completionHandler)
+class SeededURLSession: URLSessionProtocol {
+    func dataTask(with request: URLRequest, completionHandler: @escaping DataTaskResult) -> URLSessionDataTaskProtocol {
+        return SeededDataTask(url: request.url!, completion: completionHandler)
     }
 }
 
@@ -180,6 +180,9 @@ class SeededDataTask: URLSessionDataTask {
     }
     
     override func resume() {
+        // Capture the dictionary that contains the url+json, this dictionary was
+        // feeded by the UITesting environment and will be valid only in such
+        // conditions
         guard let json = ProcessInfo.processInfo.environment[url.absoluteString],
             let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil),
             let data = json.data(using: String.Encoding.utf8) else {

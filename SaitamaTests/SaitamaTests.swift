@@ -9,6 +9,10 @@
 import XCTest
 @testable import Saitama
 
+enum HttpStatus: Int {
+    case success = 200
+}
+
 class SaitamaTests: XCTestCase {
     
     override func setUp() {
@@ -44,23 +48,35 @@ class SaitamaTests: XCTestCase {
             "}]                                                         " +
         "}"
         
-        WebService(session: MockURLSession(json: json)).load(Place.all(), completion: { (data, error) in
+        WebService(session: SuccessURLSession(json: json)).load(Place.all(), completion: { (data, error) in
             XCTAssertNotNil(data)
         })
+    }
+    
+    func testLogin_ReturnUserNotFound() {
         
+    }
+    
+    func testLogin_ReturnSuccessToken() {
+        let answerToken = "eyJhbGciOiJub25lIeGFtcGxlLmNvbS9yZWdpc3RlciJ9"
+        let json = "{\"token\": \"eyJhbGciOiJub25lIeGFtcGxlLmNvbS9yZWdpc3RlciJ9\"}"
+        WebService(session: SuccessURLSession(json: json)).load(User.login(email: "", password: "")) { (user, error) in
+            XCTAssertNil(error)
+            XCTAssertEqual(answerToken, user?.token)
+        }
     }
 
 }
 
-class MockURLSession: URLSessionProtocol {
+class SuccessURLSession: URLSessionProtocol {
     let json: String
     
-    init(json: String) {
+    init(json: String, httpStatus: Int = HttpStatus.success.rawValue) {
         self.json = json
     }
     
     func dataTask(with request: URLRequest, completionHandler: @escaping DataTaskResult) -> URLSessionDataTaskProtocol {
-        let response = HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)
+        let response = HTTPURLResponse(url: request.url!, statusCode: HttpStatus.success.rawValue, httpVersion: nil, headerFields: nil)
         completionHandler(json.data(using: String.Encoding.utf8), response, nil)
         return MockURLSessionDataTask()
     }
