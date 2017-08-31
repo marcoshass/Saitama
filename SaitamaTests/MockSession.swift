@@ -28,6 +28,11 @@ func getError(error: ServiceError?) -> (status: Int?, code: Int?, message: Strin
     }
 }
 
+/**
+ Mock implementation for URLSessionProtocol that receives
+ a json string to be transformed to Data? and the http
+ response provided to the client api
+ */
 class MockURLSession: URLSessionProtocol {
     let json: String
     let httpStatus: HttpStatus
@@ -45,5 +50,5 @@ class MockURLSession: URLSessionProtocol {
 }
 
 class MockURLSessionDataTask: URLSessionDataTaskProtocol {
-    func resume() { }
+    func resume() {}
 }

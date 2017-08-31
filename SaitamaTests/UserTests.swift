@@ -25,16 +25,21 @@ class UserTests: XCTestCase {
 
 // login
     
+    func testLogin_HttpPostMethod() {
+        let resource = User.login(email: "", password: "")
+        let dictionary = ["":""]
+        XCTAssertEqual(resource.method.method, HttpMethod<AnyObject>.post(dictionary as AnyObject).method)
+    }
+    
     func testLogin_InvalidJson_Error() {
         let status = HttpStatus.unprocEntity.rawValue
         let code = status
         let message = "InvalidJson"
         let json = "{\"message\": \"\(message)\",\"code\": \(code)}"
-        
+
         WebService(session: MockURLSession(json: json, httpStatus: .unprocEntity)).load(User.login(email: "", password: ""))
         {(user, error) in
             guard let error = getError(error: error) else { XCTFail(); return }
-            XCTAssertNil(user)
             XCTAssertEqual(error.status, status)
             XCTAssertEqual(error.code, code)
             XCTAssertEqual(error.message, message)
@@ -50,7 +55,6 @@ class UserTests: XCTestCase {
         WebService(session: MockURLSession(json: json, httpStatus: .badRequest)).load(User.login(email: "", password: ""))
         {(user, error) in
             guard let error = getError(error: error) else { XCTFail(); return }
-            XCTAssertNil(user)            
             XCTAssertEqual(error.status, status)
             XCTAssertEqual(error.code, code)
             XCTAssertEqual(error.message, message)
