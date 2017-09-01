@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:Saitama/Api/Model/Photo+CoreDataClass.swift">
+   </FileRef>
+   <FileRef
+      location = "group:Saitama/Api/Model/Photo+CoreDataProperties.swift">
+   </FileRef>
+   <FileRef
       location = "group:Playground.playground">
    </FileRef>
    <FileRef

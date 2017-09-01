@@ -13,6 +13,9 @@
 		8D144AA71F4F1225003EAB1B /* OrderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D144AA51F4F1225003EAB1B /* OrderController.swift */; };
 		8D144AAA1F4F1270003EAB1B /* PaymentsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D144AA81F4F1270003EAB1B /* PaymentsController.swift */; };
 		8D144AAD1F4F1367003EAB1B /* PaymentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D144AAC1F4F1367003EAB1B /* PaymentCell.swift */; };
+		8D2B2B661F59DE6A004A5906 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2B2B651F59DE6A004A5906 /* CoreDataStack.swift */; };
+		8D54BA0F1F59E4120023FC49 /* PhotoStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D54BA0E1F59E4120023FC49 /* PhotoStore.swift */; };
+		8D54BA141F59ED8C0023FC49 /* PhotoStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D54BA131F59ED8C0023FC49 /* PhotoStoreTests.swift */; };
 		8D77983D1F4DD0A2006D76F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D77983C1F4DD0A2006D76F6 /* AppDelegate.swift */; };
 		8D7798441F4DD0A2006D76F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D7798431F4DD0A2006D76F6 /* Assets.xcassets */; };
 		8D7798471F4DD0A2006D76F6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D7798451F4DD0A2006D76F6 /* LaunchScreen.storyboard */; };
@@ -23,6 +26,7 @@
 		8D829AC11F542A4F00172B40 /* SaitamaPlayground.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8D829AB91F542A4F00172B40 /* SaitamaPlayground.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8D829AC61F542A5D00172B40 /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDA7ED1F4E233F0098CB6E /* Resource.swift */; };
 		8D829AC71F542A6200172B40 /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDA7EF1F4E23620098CB6E /* WebService.swift */; };
+		8D86D8151F59D7AB001A92C1 /* WalletModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8D86D8131F59D7AB001A92C1 /* WalletModel.xcdatamodeld */; };
 		8D977C971F59CCDE0067AF50 /* LoginModernController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D977C961F59CCDE0067AF50 /* LoginModernController.swift */; };
 		8D9BC3D81F51AC8800EDF5B4 /* URLManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9BC3D71F51AC8800EDF5B4 /* URLManager.swift */; };
 		8DD69A771F57513700E4711B /* MockSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD69A761F57513700E4711B /* MockSession.swift */; };
@@ -96,6 +100,9 @@
 		8D144AA51F4F1225003EAB1B /* OrderController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderController.swift; path = Gui/Controllers/Order/OrderController.swift; sourceTree = "<group>"; };
 		8D144AA81F4F1270003EAB1B /* PaymentsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaymentsController.swift; path = Gui/Controllers/Payment/PaymentsController.swift; sourceTree = "<group>"; };
 		8D144AAC1F4F1367003EAB1B /* PaymentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaymentCell.swift; path = Gui/Controllers/Payment/PaymentCell.swift; sourceTree = "<group>"; };
+		8D2B2B651F59DE6A004A5906 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CoreDataStack.swift; path = Api/Model/CoreDataStack.swift; sourceTree = "<group>"; };
+		8D54BA0E1F59E4120023FC49 /* PhotoStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PhotoStore.swift; path = Api/Photo/PhotoStore.swift; sourceTree = "<group>"; };
+		8D54BA131F59ED8C0023FC49 /* PhotoStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoStoreTests.swift; sourceTree = "<group>"; };
 		8D7798391F4DD0A2006D76F6 /* Saitama.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Saitama.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D77983C1F4DD0A2006D76F6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8D7798431F4DD0A2006D76F6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -110,6 +117,7 @@
 		8D829AB91F542A4F00172B40 /* SaitamaPlayground.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SaitamaPlayground.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D829ABB1F542A4F00172B40 /* SaitamaPlayground.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SaitamaPlayground.h; sourceTree = "<group>"; };
 		8D829ABC1F542A4F00172B40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8D86D8141F59D7AB001A92C1 /* WalletModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WalletModel.xcdatamodel; sourceTree = "<group>"; };
 		8D977C961F59CCDE0067AF50 /* LoginModernController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginModernController.swift; path = Gui/Controllers/Login/LoginModernController.swift; sourceTree = "<group>"; };
 		8D9BC3D71F51AC8800EDF5B4 /* URLManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLManager.swift; sourceTree = "<group>"; };
 		8DD69A761F57513700E4711B /* MockSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockSession.swift; sourceTree = "<group>"; };
@@ -213,6 +221,14 @@
 			name = Card;
 			sourceTree = "<group>";
 		};
+		8D54BA0B1F59E3610023FC49 /* Photo */ = {
+			isa = PBXGroup;
+			children = (
+				8D54BA0E1F59E4120023FC49 /* PhotoStore.swift */,
+			);
+			name = Photo;
+			sourceTree = "<group>";
+		};
 		8D7798301F4DD0A1006D76F6 = {
 			isa = PBXGroup;
 			children = (
@@ -258,6 +274,7 @@
 			isa = PBXGroup;
 			children = (
 				8DD69A761F57513700E4711B /* MockSession.swift */,
+				8D54BA131F59ED8C0023FC49 /* PhotoStoreTests.swift */,
 				8D7798511F4DD0A2006D76F6 /* UserTests.swift */,
 				8D7798531F4DD0A2006D76F6 /* Info.plist */,
 			);
@@ -282,6 +299,15 @@
 			path = SaitamaPlayground;
 			sourceTree = "<group>";
 		};
+		8D86D8121F59D77C001A92C1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8D86D8131F59D7AB001A92C1 /* WalletModel.xcdatamodeld */,
+				8D2B2B651F59DE6A004A5906 /* CoreDataStack.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		8DDDA7DD1F4E223C0098CB6E /* Manager */ = {
 			isa = PBXGroup;
 			children = (
@@ -293,6 +319,8 @@
 		8DDDA7E21F4E228A0098CB6E /* Api */ = {
 			isa = PBXGroup;
 			children = (
+				8D86D8121F59D77C001A92C1 /* Model */,
+				8D54BA0B1F59E3610023FC49 /* Photo */,
 				8D144AA11F4F0A4E003EAB1B /* Card */,
 				8DDDA7E41F4E22AA0098CB6E /* Payment */,
 				8DDDA7E51F4E22B00098CB6E /* Place */,
@@ -745,10 +773,13 @@
 				8DDDA7FC1F4E23EE0098CB6E /* MapController.swift in Sources */,
 				8D977C971F59CCDE0067AF50 /* LoginModernController.swift in Sources */,
 				8DE8ECF81F4F6C00003F15B5 /* BikePlace.swift in Sources */,
+				8D54BA0F1F59E4120023FC49 /* PhotoStore.swift in Sources */,
 				8DDDA7F01F4E23620098CB6E /* WebService.swift in Sources */,
 				8DDDA7E81F4E22FD0098CB6E /* Payment.swift in Sources */,
+				8D86D8151F59D7AB001A92C1 /* WalletModel.xcdatamodeld in Sources */,
 				8DDDA7EC1F4E232B0098CB6E /* Place.swift in Sources */,
 				8D144AAD1F4F1367003EAB1B /* PaymentCell.swift in Sources */,
+				8D2B2B661F59DE6A004A5906 /* CoreDataStack.swift in Sources */,
 				8DDDA7EA1F4E230C0098CB6E /* User.swift in Sources */,
 				8DDDA8021F4E25050098CB6E /* UIKit+Ext.swift in Sources */,
 				8DDDA7E11F4E22830098CB6E /* NavigationManager.swift in Sources */,
@@ -764,6 +795,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D54BA141F59ED8C0023FC49 /* PhotoStoreTests.swift in Sources */,
 				8DD69A771F57513700E4711B /* MockSession.swift in Sources */,
 				8D7798521F4DD0A2006D76F6 /* UserTests.swift in Sources */,
 			);
@@ -1100,6 +1132,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		8D86D8131F59D7AB001A92C1 /* WalletModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				8D86D8141F59D7AB001A92C1 /* WalletModel.xcdatamodel */,
+			);
+			currentVersion = 8D86D8141F59D7AB001A92C1 /* WalletModel.xcdatamodel */;
+			name = WalletModel.xcdatamodeld;
+			path = Api/Model/WalletModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 8D7798311F4DD0A1006D76F6 /* Project object */;
 }
