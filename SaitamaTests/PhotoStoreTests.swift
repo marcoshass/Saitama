@@ -30,7 +30,6 @@ class PhotoStoreTests: XCTestCase {
         photo.remoteURL = nil
         
         let result = store.insert(photo: photo)
-        print("result=\(result)")
         XCTAssertNotNil(result)
     }
     
