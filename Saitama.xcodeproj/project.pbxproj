@@ -23,6 +23,7 @@
 		8D829AC11F542A4F00172B40 /* SaitamaPlayground.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8D829AB91F542A4F00172B40 /* SaitamaPlayground.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8D829AC61F542A5D00172B40 /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDA7ED1F4E233F0098CB6E /* Resource.swift */; };
 		8D829AC71F542A6200172B40 /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDA7EF1F4E23620098CB6E /* WebService.swift */; };
+		8D977C971F59CCDE0067AF50 /* LoginModernController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D977C961F59CCDE0067AF50 /* LoginModernController.swift */; };
 		8D9BC3D81F51AC8800EDF5B4 /* URLManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9BC3D71F51AC8800EDF5B4 /* URLManager.swift */; };
 		8DD69A771F57513700E4711B /* MockSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD69A761F57513700E4711B /* MockSession.swift */; };
 		8DDDA7DF1F4E226C0098CB6E /* Constants+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDA7DE1F4E226C0098CB6E /* Constants+Util.swift */; };
@@ -109,6 +110,7 @@
 		8D829AB91F542A4F00172B40 /* SaitamaPlayground.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SaitamaPlayground.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D829ABB1F542A4F00172B40 /* SaitamaPlayground.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SaitamaPlayground.h; sourceTree = "<group>"; };
 		8D829ABC1F542A4F00172B40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8D977C961F59CCDE0067AF50 /* LoginModernController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginModernController.swift; path = Gui/Controllers/Login/LoginModernController.swift; sourceTree = "<group>"; };
 		8D9BC3D71F51AC8800EDF5B4 /* URLManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLManager.swift; sourceTree = "<group>"; };
 		8DD69A761F57513700E4711B /* MockSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockSession.swift; sourceTree = "<group>"; };
 		8DDDA7DC1F4E1E3D0098CB6E /* Saitama.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Saitama.entitlements; sourceTree = "<group>"; };
@@ -367,6 +369,7 @@
 		8DDDA7F61F4E23A10098CB6E /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				8D977C961F59CCDE0067AF50 /* LoginModernController.swift */,
 				8DDDA7F91F4E23D90098CB6E /* LoginController.swift */,
 				8DDDA8071F4E259F0098CB6E /* RegisterController.swift */,
 			);
@@ -740,6 +743,7 @@
 				8DDDA7F51F4E239C0098CB6E /* BaseController.swift in Sources */,
 				8DDDA7DF1F4E226C0098CB6E /* Constants+Util.swift in Sources */,
 				8DDDA7FC1F4E23EE0098CB6E /* MapController.swift in Sources */,
+				8D977C971F59CCDE0067AF50 /* LoginModernController.swift in Sources */,
 				8DE8ECF81F4F6C00003F15B5 /* BikePlace.swift in Sources */,
 				8DDDA7F01F4E23620098CB6E /* WebService.swift in Sources */,
 				8DDDA7E81F4E22FD0098CB6E /* Payment.swift in Sources */,

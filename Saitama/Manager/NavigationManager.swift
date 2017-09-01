@@ -23,7 +23,7 @@ class NavigationManager {
     
     init(window: UIWindow) {
         self.window = window
-        let loginController = LoginController()
+        let loginController = LoginModernController()
         
         // The current user is saved into the navigation manager
         // and will send the user to the view controllers that
