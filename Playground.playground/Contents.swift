@@ -4,6 +4,8 @@ import Foundation
 import PlaygroundSupport
 //import SaitamaPlayground
 
+typealias JSONDictionary = [String: AnyObject]
+
 // ----------------------------------------------------------------------------
 // Place
 // ----------------------------------------------------------------------------
@@ -36,55 +38,42 @@ extension Place {
 // API
 // ----------------------------------------------------------------------------
 
-typealias JSONDictionary = [String: AnyObject]
-
-enum HttpMethod: String {
-    case get = "GET"
-    case post = "POST"
-    case put = "PUT"
-}
-
-struct Resource {
+struct Resource<T> {
     let url: URL
-    let method: HttpMethod = .get
-    let parse: (Data)->Any?
-}
-
-extension Resource {
-    init(url: URL, parseJSON: @escaping (Any)->Any?) {
-        self.url = url
-        self.parse = {(data)->Any? in
-            let json = try? JSONSerialization.jsonObject(with: data, options: [])
-            return json.flatMap{parseJSON($0)}
-        }
-    }
+    let parse: (Data) -> T?
 }
 
 final class WebService {
-    func load(resource: Resource, completion: @escaping (Any?, Error?)->()) {
-        URLSession.shared.dataTask(with: resource.url) {(data, response, error) in
-            let result = data.flatMap {resource.parse($0)}
-            completion(result, error)
+    
+    func load<T>(resource: Resource<T>, completion: @escaping (T?, Error?) ->()) {
+        URLSession.shared.dataTask(with: resource.url) {(data, _, error) in
+            guard let data = data else { completion(nil, error); return }
+            completion(resource.parse(data), error)
         }.resume()
     }
+    
 }
+
+// ----------------------------------------------------------------------------
+// Client
+// ----------------------------------------------------------------------------
 
 PlaygroundPage.current.needsIndefiniteExecution = true
 
 let url = URL(string: "http://www.mocky.io/v2/599f29ea2c0000820151d480")!
-let placesResource = Resource(url: url, parseJSON:{(json) -> Any? in
-    let json1 = (json as! JSONDictionary)["places"]
-    return json1.flatMap{Place(dictionary: $0)}
+let placesResource = Resource<[Place]>(url: url, parse: {(data) -> [Place]? in
+    do {
+        guard let json = try JSONSerialization.jsonObject(with: data, options: []) as? JSONDictionary,
+            let places = json["places"] as? [JSONDictionary] else { return nil }
+        return places.flatMap{Place(dictionary: $0 as NSDictionary)}
+    } catch {
+        print("error_desserializing_json")
+        return nil
+    }
 })
-
 
 WebService().load(resource: placesResource, completion: {(places, error) in
-    print(places ?? "nodata")
+    print(places ?? "noplaces")
 })
-
-
-
-
-
 
 
