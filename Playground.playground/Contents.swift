@@ -25,7 +25,7 @@ struct Place {
 }
 
 extension Place {
-    init(dictionary: NSDictionary) {
+    init(dictionary: JSONDictionary) {
         self.createdAt = dictionary[CREATEDAT] as? String
         self.id = dictionary[ID] as? String
         self.location = dictionary[LOCATION] as? String
@@ -41,6 +41,16 @@ extension Place {
 struct Resource<T> {
     let url: URL
     let parse: (Data) -> T?
+}
+
+extension Resource {
+    init(url: URL, parseJSON: @escaping (AnyObject)->(T?)) {
+        self.url = url
+        self.parse = { data in
+            let json = try? JSONSerialization.jsonObject(with: data, options: []) as AnyObject
+            return json.flatMap(parseJSON)
+        }
+    }
 }
 
 final class WebService {
@@ -61,15 +71,9 @@ final class WebService {
 PlaygroundPage.current.needsIndefiniteExecution = true
 
 let url = URL(string: "http://www.mocky.io/v2/599f29ea2c0000820151d480")!
-let placesResource = Resource<[Place]>(url: url, parse: {(data) -> [Place]? in
-    do {
-        guard let json = try JSONSerialization.jsonObject(with: data, options: []) as? JSONDictionary,
-            let places = json["places"] as? [JSONDictionary] else { return nil }
-        return places.flatMap{Place(dictionary: $0 as NSDictionary)}
-    } catch {
-        print("error_desserializing_json")
-        return nil
-    }
+let placesResource = Resource<[Place]>(url: url, parseJSON: {(json) -> [Place]? in
+    guard let places = json["places"] as? [JSONDictionary] else { return nil }
+    return places.flatMap{Place(dictionary: $0)}
 })
 
 WebService().load(resource: placesResource, completion: {(places, error) in
