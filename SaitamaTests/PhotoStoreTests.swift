@@ -20,19 +20,16 @@ class PhotoStoreTests: XCTestCase {
         super.tearDown()
     }
     
-    func testInsert() {
+    func testCreate_NewPhoto_ReturnNotNil() {
         let store = PhotoStore()
-        let photo = NSEntityDescription.insertNewObject(forEntityName: "Photo", into: store.context) as! Photo
-        photo.photoID = "My Photo ID"
-        photo.photoKey = "MyKey"
-        photo.title = "MyTitle"
-        photo.dateTaken = NSDate()
-        photo.remoteURL = nil
-        
-        let result = store.insert(photo: photo)
-        XCTAssertNotNil(result)
+        let photo = store.createPhoto(dateTaken: NSDate(), photoID: "MyID", photoKey: "MyKey", remoteURL: nil, title: "MyTitle")
+        XCTAssertNotNil(photo)
+    }
+    
+    func testAll_ReturnAllPhotos() {
+        let store = PhotoStore()
+        let photos = store.all()
+        XCTAssertNotNil(photos)
     }
     
 }
-
-

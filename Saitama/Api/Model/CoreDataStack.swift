@@ -17,10 +17,8 @@ private let CONTEXTNAME = "Main Queue Context (UI Context)"
 class CoreDataStack {
 
 // objectmodel
-    let modelName: String
-
     lazy var model: NSManagedObjectModel = {
-        let url = Bundle.main.url(forResource: self.modelName, withExtension: MODELEXTENSION)!
+        let url = Bundle.main.url(forResource: MODELNAME, withExtension: MODELEXTENSION)!
         return NSManagedObjectModel.init(contentsOf: url)!
     }()
     
@@ -32,7 +30,7 @@ class CoreDataStack {
     
     lazy var coordinator: NSPersistentStoreCoordinator = {
         let pc = NSPersistentStoreCoordinator(managedObjectModel: self.model)
-        let path = "\(self.modelName).\(MODELSQLEXTENSION)"
+        let path = "\(MODELNAME).\(MODELSQLEXTENSION)"
         let url = self.directory.appendingPathComponent(path)
         let store = try! pc.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: nil)
         return pc
@@ -45,9 +43,5 @@ class CoreDataStack {
         moc.name = CONTEXTNAME
         return moc
     }()
-    
-    required init() {
-        self.modelName = MODELNAME
-    }
     
 }
