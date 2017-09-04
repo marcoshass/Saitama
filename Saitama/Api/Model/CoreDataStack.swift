@@ -23,15 +23,11 @@ class CoreDataStack {
     }()
     
 // coordinator
-    var directory: URL = {
-        let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        return urls.first!
-    }()
-    
     lazy var coordinator: NSPersistentStoreCoordinator = {
+        let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let pc = NSPersistentStoreCoordinator(managedObjectModel: self.model)
         let path = "\(MODELNAME).\(MODELSQLEXTENSION)"
-        let url = self.directory.appendingPathComponent(path)
+        let url = directory.appendingPathComponent(path)
         let store = try! pc.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: nil)
         return pc
     }()
