@@ -91,11 +91,11 @@ class OrderController: UITableViewController, UITextFieldDelegate {
                 return NSLocalizedString("Check fields", comment: "")
         }
 
-        if number.characters.count == 0 ||
-            name.characters.count == 0 ||
-            cvv.characters.count == 0 ||
-            expiryMonth.characters.count == 0 ||
-            expiryYear.characters.count == 0 {
+        if number.count == 0 ||
+            name.count == 0 ||
+            cvv.count == 0 ||
+            expiryMonth.count == 0 ||
+            expiryYear.count == 0 {
             return NSLocalizedString("Fields cannot be empty", comment: "")
         }
 
@@ -147,13 +147,13 @@ class OrderController: UITableViewController, UITextFieldDelegate {
     // Enable action only if all fields were filled
     func handleInputText(_ sender: Any) {
         payButtonItem.isEnabled =
-            idTextField.text?.characters.count ?? 0 > 0 &&
-            placeNameTextField.text?.characters.count ?? 0 > 0 &&
-            cardNumberTextField.text?.characters.count ?? 0 > 0 &&
-            cardNameTextField.text?.characters.count ?? 0 > 0 &&
-            cvvTextField.text?.characters.count ?? 0 > 0 &&
-            expiryMonthTextField.text?.characters.count ?? 0 > 0 &&
-            expiryYearTextField.text?.characters.count ?? 0 > 0
+            idTextField.text?.count ?? 0 > 0 &&
+            placeNameTextField.text?.count ?? 0 > 0 &&
+            cardNumberTextField.text?.count ?? 0 > 0 &&
+            cardNameTextField.text?.count ?? 0 > 0 &&
+            cvvTextField.text?.count ?? 0 > 0 &&
+            expiryMonthTextField.text?.count ?? 0 > 0 &&
+            expiryYearTextField.text?.count ?? 0 > 0
     }
     
     func handlePay(_ sender: Any) {
