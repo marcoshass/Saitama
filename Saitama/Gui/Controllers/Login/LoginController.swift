@@ -362,7 +362,7 @@ class LoginController: BaseController, UITextFieldDelegate {
         }
         
         toggleStart()
-        WebService().load(User.login(email: email, password: password), completion: { (user, error) in
+        WebServiceNonLeak().load(User.login(email: email, password: password), completion: { (user, error) in
             DispatchQueue.main.async {
                 self.toggleStop()
                 

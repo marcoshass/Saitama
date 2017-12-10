@@ -25,50 +25,50 @@ class UserTests: XCTestCase {
 
 // login
     
-    func testLogin_HttpPostMethod() {
-        let resource = User.login(email: "", password: "")
-        let dictionary = ["":""]
-        XCTAssertEqual(resource.method.method, HttpMethod<AnyObject>.post(dictionary as AnyObject).method)
-    }
-    
-    func testLogin_InvalidJson_Error() {
-        let status = HttpStatus.unprocEntity.rawValue
-        let code = status
-        let message = "InvalidJson"
-        let json = "{\"message\": \"\(message)\",\"code\": \(code)}"
-
-        WebService(session: MockURLSession(json: json, httpStatus: .unprocEntity)).load(User.login(email: "", password: ""))
-        {(user, error) in
-            guard let error = getError(error: error) else { XCTFail(); return }
-            XCTAssertEqual(error.status, status)
-            XCTAssertEqual(error.code, code)
-            XCTAssertEqual(error.message, message)
-        }
-    }
-    
-    func testLogin_UserNotFound_Error() {
-        let status = HttpStatus.badRequest.rawValue
-        let code = 1001
-        let message = "UserNotFound"
-        let json = "{\"message\": \"\(message)\",\"code\": \(code)}"
-        
-        WebService(session: MockURLSession(json: json, httpStatus: .badRequest)).load(User.login(email: "", password: ""))
-        {(user, error) in
-            guard let error = getError(error: error) else { XCTFail(); return }
-            XCTAssertEqual(error.status, status)
-            XCTAssertEqual(error.code, code)
-            XCTAssertEqual(error.message, message)
-        }
-    }
-    
-    func testLogin_Success() {
-        let token = "eyJhbGciOiJub25lIeGFtcGxlLmNvbS9yZWdpc3RlciJ9"
-        let json = "{\"token\": \"\(token)\"}"
-        WebService(session: MockURLSession(json: json)).load(User.login(email: "", password: "")) { (user, error) in
-            XCTAssertNil(error)
-            XCTAssertEqual(token, user?.token)
-        }
-    }
+//    func testLogin_HttpPostMethod() {
+//        let resource = User.login(email: "", password: "")
+//        let dictionary = ["":""]
+//        XCTAssertEqual(resource.method.method, HttpMethod<AnyObject>.post(dictionary as AnyObject).method)
+//    }
+//    
+//    func testLogin_InvalidJson_Error() {
+//        let status = HttpStatus.unprocEntity.rawValue
+//        let code = status
+//        let message = "InvalidJson"
+//        let json = "{\"message\": \"\(message)\",\"code\": \(code)}"
+//
+//        WebService(session: MockURLSession(json: json, httpStatus: .unprocEntity)).load(User.login(email: "", password: ""))
+//        {(user, error) in
+//            guard let error = getError(error: error) else { XCTFail(); return }
+//            XCTAssertEqual(error.status, status)
+//            XCTAssertEqual(error.code, code)
+//            XCTAssertEqual(error.message, message)
+//        }
+//    }
+//    
+//    func testLogin_UserNotFound_Error() {
+//        let status = HttpStatus.badRequest.rawValue
+//        let code = 1001
+//        let message = "UserNotFound"
+//        let json = "{\"message\": \"\(message)\",\"code\": \(code)}"
+//        
+//        WebService(session: MockURLSession(json: json, httpStatus: .badRequest)).load(User.login(email: "", password: ""))
+//        {(user, error) in
+//            guard let error = getError(error: error) else { XCTFail(); return }
+//            XCTAssertEqual(error.status, status)
+//            XCTAssertEqual(error.code, code)
+//            XCTAssertEqual(error.message, message)
+//        }
+//    }
+//    
+//    func testLogin_Success() {
+//        let token = "eyJhbGciOiJub25lIeGFtcGxlLmNvbS9yZWdpc3RlciJ9"
+//        let json = "{\"token\": \"\(token)\"}"
+//        WebService(session: MockURLSession(json: json)).load(User.login(email: "", password: "")) { (user, error) in
+//            XCTAssertNil(error)
+//            XCTAssertEqual(token, user?.token)
+//        }
+//    }
 
 }
 

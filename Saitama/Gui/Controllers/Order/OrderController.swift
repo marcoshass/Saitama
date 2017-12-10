@@ -41,7 +41,8 @@ class OrderController: UITableViewController, UITextFieldDelegate {
     
     // paymentbutton
     lazy var payButtonItem : UIBarButtonItem = {
-        let button = UIBarButtonItem(title: NSLocalizedString("Pay", comment: ""), style: .plain, target: self, action: #selector(self.handlePay))
+        weak var weakSelf = self
+        let button = UIBarButtonItem(title: NSLocalizedString("Pay", comment: ""), style: .plain, target: weakSelf, action: #selector(weakSelf?.handlePay))
         button.isEnabled = false
         return button
     }()
@@ -121,7 +122,7 @@ class OrderController: UITableViewController, UITextFieldDelegate {
         }
         
         self.title = loadingTitle
-        WebService().load(user.rent(placeId: placeId, card: card), completion: { (data, error) in
+        WebServiceNonLeak().load(user.rent(placeId: placeId, card: card), completion: { (data, error) in
             DispatchQueue.main.async {
                 self.title = self.myTitle
 

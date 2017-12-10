@@ -13,6 +13,10 @@
 		8D144AA71F4F1225003EAB1B /* OrderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D144AA51F4F1225003EAB1B /* OrderController.swift */; };
 		8D144AAA1F4F1270003EAB1B /* PaymentsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D144AA81F4F1270003EAB1B /* PaymentsController.swift */; };
 		8D144AAD1F4F1367003EAB1B /* PaymentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D144AAC1F4F1367003EAB1B /* PaymentCell.swift */; };
+		8D5639C51FDD8A7A00EE15CB /* WebServiceNonLeak.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5639C41FDD8A7900EE15CB /* WebServiceNonLeak.swift */; };
+		8D5639C61FDD8A7A00EE15CB /* WebServiceNonLeak.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5639C41FDD8A7900EE15CB /* WebServiceNonLeak.swift */; };
+		8D5639C71FDD97B800EE15CB /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDA7EF1F4E23620098CB6E /* WebService.swift */; };
+		8D5639C81FDD98B900EE15CB /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDA7ED1F4E233F0098CB6E /* Resource.swift */; };
 		8D77983D1F4DD0A2006D76F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D77983C1F4DD0A2006D76F6 /* AppDelegate.swift */; };
 		8D7798441F4DD0A2006D76F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D7798431F4DD0A2006D76F6 /* Assets.xcassets */; };
 		8D7798471F4DD0A2006D76F6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D7798451F4DD0A2006D76F6 /* LaunchScreen.storyboard */; };
@@ -95,6 +99,7 @@
 		8D144AA51F4F1225003EAB1B /* OrderController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderController.swift; path = Gui/Controllers/Order/OrderController.swift; sourceTree = "<group>"; };
 		8D144AA81F4F1270003EAB1B /* PaymentsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaymentsController.swift; path = Gui/Controllers/Payment/PaymentsController.swift; sourceTree = "<group>"; };
 		8D144AAC1F4F1367003EAB1B /* PaymentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaymentCell.swift; path = Gui/Controllers/Payment/PaymentCell.swift; sourceTree = "<group>"; };
+		8D5639C41FDD8A7900EE15CB /* WebServiceNonLeak.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WebServiceNonLeak.swift; path = Api/Core/WebServiceNonLeak.swift; sourceTree = "<group>"; };
 		8D7798391F4DD0A2006D76F6 /* Saitama.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Saitama.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D77983C1F4DD0A2006D76F6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8D7798431F4DD0A2006D76F6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -306,6 +311,7 @@
 			children = (
 				8DDDA7ED1F4E233F0098CB6E /* Resource.swift */,
 				8DDDA7EF1F4E23620098CB6E /* WebService.swift */,
+				8D5639C41FDD8A7900EE15CB /* WebServiceNonLeak.swift */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -751,6 +757,7 @@
 				8DDDA8081F4E259F0098CB6E /* RegisterController.swift in Sources */,
 				8DDDA8041F4E25180098CB6E /* Keychain+Ext.swift in Sources */,
 				8DDDA7EE1F4E233F0098CB6E /* Resource.swift in Sources */,
+				8D5639C51FDD8A7A00EE15CB /* WebServiceNonLeak.swift in Sources */,
 				8DDDA7FA1F4E23D90098CB6E /* LoginController.swift in Sources */,
 				8D9BC3D81F51AC8800EDF5B4 /* URLManager.swift in Sources */,
 			);
@@ -760,7 +767,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D5639C61FDD8A7A00EE15CB /* WebServiceNonLeak.swift in Sources */,
 				8DD69A771F57513700E4711B /* MockSession.swift in Sources */,
+				8D5639C71FDD97B800EE15CB /* WebService.swift in Sources */,
+				8D5639C81FDD98B900EE15CB /* Resource.swift in Sources */,
 				8D7798521F4DD0A2006D76F6 /* UserTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

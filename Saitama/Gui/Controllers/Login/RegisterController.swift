@@ -15,27 +15,30 @@ class RegisterController: BaseController, UITextFieldDelegate {
     
     // closebutton
     lazy var closeButtonItem : UIBarButtonItem = {
+        weak var weakSelf = self
         let button = UIBarButtonItem()
         button.image = #imageLiteral(resourceName: "cross").withRenderingMode(.alwaysTemplate)
-        button.target = self
-        button.action = #selector(self.handleReturnToLogin)
+        button.target = weakSelf
+        button.action = #selector(weakSelf?.handleReturnToLogin)
         return button
     }()
     
     // container
     lazy var containerView: UIView = {
+        weak var weakSelf = self
         let view = UIView()
         view.layer.borderWidth = 1
         view.layer.cornerRadius = 3
         view.layer.borderColor = Constants.Color.lightGray.cgColor
         view.backgroundColor = .white
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBackgroundTap)))
+        view.addGestureRecognizer(UITapGestureRecognizer(target: weakSelf, action: #selector(weakSelf?.handleBackgroundTap)))
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     // email
     lazy var emailTextField: UITextField = {
+        weak var weakSelf = self
         let textField = UITextField()
         textField.font = UIFont.systemFont(ofSize: 16)
         textField.placeholder = NSLocalizedString("Email", comment: "")
@@ -43,7 +46,7 @@ class RegisterController: BaseController, UITextFieldDelegate {
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         textField.clearButtonMode = .whileEditing
-        textField.delegate = self
+        textField.delegate = weakSelf
         textField.returnKeyType = .next
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
@@ -61,12 +64,13 @@ class RegisterController: BaseController, UITextFieldDelegate {
     
     // password
     lazy var passwordTextField: UITextField = {
+        weak var weakSelf = self
         let textField = UITextField()
         textField.font = UIFont.systemFont(ofSize: 16)
         textField.placeholder = NSLocalizedString("Password", comment: "")
         textField.isSecureTextEntry = true
         textField.clearButtonMode = .whileEditing
-        textField.delegate = self
+        textField.delegate = weakSelf
         textField.returnKeyType = .next
         textField.enablesReturnKeyAutomatically = true
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -85,12 +89,13 @@ class RegisterController: BaseController, UITextFieldDelegate {
     
     // confirmpassword
     lazy var confirmPasswordTextField: UITextField = {
+        weak var weakSelf = self
         let textField = UITextField()
         textField.font = UIFont.systemFont(ofSize: 16)
         textField.placeholder = NSLocalizedString("Confirm password", comment: "")
         textField.isSecureTextEntry = true
         textField.clearButtonMode = .whileEditing
-        textField.delegate = self
+        textField.delegate = weakSelf
         textField.returnKeyType = .go
         textField.enablesReturnKeyAutomatically = true
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -99,6 +104,7 @@ class RegisterController: BaseController, UITextFieldDelegate {
     
     // registerbutton
     lazy var registerButton: UIButton = {
+        weak var weakSelf = self
         let button = UIButton(type: .system)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightSemibold)
         button.layer.cornerRadius = 3
@@ -107,7 +113,7 @@ class RegisterController: BaseController, UITextFieldDelegate {
         button.backgroundColor = .clear
         button.setTitle(NSLocalizedString("Register", comment: ""), for: .normal)
         button.setTitleColor(Constants.Color.darkBlue, for: .normal)
-        button.addTarget(self, action: #selector(handleRegister), for: .touchUpInside)
+        button.addTarget(weakSelf, action: #selector(weakSelf?.handleRegister), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -123,24 +129,26 @@ class RegisterController: BaseController, UITextFieldDelegate {
     
     // returnlabel
     lazy var returnToLoginLabel: UILabel = {
+        weak var weakSelf = self
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightSemibold)
         label.text = NSLocalizedString("Already have an account?", comment: "")
         label.textColor = Constants.Color.darkBlue
         label.textAlignment = .center
         label.isUserInteractionEnabled = true
-        label.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleReturnToLogin)))
+        label.addGestureRecognizer(UITapGestureRecognizer(target: weakSelf, action: #selector(weakSelf?.handleReturnToLogin)))
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
     override func setupViews() {
+        weak var weakSelf = self
         super.setupViews()
         self.title = NSLocalizedString("Register Account", comment: "")
         setupNavigationBar()
         
         view.backgroundColor = .white
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBackgroundTap)))
+        view.addGestureRecognizer(UITapGestureRecognizer(target: weakSelf, action: #selector(weakSelf?.handleBackgroundTap)))
         view.addSubview(containerView)
         
         setupContainerView()
@@ -257,7 +265,7 @@ class RegisterController: BaseController, UITextFieldDelegate {
         let newUser = User(email: emailTextField.text, password: passwordTextField.text)
         
         toggleStart()
-        WebService().load(User.register(user: newUser), completion: { (user, error) in
+        WebServiceNonLeak().load(User.register(user: newUser), completion: { (user, error) in
             DispatchQueue.main.async {
                 self.toggleStop()
                 

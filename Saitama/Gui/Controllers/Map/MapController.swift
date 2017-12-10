@@ -110,17 +110,14 @@ class MapController: BaseController, MKMapViewDelegate {
     }
     
     func reloadData() {
-        WebService().load(Place.all(), completion: { (data, error) in
+        WebServiceNonLeak().load(Place.all(), completion: {(data, error) in
             DispatchQueue.main.async {
                 if let error = error {
                     self.show(message: error.message())
                     return
                 }
                 
-                guard let data = data else {
-                    return
-                }
-
+                guard let data = data else { return }
                 self.addPlaces(data)
             }
         })
