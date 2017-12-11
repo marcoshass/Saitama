@@ -241,7 +241,7 @@ class RegisterController: BaseController, UITextFieldDelegate {
                 return NSLocalizedString("Check fields", comment: "")
         }
         
-        if email.count == 0 || password.count == 0 {
+        if email.characters.count == 0 || password.characters.count == 0 {
             return NSLocalizedString("Fields cannot be empty", comment: "")
         }
         

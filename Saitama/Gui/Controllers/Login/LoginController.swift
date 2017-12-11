@@ -398,8 +398,8 @@ class LoginController: BaseController, UITextFieldDelegate {
     
     func handleInputText() {
         loginButton.isEnabled =
-            emailTextField.text?.count ?? 0 > 0 &&
-            passwordTextField.text?.count ?? 0 > 0
+            emailTextField.text?.characters.count ?? 0 > 0 &&
+            passwordTextField.text?.characters.count ?? 0 > 0
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

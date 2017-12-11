@@ -37,8 +37,8 @@ extension Card {
     static func format(_ input: String) -> String {
         var formatted = ""
         var formatted4 = ""
-        for character in input {
-            if formatted4.count == 4 {
+        for character in input.characters {
+            if formatted4.characters.count == 4 {
                 formatted += formatted4 + " "
                 formatted4 = ""
             }
